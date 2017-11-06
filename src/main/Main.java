@@ -1,9 +1,9 @@
 package main;
 
-import core.gfx.AssetCache;
-import core.gfx.AssetID;
-import core.gfx.StaticSprite;
-import core.model.Background;
+import core.asset.AssetCache;
+import core.asset.AssetID;
+import core.asset.gfx.StaticSprite;
+import core.model.*;
 import core.settings.Settings;
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
@@ -11,6 +11,8 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.KeyCode;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Main extends Application {
@@ -21,27 +23,39 @@ public class Main extends Application {
 	
 	private long startTime;
 	
-	private Background background;
+	// Declare entities here
+	// START DECLARE ENTITIES
+	SlotMachine slotMachine;
+	
+	// END DECLARE ENTITIES
+
 	private void mainLoopCallback(long currentTime) {
 		final long dt = currentTime - startTime;
-		// Perform calculations
 		
 		// Clear back buffer
-		graphicsContext.clearRect(0, 0, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+		graphicsContext.setFill(Color.BLACK);
+		graphicsContext.fillRect(0, 0, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+		
+		// Perform calculations and image processing
+		slotMachine.update(dt);
 		
 		// Animate objects (e.g. obj.move(dt))
-		background.move(dt);
+		slotMachine.move(dt);
 		
 		// Draw entities
-		background.draw();
+		slotMachine.draw();
 		
-		// Perform post-calculations
-		startTime = currentTime;
+		// Perform post-processing
+		startTime = currentTime; // <--- This line is extremely important! Do not remove!
 	}
 	
 	private void initObjects() {
-		background = new Background(new StaticSprite(graphicsContext, AssetID.TEST_IMG), 0, 0);
-		background.setVelocity(0.0f, 0.0f);
+		slotMachine = new SlotMachine(
+				graphicsContext,
+				new StaticSprite(graphicsContext, AssetID.TEST_IMG),
+				Settings.WINDOW_WIDTH / 2 - 75,
+				0,
+				3);
 	}
 	
 	@Override
@@ -65,6 +79,14 @@ public class Main extends Application {
 		
 		// Initialize scene
 		mainScene = new Scene(rootGroup, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
+		mainScene.setOnKeyPressed(e -> {
+				if (e.getCode() == KeyCode.SPACE) {
+					if (!slotMachine.pullLever()) {
+						slotMachine.resetPullCount();
+					}
+				}
+			}
+		);
 		
 		// Allocate objects
 		initObjects();

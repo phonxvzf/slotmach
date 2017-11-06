@@ -1,22 +1,20 @@
 package core.model;
 
-import core.gfx.Sprite;
-
 public abstract class Entity implements IMovable {
 	
-	private Sprite sprite;
+	protected boolean isFrozen = false;
 	protected double posX, posY;
 	protected double velX = 0, velY = 0; // in pixels per second
 	protected double accelX = 0, accelY = 0; // in pixels per second^2
 	
-	public Entity(Sprite sprite, double x, double y) {
-		this.sprite = sprite;
+	public Entity(double x, double y) {
 		this.posX = x;
 		this.posY = y;
 	}
 	
 	@Override
 	public void move(long dt) {
+		if (isFrozen) return;
 		final double dt_sec = dt / 1000000000.0f;
 		this.posX += this.velX * dt_sec;
 		this.posY += this.velY * dt_sec;
@@ -24,8 +22,8 @@ public abstract class Entity implements IMovable {
 		this.velY += this.accelY * dt_sec;
 	}
 	
-	public void draw() {
-		sprite.draw(posX, posY);
+	public void setFreeze(boolean frz) {
+		isFrozen = frz;
 	}
 	
 	public void setPos(double x, double y) {
@@ -90,5 +88,5 @@ public abstract class Entity implements IMovable {
 	public void setAccelY(double accelY) {
 		this.accelY = accelY;
 	}
-
+	
 }

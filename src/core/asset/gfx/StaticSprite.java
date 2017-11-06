@@ -1,5 +1,7 @@
-package core.gfx;
+package core.asset.gfx;
 
+import core.asset.AssetCache;
+import core.asset.AssetID;
 import javafx.scene.canvas.GraphicsContext;
 
 public class StaticSprite extends Sprite {
@@ -7,7 +9,7 @@ public class StaticSprite extends Sprite {
 	private AssetID assetID;
 
 	public StaticSprite(GraphicsContext gc, AssetID assetID) {
-		super(gc);
+		super(gc, AssetCache.getImage(assetID).getWidth(), AssetCache.getImage(assetID).getHeight());
 		this.assetID = assetID;
 	}
 	

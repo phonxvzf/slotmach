@@ -1,8 +1,8 @@
 package core.model;
 
-import core.gfx.Sprite;
+import core.asset.gfx.Sprite;
 
-public class Background extends Entity {
+public class Background extends BasicEntity {
 
 	public Background(Sprite sprite, double x, double y) {
 		super(sprite, x, y);
