@@ -13,7 +13,7 @@ public class SlotMachine extends BasicEntity {
 	private int pullCount = 0;
 	
 	public SlotMachine(GraphicsContext gc, Sprite background, double x, double y, int columns) {
-		super(background, x, y);
+		super(background,x-(Settings.WINDOW_WIDTH / 2 -75) +(Settings.WINDOW_WIDTH-background.getWidth())/2, (Settings.WINDOW_HEIGHT-background.getHeight())/2);
 		for (int i = 0; i < columns; ++i) {
 			slotColumns.add(
 					new SlotColumn(

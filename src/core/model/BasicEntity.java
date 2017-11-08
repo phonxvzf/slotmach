@@ -7,7 +7,7 @@ public abstract class BasicEntity extends Entity implements IDrawable {
 	protected Sprite sprite;
 	
 	public BasicEntity(Sprite sprite, double x, double y) {
-		super((Settings.WINDOW_WIDTH-sprite.getWidth())/2, (Settings.WINDOW_HEIGHT-sprite.getHeight())/2);
+		super(x, y);
 		this.sprite = sprite;
 	}
 	

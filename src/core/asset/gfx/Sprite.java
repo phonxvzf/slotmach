@@ -10,7 +10,7 @@ public abstract class Sprite implements IDrawableXY {
 	public Sprite(GraphicsContext gc, double w, double h) {
 		this.graphicsContext = gc;
 		width = w;
-		height =h;
+		height = h;
 	}
 
 	public double getWidth() {
