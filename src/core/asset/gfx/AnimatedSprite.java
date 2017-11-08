@@ -6,17 +6,20 @@ import java.util.List;
 import core.asset.AssetCache;
 import core.asset.AssetID;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 public class AnimatedSprite extends Sprite {
 
-	private List<AssetID> frames = new ArrayList<AssetID>();
+	private List<Image> frames = new ArrayList<Image>();
 	private long startTime = System.currentTimeMillis();
 	private int spriteID = 0;
 	private long timeToLive = 500; // in milliseconds
 	
-	public AnimatedSprite(GraphicsContext gc, List<AssetID> imageIDs) {
-		super(gc, AssetCache.getImage(imageIDs.get(0)).getWidth(), AssetCache.getImage(imageIDs.get(0)).getHeight());
-		this.frames = imageIDs;
+	public AnimatedSprite(GraphicsContext gc, List<AssetID> assetIDs) {
+		super(gc, AssetCache.getImage(assetIDs.get(0)).getWidth(), AssetCache.getImage(assetIDs.get(0)).getHeight());
+		for (AssetID id : assetIDs) {
+			frames.add(AssetCache.getImage(id));
+		}
 	}
 	
 	@Override
@@ -28,7 +31,7 @@ public class AnimatedSprite extends Sprite {
 				spriteID = (spriteID + 1) % frames.size();
 			}
 		}
-		graphicsContext.drawImage(AssetCache.getImage(frames.get(spriteID)), x, y);
+		graphicsContext.drawImage(frames.get(spriteID), x, y);
 	}
 
 	public void setTTL(int ttl) {

@@ -20,14 +20,18 @@ public class Main extends Application {
 	private Group rootGroup;
 	private Scene mainScene;
 	private GraphicsContext graphicsContext;
+	private AnimationTimer animationTimer;
 	
 	private long startTime;
 	
 	// Declare entities here
+	// ======================
 	// START DECLARE ENTITIES
+	// ======================
 	SlotMachine slotMachine;
-	
+	// ======================
 	// END DECLARE ENTITIES
+	// ======================
 
 	private void mainLoopCallback(long currentTime) {
 		final long dt = currentTime - startTime;
@@ -37,10 +41,10 @@ public class Main extends Application {
 		graphicsContext.fillRect(0, 0, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
 		
 		// Perform calculations and image processing
-		slotMachine.update(dt);
+		slotMachine.move(dt);
 		
 		// Animate objects (e.g. obj.move(dt))
-		slotMachine.move(dt);
+		slotMachine.update(dt);
 		
 		// Draw entities
 		slotMachine.draw();
@@ -93,12 +97,13 @@ public class Main extends Application {
 		
 		// Set main loop
 		startTime = System.nanoTime();
-		new AnimationTimer() {
+		animationTimer = new AnimationTimer() {
 			@Override
 			public void handle(long now) {
 				mainLoopCallback(now);
 			}
-		}.start();
+		};
+		animationTimer.start();
 		
 		// Present to screen
 		primaryStage.setScene(mainScene);

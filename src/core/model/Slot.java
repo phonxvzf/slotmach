@@ -11,7 +11,7 @@ import core.asset.gfx.Sprite;
 import core.asset.gfx.StaticSprite;
 import javafx.scene.canvas.GraphicsContext;
 
-public class Slot extends Entity {
+public class Slot extends Entity implements IDrawable {
 	
 	public static final List<SlotType> slotTypes = new ArrayList<SlotType>(
 			Arrays.asList(
@@ -29,6 +29,7 @@ public class Slot extends Entity {
 		spriteMap.put(SlotType.SLOT_O, new StaticSprite(gc, AssetID.O_IMG));
 	}
 
+	@Override
 	public void draw() {
 		spriteMap.get(slotType).draw(posX, posY);
 	}
