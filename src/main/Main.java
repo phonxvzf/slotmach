@@ -53,7 +53,8 @@ public class Main extends Application {
 		slotMachine = new SlotMachine(
 				graphicsContext,
 				new StaticSprite(graphicsContext, AssetID.TEST_IMG),
-				Settings.WINDOW_WIDTH / 2 - 75,
+				Settings.WINDOW_WIDTH /2-75,
+				//0,
 				0,
 				3);
 	}
