@@ -15,34 +15,26 @@ public class SlotMachine extends BasicEntity {
 	private int pullCount = 0;
 	private double minSlotVelocityY = Settings.SLOT_DEFAULT_VELOCITY;
 	private SlotType[][] slotCell;
-	
+
 	public SlotMachine(GraphicsContext gc, Sprite background, double x, double y, int columns) {
-		super(
-				background,
-				x - (background.getWidth() - columns * AssetCache.getImage(AssetID.K_IMG).getWidth()) / 2,
-				y + (Settings.SLOT_DEFAULT_COLUMN_HEIGHT - background.getHeight()) / 2
-			);
+		super(background, x - (background.getWidth() - columns * AssetCache.getImage(AssetID.K_IMG).getWidth()) / 2,
+				y + (Settings.SLOT_DEFAULT_COLUMN_HEIGHT - background.getHeight()) / 2);
 		for (int i = 0; i < columns; ++i) {
 			slotColumns.add(
-					new SlotColumn(
-							gc, 
-							x + i * Settings.SLOT_DEFAULT_WIDTH,
-							y,
-							Settings.SLOT_DEFAULT_COLUMN_HEIGHT
-							)
-					);
+					new SlotColumn(gc, x + i * Settings.SLOT_DEFAULT_WIDTH, y, Settings.SLOT_DEFAULT_COLUMN_HEIGHT));
 		}
-		slotCell = new SlotType[(int) (Settings.SLOT_DEFAULT_COLUMN_HEIGHT / AssetCache.getImage(AssetID.K_IMG).getHeight())][columns];
+		slotCell = new SlotType[(int) (Settings.SLOT_DEFAULT_COLUMN_HEIGHT
+				/ AssetCache.getImage(AssetID.K_IMG).getHeight())][columns];
 	}
-	
+
 	public void update(long dt) {
 		for (SlotColumn slotColumn : slotColumns) {
-			if (slotColumn.getSlotVelocityY() < minSlotVelocityY) 
+			if (slotColumn.getSlotVelocityY() < minSlotVelocityY)
 				slotColumn.setSlotVelocityY(minSlotVelocityY);
 			slotColumn.moveSlots(dt);
 		}
 	}
-	
+
 	@Override
 	public void draw() {
 		sprite.draw(posX, posY);
@@ -50,7 +42,7 @@ public class SlotMachine extends BasicEntity {
 			slotColumn.draw();
 		}
 	}
-	
+
 	public boolean pullLever() {
 		if (pullCount < slotColumns.size()) {
 			slotColumns.get(pullCount).setSlotFreeze(true);
@@ -60,7 +52,7 @@ public class SlotMachine extends BasicEntity {
 		}
 		return false;
 	}
-	
+
 	public void resetPullCount() {
 		pullCount = 0;
 		for (SlotColumn slotColumn : slotColumns) {
@@ -74,12 +66,12 @@ public class SlotMachine extends BasicEntity {
 			col.setSlotAccelY(decel);
 		}
 	}
-	
+
 	public void returnSpeed() {
 		for (SlotColumn col : slotColumns) {
 			col.setSlotAccelY(0);
 			col.setSlotVelocityY(Settings.SLOT_DEFAULT_VELOCITY);
 		}
 	}
-	
+
 }
