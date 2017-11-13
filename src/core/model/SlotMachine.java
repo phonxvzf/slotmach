@@ -54,6 +54,7 @@ public class SlotMachine extends BasicEntity {
 	public boolean pullLever() {
 		if (pullCount < slotColumns.size()) {
 			slotColumns.get(pullCount).setSlotFreeze(true);
+			slotColumns.get(pullCount).stop();
 			pullCount++;
 			return true;
 		}
