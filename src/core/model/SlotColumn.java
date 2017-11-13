@@ -10,7 +10,7 @@ import core.settings.Settings;
 import javafx.scene.canvas.GraphicsContext;
 
 public class SlotColumn extends Entity implements IDrawable {
-
+//test GITTTT KOK
 	private double height;
 	private List<Slot> slotList = new ArrayList<Slot>();
 	private Random randomizer = new Random();
