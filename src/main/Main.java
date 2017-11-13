@@ -1,5 +1,8 @@
 package main;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import core.asset.AssetCache;
 import core.asset.AssetID;
 import core.asset.gfx.StaticSprite;
@@ -21,6 +24,7 @@ public class Main extends Application {
 	private Scene mainScene;
 	private GraphicsContext graphicsContext;
 	private AnimationTimer animationTimer;
+	private Set<KeyCode> keyDown = new HashSet<KeyCode>();
 	
 	private long startTime;
 	
@@ -40,6 +44,14 @@ public class Main extends Application {
 		graphicsContext.setFill(Color.BLACK);
 		graphicsContext.fillRect(0, 0, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
 		
+		// Check for events
+		if (keyDown.contains(KeyCode.S)) {
+			slotMachine.slowDown(Settings.SLOT_SLOWDOWN_ACCEL, Settings.SLOT_MIN_VELOCITY);
+		}
+		else {
+			slotMachine.returnSpeed();
+		}
+		
 		// Perform calculations and image processing
 		slotMachine.move(dt);
 		
@@ -54,12 +66,28 @@ public class Main extends Application {
 	}
 	
 	private void initObjects() {
+		StaticSprite slotMachineBg = new StaticSprite(graphicsContext, AssetID.TEST_IMG);
+		final int columns = Settings.SLOT_DEFAULT_COLUMNS;
 		slotMachine = new SlotMachine(
 				graphicsContext,
-				new StaticSprite(graphicsContext, AssetID.TEST_IMG),
-				Settings.WINDOW_WIDTH / 2 - 75,
+				slotMachineBg,
+				(Settings.WINDOW_WIDTH - AssetCache.getImage(AssetID.K_IMG).getWidth() * columns) / 2.0f,
 				0,
-				3);
+				columns);
+	}
+	
+	private void bindKeys() {
+		mainScene.setOnKeyPressed(e -> {
+			if (e.getCode() == KeyCode.SPACE) {
+				if (!slotMachine.pullLever()) {
+					slotMachine.resetPullCount();
+				}
+			}
+			keyDown.add(e.getCode());
+		});
+		mainScene.setOnKeyReleased(e -> {
+			keyDown.remove(e.getCode());
+		});
 	}
 	
 	@Override
@@ -83,17 +111,14 @@ public class Main extends Application {
 		
 		// Initialize scene
 		mainScene = new Scene(rootGroup, Settings.WINDOW_WIDTH, Settings.WINDOW_HEIGHT);
-		mainScene.setOnKeyPressed(e -> {
-				if (e.getCode() == KeyCode.SPACE) {
-					if (!slotMachine.pullLever()) {
-						slotMachine.resetPullCount();
-					}
-				}
-			}
-		);
+		bindKeys();
 		
 		// Allocate objects
 		initObjects();
+		
+		// Present to screen
+		primaryStage.setScene(mainScene);
+		primaryStage.show();
 		
 		// Set main loop
 		startTime = System.nanoTime();
@@ -104,11 +129,6 @@ public class Main extends Application {
 			}
 		};
 		animationTimer.start();
-		
-		// Present to screen
-		primaryStage.setScene(mainScene);
-		primaryStage.show();
-		
 	}
 
 	public static void main(String[] args) {

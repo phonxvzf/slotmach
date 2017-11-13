@@ -1,7 +1,6 @@
 package core.model;
 
 import core.asset.gfx.Sprite;
-import core.settings.Settings;
 
 public abstract class BasicEntity extends Entity implements IDrawable {
 	protected Sprite sprite;
