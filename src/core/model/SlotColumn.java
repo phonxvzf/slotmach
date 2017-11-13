@@ -36,12 +36,31 @@ public class SlotColumn extends Entity implements IDrawable {
 		List<SlotType> ret = new ArrayList<SlotType>();
 		// TODO
 		// @author KOK
+		try {
+			int posofZero = (int) (slotList.get(0).posY / Settings.SLOT_DEFAULT_WIDTH);
+			// There isn't the hidden slot above. So, position 0 in this array is the first
+			// row of the column.
+			int size = slotList.size();
+			for (int i = 0; i < size; ++i) {
+				ret.add(slotList.get((posofZero + i) % size).getSlotType());
+			}
+		} catch (Exception x) {
+			System.out.println("Cannot cast Double to int" + x);
+		}
 		return ret;
 	}
-	
+
 	public void stop() {
 		// TODO
 		// @author KOK
+		for (Slot x : slotList) {
+			double y = x.posY;
+			if (y < 0 && y > -1 * Settings.SLOT_DEFAULT_WIDTH)
+				x.posY = 0;
+			else {
+				x.posY = (Math.ceil(y / Settings.SLOT_DEFAULT_WIDTH) * Settings.SLOT_DEFAULT_WIDTH);
+			}
+		}
 	}
 
 	@Override
