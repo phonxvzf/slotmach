@@ -42,7 +42,7 @@ public class SlotColumn extends Entity implements IDrawable {
 			// row of the column.
 			int size = slotList.size();
 			for (int i = 0; i < size; ++i) {
-				ret.add(slotList.get((posofZero + i) % size).getSlotType());
+				ret.add(slotList.get((size - posofZero + i) % size).getSlotType());
 			}
 		} catch (Exception x) {
 			System.out.println("Cannot cast Double to int" + x);
