@@ -1,14 +1,10 @@
 package core.asset.gfx;
 
-import javafx.scene.canvas.GraphicsContext;
-
 public abstract class Sprite implements IDrawableXY {
 
-	protected GraphicsContext graphicsContext;
 	protected double width, height;
 	
-	public Sprite(GraphicsContext gc, double w, double h) {
-		this.graphicsContext = gc;
+	public Sprite(double w, double h) {
 		width = w;
 		height = h;
 	}

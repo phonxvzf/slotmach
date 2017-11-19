@@ -15,15 +15,15 @@ public class AnimatedSprite extends Sprite {
 	private int spriteID = 0;
 	private long timeToLive = 500; // in milliseconds
 	
-	public AnimatedSprite(GraphicsContext gc, List<AssetID> assetIDs) {
-		super(gc, AssetCache.getImage(assetIDs.get(0)).getWidth(), AssetCache.getImage(assetIDs.get(0)).getHeight());
+	public AnimatedSprite(List<AssetID> assetIDs) {
+		super(AssetCache.getImage(assetIDs.get(0)).getWidth(), AssetCache.getImage(assetIDs.get(0)).getHeight());
 		for (AssetID id : assetIDs) {
 			frames.add(AssetCache.getImage(id));
 		}
 	}
 	
 	@Override
-	public void draw(double x, double y) {
+	public void draw(GraphicsContext gc, double x, double y) {
 		long now = System.currentTimeMillis();
 		if (timeToLive > 0) {
 			if (now - startTime >= timeToLive) {
@@ -31,7 +31,7 @@ public class AnimatedSprite extends Sprite {
 				spriteID = (spriteID + 1) % frames.size();
 			}
 		}
-		graphicsContext.drawImage(frames.get(spriteID), x, y);
+		gc.drawImage(frames.get(spriteID), x, y);
 	}
 
 	public void setTTL(int ttl) {

@@ -16,7 +16,7 @@ public class SlotMachine extends BasicEntity {
 	private double minSlotVelocityY = Settings.SLOT_DEFAULT_VELOCITY;
 	private SlotType[][] slotCell;
 	
-	public SlotMachine(GraphicsContext gc, Sprite background, double x, double y, int columns) {
+	public SlotMachine(Sprite background, double x, double y, int columns) {
 		super(
 				background,
 				x - (background.getWidth() - columns * AssetCache.getImage(AssetID.K_IMG).getWidth()) / 2,
@@ -25,7 +25,6 @@ public class SlotMachine extends BasicEntity {
 		for (int i = 0; i < columns; ++i) {
 			slotColumns.add(
 					new SlotColumn(
-							gc, 
 							x + i * Settings.SLOT_DEFAULT_WIDTH,
 							y,
 							Settings.SLOT_DEFAULT_COLUMN_HEIGHT
@@ -44,16 +43,22 @@ public class SlotMachine extends BasicEntity {
 	}
 	
 	@Override
-	public void draw() {
-		sprite.draw(posX, posY);
+	public void draw(GraphicsContext gc) {
+		sprite.draw(gc, posX, posY);
 		for (SlotColumn slotColumn : slotColumns) {
-			slotColumn.draw();
+			slotColumn.draw(gc);
 		}
 	}
 	
 	public boolean pullLever() {
 		if (pullCount < slotColumns.size()) {
-			slotColumns.get(pullCount).setSlotFreeze(true);
+			// Stop slot column
+			slotColumns.get(pullCount).stop();
+			// Get stopped slots information
+			List<SlotType> columnInfo = slotColumns.get(pullCount).getSlotType();
+			for (int i = 0; i < columnInfo.size()-1; ++i) { // exclude the hidden slot
+				slotCell[i][pullCount] = columnInfo.get(i);
+			}
 			pullCount++;
 			return true;
 		}

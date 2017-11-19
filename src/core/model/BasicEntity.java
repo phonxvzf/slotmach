@@ -1,6 +1,7 @@
 package core.model;
 
 import core.asset.gfx.Sprite;
+import javafx.scene.canvas.GraphicsContext;
 
 public abstract class BasicEntity extends Entity implements IDrawable {
 	protected Sprite sprite;
@@ -11,8 +12,8 @@ public abstract class BasicEntity extends Entity implements IDrawable {
 	}
 	
 	@Override
-	public void draw() {
-		sprite.draw(posX, posY);
+	public void draw(GraphicsContext gc) {
+		sprite.draw(gc, posX, posY);
 	}
 	
 	public Sprite getSprite() {

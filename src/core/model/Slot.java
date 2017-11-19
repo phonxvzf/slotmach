@@ -13,7 +13,7 @@ import javafx.scene.canvas.GraphicsContext;
 
 public class Slot extends Entity implements IDrawable {
 	
-	public static final List<SlotType> slotTypes = new ArrayList<SlotType>(
+	public static final List<SlotType> SLOT_TYPES = new ArrayList<SlotType>(
 			Arrays.asList(
 					SlotType.SLOT_K,
 					SlotType.SLOT_O
@@ -22,16 +22,16 @@ public class Slot extends Entity implements IDrawable {
 	
 	private SlotType slotType;
 	private Map<SlotType, Sprite> spriteMap = new HashMap<SlotType, Sprite>();
-	public Slot(GraphicsContext gc, SlotType type, double x, double y) {
+	public Slot(SlotType type, double x, double y) {
 		super(x, y);
 		this.setSlotType(type);
-		spriteMap.put(SlotType.SLOT_K, new StaticSprite(gc, AssetID.K_IMG));
-		spriteMap.put(SlotType.SLOT_O, new StaticSprite(gc, AssetID.O_IMG));
+		spriteMap.put(SlotType.SLOT_K, new StaticSprite(AssetID.K_IMG));
+		spriteMap.put(SlotType.SLOT_O, new StaticSprite(AssetID.O_IMG));
 	}
 
 	@Override
-	public void draw() {
-		spriteMap.get(slotType).draw(posX, posY);
+	public void draw(GraphicsContext gc) {
+		spriteMap.get(slotType).draw(gc, posX, posY);
 	}
 
 	public SlotType getSlotType() {

@@ -1,5 +1,7 @@
 package core.asset.gfx;
 
+import javafx.scene.canvas.GraphicsContext;
+
 public interface IDrawableXY {
-	void draw(double x, double y);
+	void draw(GraphicsContext gc, double x, double y);
 }
