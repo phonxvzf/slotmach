@@ -3,7 +3,7 @@ package core.model;
 import core.asset.gfx.Sprite;
 import javafx.scene.canvas.GraphicsContext;
 
-public abstract class BasicEntity extends Entity implements IDrawable {
+public abstract class BasicEntity extends Entity implements Drawable {
 	protected Sprite sprite;
 	
 	public BasicEntity(Sprite sprite, double x, double y) {

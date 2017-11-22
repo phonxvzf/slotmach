@@ -19,4 +19,8 @@ public class StaticSprite extends Sprite {
 		gc.drawImage(image, x, y);
 	}
 	
+	public Image getImage() {
+		return image;
+	}
+	
 }

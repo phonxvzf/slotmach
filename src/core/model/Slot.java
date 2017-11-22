@@ -11,7 +11,7 @@ import core.asset.gfx.Sprite;
 import core.asset.gfx.StaticSprite;
 import javafx.scene.canvas.GraphicsContext;
 
-public class Slot extends Entity implements IDrawable {
+public class Slot extends Entity implements Drawable {
 	
 	public static final List<SlotType> SLOT_TYPES = new ArrayList<SlotType>(
 			Arrays.asList(

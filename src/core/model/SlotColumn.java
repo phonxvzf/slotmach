@@ -9,11 +9,13 @@ import core.asset.AssetID;
 import core.settings.Settings;
 import javafx.scene.canvas.GraphicsContext;
 
-public class SlotColumn extends Entity implements IDrawable {
+public class SlotColumn extends Entity implements Drawable {
 
 	private double height;
 	private List<Slot> slotList = new ArrayList<Slot>();
 	private Random randomizer = new Random();
+	private boolean isPulled = false;
+	private boolean isSlowDown = false;
 
 	private SlotType getRandomSlotType() {
 		return Slot.SLOT_TYPES.get(randomizer.nextInt(Slot.SLOT_TYPES.size()));
@@ -44,7 +46,33 @@ public class SlotColumn extends Entity implements IDrawable {
 		return ret;
 	}
 
-	public void stop() {
+	public void update(long dt) {
+		if (isPulled) {
+			stop();
+		}
+		else {
+			setSlotFreeze(false);
+		}
+		
+		if (isSlowDown) {
+			setSlotAccelY(Settings.SLOT_SLOWDOWN_ACCEL);
+		}
+		else {
+			setSlotAccelY(0);
+			setSlotVelocityY(Settings.SLOT_DEFAULT_VELOCITY);
+		}
+		if (getSlotVelocityY() < Settings.SLOT_MIN_VELOCITY) {
+			setSlotVelocityY(Settings.SLOT_MIN_VELOCITY);
+		}
+		
+		moveSlots(dt);
+	}
+	
+	public void setPulled(boolean p) {
+		isPulled = p;
+	}
+	
+	private void stop() {
 		for (Slot x : slotList) {
 			double y = x.posY;
 			if (y < 0 && y > -1 * Settings.SLOT_DEFAULT_WIDTH)
@@ -95,5 +123,13 @@ public class SlotColumn extends Entity implements IDrawable {
 
 	public double getSlotVelocityY() {
 		return slotList.get(0).getVelY();
+	}
+	
+	public void slowDown() {
+		isSlowDown = true;
+	}
+	
+	public void returnSpeed() {
+		isSlowDown = false;
 	}
 }

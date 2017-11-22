@@ -13,7 +13,7 @@ public class SlotMachine extends BasicEntity {
 
 	private List<SlotColumn> slotColumns = new ArrayList<SlotColumn>();
 	private int pullCount = 0;
-	private double minSlotVelocityY = Settings.SLOT_DEFAULT_VELOCITY;
+	private int columns;
 	private SlotType[][] slotCell;
 	
 	public SlotMachine(Sprite background, double x, double y, int columns) {
@@ -22,6 +22,7 @@ public class SlotMachine extends BasicEntity {
 				x - (background.getWidth() - columns * AssetCache.getImage(AssetID.K_IMG).getWidth()) / 2,
 				y + (Settings.SLOT_DEFAULT_COLUMN_HEIGHT - background.getHeight()) / 2
 			);
+		this.columns = columns;
 		for (int i = 0; i < columns; ++i) {
 			slotColumns.add(
 					new SlotColumn(
@@ -35,10 +36,8 @@ public class SlotMachine extends BasicEntity {
 	}
 	
 	public void update(long dt) {
-		for (SlotColumn slotColumn : slotColumns) {
-			if (slotColumn.getSlotVelocityY() < minSlotVelocityY) 
-				slotColumn.setSlotVelocityY(minSlotVelocityY);
-			slotColumn.moveSlots(dt);
+		for (SlotColumn col : slotColumns) {
+			col.update(dt);
 		}
 	}
 	
@@ -50,10 +49,10 @@ public class SlotMachine extends BasicEntity {
 		}
 	}
 	
-	public boolean pullLever() {
+	public boolean pull() {
 		if (pullCount < slotColumns.size()) {
 			// Stop slot column
-			slotColumns.get(pullCount).stop();
+			slotColumns.get(pullCount).setPulled(true);;
 			// Get stopped slots information
 			List<SlotType> columnInfo = slotColumns.get(pullCount).getSlotType();
 			for (int i = 0; i < columnInfo.size()-1; ++i) { // exclude the hidden slot
@@ -65,25 +64,35 @@ public class SlotMachine extends BasicEntity {
 		return false;
 	}
 	
-	public void resetPullCount() {
+	public void reset() {
 		pullCount = 0;
-		for (SlotColumn slotColumn : slotColumns) {
-			slotColumn.setSlotFreeze(false);
+		for (SlotColumn col : slotColumns) {
+			col.setPulled(false);
 		}
 	}
-
-	public void slowDown(double decel, double minVel) {
-		minSlotVelocityY = minVel;
+	
+	public void slowDown() {
 		for (SlotColumn col : slotColumns) {
-			col.setSlotAccelY(decel);
+			col.slowDown();
 		}
 	}
 	
 	public void returnSpeed() {
 		for (SlotColumn col : slotColumns) {
-			col.setSlotAccelY(0);
-			col.setSlotVelocityY(Settings.SLOT_DEFAULT_VELOCITY);
+			col.returnSpeed();
 		}
+	}
+	
+	public SlotColumn getSlotColumn(int i) {
+		return slotColumns.get(i);
+	}
+	
+	public int getPullCount() {
+		return pullCount;
+	}
+	
+	public int getColumns() {
+		return columns;
 	}
 	
 }

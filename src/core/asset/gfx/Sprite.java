@@ -1,6 +1,6 @@
 package core.asset.gfx;
 
-public abstract class Sprite implements IDrawableXY {
+public abstract class Sprite implements DrawableXY {
 
 	protected double width, height;
 	

@@ -12,12 +12,15 @@ public class GameModel {
 	// ======================
 	// START DECLARE ENTITIES
 	// ======================
-	public SlotMachine slotMachine;
+	SlotMachine slotMachine;
 	// ======================
 	// END DECLARE ENTITIES
 	// ======================
 	
+	GameState gameState = new GameState();
+	
 	public GameModel() {
+		
 		StaticSprite slotMachineBg = new StaticSprite(AssetID.TEST_IMG);
 		final int columns = Settings.SLOT_DEFAULT_COLUMNS;
 		slotMachine = new SlotMachine(

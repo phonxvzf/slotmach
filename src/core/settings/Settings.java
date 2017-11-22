@@ -21,5 +21,7 @@ public class Settings {
 	public static final double SLOT_SLOWDOWN_ACCEL = -800.0f;
 	public static final double SLOT_MIN_VELOCITY = 400.0f;
 	public static final int SLOT_DEFAULT_COLUMNS = 3;
+	public static final double PLAYER_MAX_MANA = 1000.0f;
+	public static final int PLAYER_MAX_MONEY = 999999;
 	
 }

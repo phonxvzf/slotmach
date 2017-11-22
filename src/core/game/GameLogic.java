@@ -43,10 +43,10 @@ public class GameLogic {
 	}
 	
 	private void updateGame(long dt) {
-		
+		// Be aware of deadlock
 		// Check for events
 		if (InputHandler.isKeyDown(KeyCode.S)) {
-			gameModel.slotMachine.slowDown(Settings.SLOT_SLOWDOWN_ACCEL, Settings.SLOT_MIN_VELOCITY);
+			gameModel.slotMachine.slowDown();
 		}
 		else {
 			gameModel.slotMachine.returnSpeed();
@@ -55,12 +55,13 @@ public class GameLogic {
 		KeyCode triggeredKey;
 		while ((triggeredKey = InputHandler.pollTriggeredKey()) != null) {
 			if (triggeredKey == KeyCode.SPACE) {
-				if (!gameModel.slotMachine.pullLever()) {
-					gameModel.slotMachine.resetPullCount();
+				if (!gameModel.slotMachine.pull()) {
+					gameModel.slotMachine.reset();
 				}
 			}
 			else if (triggeredKey == KeyCode.ESCAPE) {
 				Platform.exit();
+				System.exit(0);
 			}
 		}
 	}

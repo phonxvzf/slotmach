@@ -1,6 +1,6 @@
 package core.model;
 
-public abstract class Entity implements IMovable {
+public abstract class Entity implements Movable {
 	
 	protected boolean isFrozen = false;
 	protected double posX, posY;
@@ -15,11 +15,16 @@ public abstract class Entity implements IMovable {
 	@Override
 	public void move(long dt) {
 		if (isFrozen) return;
-		final double dt_sec = dt / 1000000000.0f;
-		this.posX += this.velX * dt_sec;
-		this.posY += this.velY * dt_sec;
-		this.velX += this.accelX * dt_sec;
-		this.velY += this.accelY * dt_sec;
+		try {
+			final double dt_sec = dt / 1000000000.0f;
+			this.posX += this.velX * dt_sec;
+			this.posY += this.velY * dt_sec;
+			this.velX += this.accelX * dt_sec;
+			this.velY += this.accelY * dt_sec;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setFreeze(boolean frz) {
@@ -27,8 +32,13 @@ public abstract class Entity implements IMovable {
 	}
 	
 	public void setPos(double x, double y) {
-		this.posX = x;
-		this.posY = y;
+		try {
+			this.posX = x;
+			this.posY = y;
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setVelocity(double vx, double vy) {
