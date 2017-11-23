@@ -25,7 +25,7 @@ public class GameModel {
 		final int columns = Settings.SLOT_DEFAULT_COLUMNS;
 		slotMachine = new SlotMachine(
 				slotMachineBg,
-				(Settings.WINDOW_WIDTH - AssetCache.getImage(AssetID.K_IMG).getWidth() * columns) / 2.0f,
+				(Settings.GAME_CANVAS_WIDTH - AssetCache.getImage(AssetID.K_IMG).getWidth() * columns) / 2.0f,
 				0,
 				columns);
 	}

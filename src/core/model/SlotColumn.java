@@ -47,6 +47,9 @@ public class SlotColumn extends Entity implements Drawable {
 	}
 
 	public void update(long dt) {
+		
+		moveSlots(dt);
+		
 		if (isPulled) {
 			stop();
 		}
@@ -64,8 +67,6 @@ public class SlotColumn extends Entity implements Drawable {
 		if (getSlotVelocityY() < Settings.SLOT_MIN_VELOCITY) {
 			setSlotVelocityY(Settings.SLOT_MIN_VELOCITY);
 		}
-		
-		moveSlots(dt);
 	}
 	
 	public void setPulled(boolean p) {
