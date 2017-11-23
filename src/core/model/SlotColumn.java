@@ -9,24 +9,26 @@ import core.asset.AssetID;
 import core.settings.Settings;
 import javafx.scene.canvas.GraphicsContext;
 
-public class SlotColumn extends Entity implements IDrawable {
-//test GITTTT KOK
+public class SlotColumn extends Entity implements Drawable {
+
 	private double height;
 	private List<Slot> slotList = new ArrayList<Slot>();
 	private Random randomizer = new Random();
+	private boolean isPulled = false;
+	private boolean isSlowDown = false;
 
 	private SlotType getRandomSlotType() {
-		return Slot.slotTypes.get(randomizer.nextInt(Slot.slotTypes.size()));
+		return Slot.SLOT_TYPES.get(randomizer.nextInt(Slot.SLOT_TYPES.size()));
 	}
 
-	public SlotColumn(GraphicsContext gc, double x, double y, double height) {
+	public SlotColumn(double x, double y, double height) {
 		super(x, y);
 		this.height = height;
 		randomizer.setSeed(System.currentTimeMillis());
 
 		double slotHeight = AssetCache.getImage(AssetID.K_IMG).getHeight();
 		for (double pY = posY - slotHeight; pY < posY + height; pY += slotHeight) {
-			Slot newSlot = new Slot(gc, getRandomSlotType(), posX, pY);
+			Slot newSlot = new Slot(getRandomSlotType(), posX, pY);
 			newSlot.setVelocity(0, Settings.SLOT_DEFAULT_VELOCITY);
 			slotList.add(newSlot);
 		}
@@ -34,39 +36,58 @@ public class SlotColumn extends Entity implements IDrawable {
 
 	public List<SlotType> getSlotType() {
 		List<SlotType> ret = new ArrayList<SlotType>();
-		// TODO
-		// @author KOK
-		try {
-			int posofZero = (int) (slotList.get(0).posY / Settings.SLOT_DEFAULT_WIDTH);
-			// There isn't the hidden slot above. So, position 0 in this array is the first
-			// row of the column.
-			int size = slotList.size();
-			for (int i = 0; i < size; ++i) {
-				ret.add(slotList.get((size - posofZero + i) % size).getSlotType());
-			}
-		} catch (Exception x) {
-			System.out.println("Cannot cast Double to int" + x);
+		int posofZero = (int) ((this.posY - slotList.get(0).posY) / Settings.SLOT_DEFAULT_WIDTH);
+		// There isn't the hidden slot above. So, position 0 in this array is the first
+		// row of the column.
+		int size = slotList.size();
+		for (int i = 0; i < size; ++i) {
+			ret.add(slotList.get((size - posofZero + i) % size).getSlotType());
 		}
 		return ret;
 	}
 
-	public void stop() {
-		// TODO
-		// @author KOK
+	public void update(long dt) {
+		if (isPulled) {
+			stop();
+		}
+		else {
+			setSlotFreeze(false);
+		}
+		
+		if (isSlowDown) {
+			setSlotAccelY(Settings.SLOT_SLOWDOWN_ACCEL);
+		}
+		else {
+			setSlotAccelY(0);
+			setSlotVelocityY(Settings.SLOT_DEFAULT_VELOCITY);
+		}
+		if (getSlotVelocityY() < Settings.SLOT_MIN_VELOCITY) {
+			setSlotVelocityY(Settings.SLOT_MIN_VELOCITY);
+		}
+		
+		moveSlots(dt);
+	}
+	
+	public void setPulled(boolean p) {
+		isPulled = p;
+	}
+	
+	private void stop() {
 		for (Slot x : slotList) {
 			double y = x.posY;
 			if (y < 0 && y > -1 * Settings.SLOT_DEFAULT_WIDTH)
 				x.posY = 0;
 			else {
-				x.posY = (Math.ceil(y / Settings.SLOT_DEFAULT_WIDTH) * Settings.SLOT_DEFAULT_WIDTH);
+				x.posY = this.posY + (Math.ceil((y - this.posY) / Settings.SLOT_DEFAULT_WIDTH) * Settings.SLOT_DEFAULT_WIDTH);
 			}
 		}
+		setSlotFreeze(true);
 	}
 
 	@Override
-	public void draw() {
+	public void draw(GraphicsContext gc) {
 		for (Slot slot : slotList) {
-			slot.draw();
+			slot.draw(gc);
 		}
 	}
 
@@ -102,5 +123,13 @@ public class SlotColumn extends Entity implements IDrawable {
 
 	public double getSlotVelocityY() {
 		return slotList.get(0).getVelY();
+	}
+	
+	public void slowDown() {
+		isSlowDown = true;
+	}
+	
+	public void returnSpeed() {
+		isSlowDown = false;
 	}
 }

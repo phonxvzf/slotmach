@@ -9,14 +9,18 @@ public class StaticSprite extends Sprite {
 
 	private Image image;
 
-	public StaticSprite(GraphicsContext gc, AssetID assetID) {
-		super(gc, AssetCache.getImage(assetID).getWidth(), AssetCache.getImage(assetID).getHeight());
+	public StaticSprite(AssetID assetID) {
+		super(AssetCache.getImage(assetID).getWidth(), AssetCache.getImage(assetID).getHeight());
 		this.image = AssetCache.getImage(assetID);
 	}
 	
 	@Override
-	public void draw(double x, double y) {
-		graphicsContext.drawImage(image, x, y);
+	public void draw(GraphicsContext gc, double x, double y) {
+		gc.drawImage(image, x, y);
+	}
+	
+	public Image getImage() {
+		return image;
 	}
 	
 }

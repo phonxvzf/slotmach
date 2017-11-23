@@ -1,5 +1,5 @@
 package core.model;
 
-public interface IMovable {
+public interface Movable {
 	void move(long dt);
 }
