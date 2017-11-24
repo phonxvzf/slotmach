@@ -46,10 +46,12 @@ public class GameLogic {
 	private void updateGame(long dt) {
 		// Be aware of deadlock
 		// Check for events
-		if (InputHandler.isKeyDown(KeyCode.S)) {
+		if (InputHandler.isKeyDown(KeyCode.S) && gameModel.gameState.getMana() > 0) {
 			gameModel.slotMachine.slowDown();
 			if (!gameModel.slotMachine.isSlowDown())
 				gameModel.gameState.giveMana(-Settings.SKILL_FREEZE_MPRATE * dt / 1e9);
+			else if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA)
+				gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE * dt / 1e9);
 		} else {
 			if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
 				gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE * dt / 1e9);
