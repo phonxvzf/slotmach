@@ -21,6 +21,7 @@ public class Settings {
 	public static final double PLAYER_MAX_MANA = 210.0f;
 	public static final int PLAYER_MAX_MONEY = 999999;
 
-	public static final double SKILL_FREEZE_MPRATE = 10.0f;
+	public static final double SKILL_FREEZE_MPRATE_USE = 50.0f;
+	public static final double SKILL_FREEZE_MPRATE_RECOVER = 25.0f;
 
 }

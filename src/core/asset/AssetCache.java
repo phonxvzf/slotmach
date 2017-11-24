@@ -14,6 +14,7 @@ public final class AssetCache {
 		imageCache.put(AssetID.K_IMG, new Image("file:assets/K.png"));
 		imageCache.put(AssetID.O_IMG, new Image("file:assets/O.png"));
 		imageCache.put(AssetID.FROZEN_IMG, new Image("file:assets/frozen.png"));
+		imageCache.put(AssetID.MPBAR_IMG, new Image("file:assets/mpbar.png"));
 	}
 	
 	public static Image getImage(AssetID id) {

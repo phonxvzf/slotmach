@@ -4,5 +4,6 @@ public enum AssetID {
 	TEST_IMG,
 	K_IMG,
 	O_IMG,
-	FROZEN_IMG
+	FROZEN_IMG,
+	MPBAR_IMG
 }
