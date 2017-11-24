@@ -24,4 +24,8 @@ public class GameState {
 		if (newAmount > Settings.PLAYER_MAX_MONEY) newAmount = Settings.PLAYER_MAX_MONEY;
 		mana = newAmount;
 	}
+
+	public double getMana() {
+		return mana;
+	}
 }
