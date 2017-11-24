@@ -47,6 +47,7 @@ public class GameLogic {
 		// Check for events
 		if (InputHandler.isKeyDown(KeyCode.S)) {
 			gameModel.slotMachine.slowDown();
+			gameModel.gameState.giveMana(-5);
 		}
 		else {
 			gameModel.slotMachine.returnSpeed();

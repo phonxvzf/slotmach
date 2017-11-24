@@ -130,6 +130,10 @@ public class SlotColumn extends Entity implements Drawable {
 		isSlowDown = true;
 	}
 	
+	public boolean isSlowDown() {
+		return isSlowDown;
+	}
+
 	public void returnSpeed() {
 		isSlowDown = false;
 	}
