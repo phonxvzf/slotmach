@@ -1,12 +1,13 @@
 package core.game;
 
 import core.asset.AssetCache;
+import core.settings.Settings;
 
 public class GameInstance {
 	
-	private static GameModel gameModel;
-	private static GameLogic gameLogic;
-	private static GameCanvas gameCanvas;
+	private GameModel gameModel;
+	private GameLogic gameLogic;
+	private GameCanvas mainGameCanvas, statusCanvas;
 	
 	public GameInstance() {
 		// Load graphics and sounds
@@ -15,16 +16,30 @@ public class GameInstance {
 		// Initialize game modules
 		gameModel = new GameModel();
 		gameLogic = new GameLogic(gameModel);
-		gameCanvas = new GameCanvas(gameModel);
+		mainGameCanvas = new MainGameCanvas(gameModel, Settings.GAME_CANVAS_WIDTH, Settings.GAME_CANVAS_HEIGHT);
+		statusCanvas = new StatusCanvas(gameModel, Settings.STATUS_CANVAS_WIDTH, Settings.STATUS_CANVAS_HEIGHT);
 	}
 	
 	public void startGame() {
 		gameLogic.startGame();
-		gameCanvas.startAnimation();
+		mainGameCanvas.startAnimation();
+		statusCanvas.startAnimation();
 	}
-	
-	public GameCanvas getGameCanvas() {
-		return gameCanvas;
+
+	public GameModel getGameModel() {
+		return gameModel;
+	}
+
+	public GameLogic getGameLogic() {
+		return gameLogic;
+	}
+
+	public GameCanvas getMainGameCanvas() {
+		return mainGameCanvas;
+	}
+
+	public GameCanvas getStatusCanvas() {
+		return statusCanvas;
 	}
 	
 }

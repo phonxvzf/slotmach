@@ -4,14 +4,11 @@ public class Settings {
 	
 	// Application settings
 	public static final String WINDOW_TITLE = "slotmach";
-	public static final double WINDOW_WIDTH = 1000, WINDOW_HEIGHT = 1000;
-	
-	// Rendering options
-	public static final int FPS = 60;
-	public static final long LOOP_TIME = 1000000000 / FPS;
+	public static final double GAME_CANVAS_WIDTH = 1000, GAME_CANVAS_HEIGHT = 1000;
+	public static final double STATUS_CANVAS_WIDTH = 300, STATUS_CANVAS_HEIGHT = GAME_CANVAS_HEIGHT;
 	
 	// Game logic options
-	public static final int UPDATE_RATE = 60;
+	public static final int UPDATE_RATE = 25;
 	public static final long UPDATE_LOOP_TIME = 1000000000 / UPDATE_RATE;
 	
 	// General in-game options

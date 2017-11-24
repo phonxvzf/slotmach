@@ -2,8 +2,7 @@ package core.game;
 
 import javafx.stage.Stage;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.layout.Pane;
+import javafx.scene.layout.HBox;
 
 public final class SceneManager {
 	
@@ -14,7 +13,7 @@ public final class SceneManager {
 	
 	public static void initialize(Stage stage) {
 		gameInstance = new GameInstance();
-		gameScene = new Scene(new Pane(gameInstance.getGameCanvas()));
+		gameScene = new Scene(new HBox(gameInstance.getStatusCanvas(), gameInstance.getMainGameCanvas()));
 		primaryStage = stage;
 		primaryStage.show();
 	}
@@ -22,12 +21,7 @@ public final class SceneManager {
 	public static void gotoGameScene() {
 		gameInstance.startGame();
 		primaryStage.setScene(gameScene);
-		gameInstance.getGameCanvas().requestFocus();
-	}
-	
-	public static void gotoSceneOf(Canvas canvas) {
-		primaryStage.setScene(new Scene(new Pane(canvas)));
-		canvas.requestFocus();
+		gameInstance.getMainGameCanvas().requestFocus();
 	}
 	
 }

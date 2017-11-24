@@ -95,4 +95,7 @@ public class SlotMachine extends BasicEntity {
 		return columns;
 	}
 	
+	public SlotType[][] getSlotCells() {
+		return slotCell;
+	}
 }
