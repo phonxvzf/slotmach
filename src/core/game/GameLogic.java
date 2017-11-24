@@ -33,12 +33,14 @@ public class GameLogic {
 				updateGame(dt); // FIXED FPS
 				lastLoopStartTime += dt;
 			}
-
-			try {
-				Thread.sleep(1);
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+			else {
+				try {
+					Thread.sleep((Settings.UPDATE_LOOP_TIME - dt) / 1000000);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
+
 		}
 	}
 	
