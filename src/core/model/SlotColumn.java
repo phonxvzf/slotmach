@@ -15,6 +15,7 @@ public class SlotColumn extends Entity implements Drawable {
 	private List<Slot> slotList = new ArrayList<Slot>();
 	private Random randomizer = new Random();
 	private boolean isPulled = false;
+
 	private boolean isSlowDown = false;
 
 	private SlotType getRandomSlotType() {
@@ -47,20 +48,18 @@ public class SlotColumn extends Entity implements Drawable {
 	}
 
 	public void update(long dt) {
-		
+
 		moveSlots(dt);
-		
+
 		if (isPulled) {
 			stop();
-		}
-		else {
+		} else {
 			setSlotFreeze(false);
 		}
-		
+
 		if (isSlowDown) {
 			setSlotAccelY(Settings.SLOT_SLOWDOWN_ACCEL);
-		}
-		else {
+		} else {
 			setSlotAccelY(0);
 			setSlotVelocityY(Settings.SLOT_DEFAULT_VELOCITY);
 		}
@@ -68,18 +67,19 @@ public class SlotColumn extends Entity implements Drawable {
 			setSlotVelocityY(Settings.SLOT_MIN_VELOCITY);
 		}
 	}
-	
+
 	public void setPulled(boolean p) {
 		isPulled = p;
 	}
-	
+
 	private void stop() {
 		for (Slot x : slotList) {
 			double y = x.posY;
 			if (y < 0 && y > -1 * Settings.SLOT_DEFAULT_WIDTH)
 				x.posY = 0;
 			else {
-				x.posY = this.posY + (Math.ceil((y - this.posY) / Settings.SLOT_DEFAULT_WIDTH) * Settings.SLOT_DEFAULT_WIDTH);
+				x.posY = this.posY
+						+ (Math.ceil((y - this.posY) / Settings.SLOT_DEFAULT_WIDTH) * Settings.SLOT_DEFAULT_WIDTH);
 			}
 		}
 		setSlotFreeze(true);
@@ -125,16 +125,16 @@ public class SlotColumn extends Entity implements Drawable {
 	public double getSlotVelocityY() {
 		return slotList.get(0).getVelY();
 	}
-	
+
 	public void slowDown() {
 		isSlowDown = true;
-	}
-	
-	public boolean isSlowDown() {
-		return isSlowDown;
 	}
 
 	public void returnSpeed() {
 		isSlowDown = false;
+	}
+
+	public boolean isPulled() {
+		return isPulled;
 	}
 }
