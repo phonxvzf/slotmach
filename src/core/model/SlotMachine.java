@@ -64,11 +64,12 @@ public class SlotMachine extends BasicEntity {
 				slotCell[i][beginStartCol] = columnInfo.get(i);
 			}
 			pullCount++;
-			if (pullCount >= Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumns)
+			if (pullCount >= Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumns) {
 				allStop = true;
+			}
 			return true;
 		}
-		allStop=false;
+		allStop = false;
 		return false;
 	}
 
@@ -86,6 +87,7 @@ public class SlotMachine extends BasicEntity {
 
 	public void reset() {
 		pullCount = 0;
+		allStop = false;
 		int beginStartCol = (int) ((Settings.SLOT_DEFAULT_COLUMNS - 2 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2
 				- addlerColumns / 2) + 2;
 		for (int i = beginStartCol; i < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumns + beginStartCol; ++i) {

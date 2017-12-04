@@ -1,7 +1,9 @@
 package core.game;
 
-import core.model.SlotMachine;
+import core.model.Pricing;
+import core.model.SlotType;
 import core.settings.Settings;
+import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 
 public class GameLogic {
@@ -17,7 +19,7 @@ public class GameLogic {
 
 	public void startGame() {
 		isRunning = true;
-		logicThread = new Thread(this::logicLoop, "Logic Thread");
+		logicThread = new Thread(this::logicLoop, "Game Logic Thread");
 		logicThread.start();
 	}
 
@@ -47,31 +49,64 @@ public class GameLogic {
 		// *** Beware of deadlock ***
 		// Check for events
 
+		// Check for key holds
 		if (InputHandler.isKeyDown(KeyCode.F) && gameModel.gameState.getMana() > 0) {
-			if (!gameModel.slotMachine.isSlowDown()) {
+			if (!gameModel.slotMachine.isSlowDown() && !gameModel.slotMachine.isAllStop()) {
 				gameModel.gameState.giveMana(-Settings.SKILL_FREEZE_MPRATE_USE * dt / 1e9);
-			} else if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
-				gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
+				gameModel.slotMachine.slowDown();
+			} else {
+				if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
+					gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
+				}
+				gameModel.slotMachine.returnSpeed();
 			}
 		} else {
 			if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
 				gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
 			}
+			gameModel.slotMachine.returnSpeed();
 		}
-		if (InputHandler.pressKey(KeyCode.UP) && gameModel.slotMachine.isAllStop()
-				&& gameModel.slotMachine.getAddlerColumns() <= Settings.SLOT_DEFAULT_COLUMNS
-						- Settings.SLOT_DEFAULT_BEGIN_COLUMNS - Settings.SLOT_DEFAULT_ADDLER) {
-			gameModel.slotMachine.reset();
-			gameModel.slotMachine
-					.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() + Settings.SLOT_DEFAULT_ADDLER);
-			InputHandler.pollTriggeredKey();
+
+		// Check for key presses
+		KeyCode triggeredKey;
+		while ((triggeredKey = InputHandler.pollTriggeredKey()) != null) {
+			if (triggeredKey == KeyCode.SPACE) {
+				if (!gameModel.slotMachine.pull()) {
+					gameModel.slotMachine.reset();
+				} else if (gameModel.slotMachine.isAllStop()) {
+					// The player has pulled every column
+					int prize = determinePrize(gameModel.slotMachine.getSlotCells());
+					gameModel.gameState.giveMoney(prize);
+					System.out.println("prize = " + prize + ", money = " + gameModel.gameState.getMoney());
+				}
+			} else if (triggeredKey == KeyCode.ESCAPE) {
+				Platform.exit();
+				System.exit(0);
+			} else if (triggeredKey == KeyCode.RIGHT && gameModel.slotMachine.isAllStop()
+					&& gameModel.slotMachine.getAddlerColumns() <= Settings.SLOT_DEFAULT_COLUMNS
+							- Settings.SLOT_DEFAULT_BEGIN_COLUMNS - Settings.SLOT_DEFAULT_ADDLER) {
+				gameModel.slotMachine.reset();
+				gameModel.slotMachine
+						.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() + Settings.SLOT_DEFAULT_ADDLER);
+			} else if (triggeredKey == KeyCode.LEFT && gameModel.slotMachine.isAllStop()
+					&& gameModel.slotMachine.getAddlerColumns() >= Settings.SLOT_DEFAULT_ADDLER) {
+				gameModel.slotMachine.reset();
+				gameModel.slotMachine
+						.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
+			}
 		}
-		if (InputHandler.pressKey(KeyCode.DOWN) && gameModel.slotMachine.isAllStop()
-				&& gameModel.slotMachine.getAddlerColumns() >= Settings.SLOT_DEFAULT_ADDLER) {
-			gameModel.slotMachine.reset();
-			gameModel.slotMachine
-					.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
-			InputHandler.pollTriggeredKey();
+	}
+
+	private int determinePrize(SlotType[][] slotCells) {
+		int prize = 0;
+		for (int i = 0; i < 3; ++i) {
+			String slotCode = "";
+			int startCol = (Settings.SLOT_DEFAULT_COLUMNS / 2 - 1) - gameModel.slotMachine.getAddlerColumns() / 2;
+			for (int j = 0; j < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + gameModel.slotMachine.getAddlerColumns(); ++j) {
+				slotCode += slotCells[i][startCol + j].getCode();
+			}
+			prize += Pricing.getPrice(slotCode);
 		}
+		return prize;
 	}
 }
