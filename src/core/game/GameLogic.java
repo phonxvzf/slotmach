@@ -1,5 +1,6 @@
 package core.game;
 
+import core.model.SlotMachine;
 import core.settings.Settings;
 import javafx.scene.input.KeyCode;
 
@@ -45,18 +46,32 @@ public class GameLogic {
 	private void updateGame(long dt) {
 		// *** Beware of deadlock ***
 		// Check for events
+		
 		if (InputHandler.isKeyDown(KeyCode.F) && gameModel.gameState.getMana() > 0) {
 			if (!gameModel.slotMachine.isSlowDown()) {
 				gameModel.gameState.giveMana(-Settings.SKILL_FREEZE_MPRATE_USE * dt / 1e9);
-			}
-			else if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
+			} else if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
 				gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
 			}
-		} 
-		else {
+		} else {
 			if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
 				gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
 			}
+		}
+		if (InputHandler.isKeyDown(KeyCode.UP) && gameModel.slotMachine.isAllStop()
+				&& gameModel.slotMachine.getAddlerColumns() <= Settings.SLOT_DEFAULT_COLUMNS
+						- Settings.SLOT_DEFAULT_BEGIN_COLUMNS - Settings.SLOT_DEFAULT_ADDLER) {
+			gameModel.slotMachine.forceAllStop();
+			gameModel.slotMachine
+					.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() + Settings.SLOT_DEFAULT_ADDLER);
+			//System.out.println(gameModel.slotMachine.getAddlerColumns());
+		}
+		if (InputHandler.isKeyDown(KeyCode.DOWN) && gameModel.slotMachine.isAllStop()
+				&& gameModel.slotMachine.getAddlerColumns() >= Settings.SLOT_DEFAULT_ADDLER) {
+			gameModel.slotMachine.forceAllStop();
+			gameModel.slotMachine
+					.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
+			//System.out.println(gameModel.slotMachine.getAddlerColumns());
 		}
 	}
 }

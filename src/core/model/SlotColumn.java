@@ -41,13 +41,8 @@ public class SlotColumn extends Entity implements Drawable {
 		// There isn't the hidden slot above. So, position 0 in this array is the first
 		// row of the column.
 		int size = slotList.size();
-		System.out.println("Size "+size);
-		for (int i = 0; i < size-1 ; ++i) {
+		for (int i = 0; i < size - 1; ++i) {
 			ret.add(slotList.get(Math.abs(size - posofZero + i) % size).getSlotType());
-			System.out.println(slotList.get(Math.abs(size - posofZero + i) % size).posY);
-		}
-		for (SlotType x : ret) {
-			System.out.print(x.toString().charAt(5));
 		}
 		return ret;
 	}
@@ -68,19 +63,16 @@ public class SlotColumn extends Entity implements Drawable {
 	public void stop() {
 		isPulled = true;
 		setSlotFreeze(true);
-		System.out.printf("\n\n\n\n\n\n");
 		for (Slot slot : slotList) {
 			double y = slot.posY;
-			System.out.print(slot.getSlotType().toString().charAt(5)+" "+slot.posY);
-			if(Math.ceil(slot.posY)>Settings.GAME_CANVAS_HEIGHT) slot.posY=0;
-			else if (Math.ceil(y) <=0) {
+			if (Math.ceil(slot.posY) > Settings.GAME_CANVAS_HEIGHT)
+				slot.posY = 0;
+			else if (Math.ceil(y) <= 0) {
 				slot.posY = 0;
 			} else {
 				slot.posY = this.posY
 						+ (Math.ceil((y - this.posY) / Settings.SLOT_DEFAULT_WIDTH) * Settings.SLOT_DEFAULT_WIDTH);
 			}
-			System.out.print(" " + slot.posY);
-			System.out.println();
 		}
 	}
 
