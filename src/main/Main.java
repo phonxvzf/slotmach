@@ -15,7 +15,7 @@ public class Main extends Application {
 		
 		// Present to screen
 		SceneManager.initialize(primaryStage);
-		SceneManager.gotoGameScene();
+		SceneManager.gotoNameInput();
 		
 	}
 

@@ -1,7 +1,6 @@
 package core.game;
 
 import core.settings.Settings;
-import javafx.application.Platform;
 import javafx.scene.input.KeyCode;
 
 public class GameLogic {
@@ -30,7 +29,7 @@ public class GameLogic {
 		while (isRunning) {
 			long dt = System.nanoTime() - lastLoopStartTime;
 			if (dt >= Settings.UPDATE_LOOP_TIME) {
-				updateGame(dt); // FIXED FPS
+				updateGame(dt); // fixed fps
 				lastLoopStartTime += dt;
 			} else {
 				try {
@@ -44,10 +43,9 @@ public class GameLogic {
 	}
 
 	private void updateGame(long dt) {
-		// *** Be aware of deadlock ***
+		// *** Beware of deadlock ***
 		// Check for events
 		if (InputHandler.isKeyDown(KeyCode.F) && gameModel.gameState.getMana() > 0) {
-			gameModel.slotMachine.slowDown();
 			if (!gameModel.slotMachine.isSlowDown()) {
 				gameModel.gameState.giveMana(-Settings.SKILL_FREEZE_MPRATE_USE * dt / 1e9);
 			}
@@ -58,19 +56,6 @@ public class GameLogic {
 		else {
 			if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
 				gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
-			}
-			gameModel.slotMachine.returnSpeed();
-		}
-
-		KeyCode triggeredKey;
-		while ((triggeredKey = InputHandler.pollTriggeredKey()) != null) {
-			if (triggeredKey == KeyCode.SPACE) {
-				if (!gameModel.slotMachine.pull()) {
-					gameModel.slotMachine.reset();
-				}
-			} else if (triggeredKey == KeyCode.ESCAPE) {
-				Platform.exit();
-				System.exit(0);
 			}
 		}
 	}

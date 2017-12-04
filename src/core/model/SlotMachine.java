@@ -45,13 +45,14 @@ public class SlotMachine extends BasicEntity {
 	public boolean pull() {
 		if (pullCount < slotColumns.size()) {
 			// Stop slot column
-			slotColumns.get(pullCount).setPulled(true);
-			;
+			slotColumns.get(pullCount).stop();
+			
 			// Get stopped slots information
 			List<SlotType> columnInfo = slotColumns.get(pullCount).getSlotType();
-			for (int i = 0; i < columnInfo.size() - 1; ++i) { // exclude the hidden slot
+			for (int i = 0; i < columnInfo.size(); ++i) { 
 				slotCell[i][pullCount] = columnInfo.get(i);
 			}
+			System.out.println("");
 			pullCount++;
 			return true;
 		}
@@ -61,7 +62,8 @@ public class SlotMachine extends BasicEntity {
 	public void reset() {
 		pullCount = 0;
 		for (SlotColumn col : slotColumns) {
-			col.setPulled(false);
+			col.returnSpeed();
+			col.setSlotFreeze(false);
 		}
 	}
 
@@ -97,7 +99,6 @@ public class SlotMachine extends BasicEntity {
 		boolean allSlow = true;
 		for (SlotColumn x : slotColumns) {
 			allSlow = allSlow && x.isPulled();
-			//System.out.println(x.isFrozen());
 		}
 		return allSlow;
 	}

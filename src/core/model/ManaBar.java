@@ -3,6 +3,7 @@ package core.model;
 import com.sun.javafx.tk.Toolkit;
 
 import core.asset.gfx.Sprite;
+import core.settings.Settings;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -14,7 +15,7 @@ public class ManaBar extends BasicEntity {
 	private double barWidth, barHeight, maxAmount, currentWidth;
 	private String what;
 	private int r, g, b;
-	private static Font font = new Font("optima", 20);
+	private static Font font = new Font(Settings.GAME_FONT, 20);
 	private double textWidth;
 
 	public ManaBar(Sprite sprite, double x, double y, double bwidth, double bheight, double max, String text) {

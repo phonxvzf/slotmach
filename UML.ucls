@@ -247,49 +247,49 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <realization id="31">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="16"/>  
-  </realization>  
-  <generalization id="32">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="30"/>  
-  </generalization>  
-  <realization id="33">    
-    <end type="SOURCE" refId="30"/>    
-    <end type="TARGET" refId="3"/>  
-  </realization>  
-  <generalization id="34">    
+  <generalization id="31">    
     <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="2"/>  
   </generalization>  
-  <generalization id="35">    
-    <end type="SOURCE" refId="2"/>    
-    <end type="TARGET" refId="30"/>  
-  </generalization>  
-  <realization id="36">    
+  <realization id="32">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="3"/>  
+  </realization>  
+  <realization id="33">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="16"/>  
+  </realization>  
+  <realization id="34">    
     <end type="SOURCE" refId="13"/>    
     <end type="TARGET" refId="27"/>  
   </realization>  
+  <generalization id="35">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="30"/>  
+  </generalization>  
+  <generalization id="36">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="13"/>  
+  </generalization>  
   <realization id="37">    
     <end type="SOURCE" refId="2"/>    
     <end type="TARGET" refId="16"/>  
   </realization>  
   <generalization id="38">    
-    <end type="SOURCE" refId="5"/>    
+    <end type="SOURCE" refId="22"/>    
     <end type="TARGET" refId="30"/>  
   </generalization>  
   <generalization id="39">    
-    <end type="SOURCE" refId="6"/>    
-    <end type="TARGET" refId="13"/>  
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="2"/>  
   </generalization>  
   <generalization id="40">    
     <end type="SOURCE" refId="8"/>    
     <end type="TARGET" refId="13"/>  
   </generalization>  
   <generalization id="41">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="2"/>  
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="30"/>  
   </generalization>  
   <realization id="42">    
     <end type="SOURCE" refId="22"/>    

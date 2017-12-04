@@ -37,26 +37,19 @@ public class SlotColumn extends Entity implements Drawable {
 
 	public List<SlotType> getSlotType() {
 		List<SlotType> ret = new ArrayList<SlotType>();
-		int posofZero = (int) ((this.posY - slotList.get(0).posY) / Settings.SLOT_DEFAULT_WIDTH);
+		int posofZero = (int) (slotList.get(0).posY / Settings.SLOT_DEFAULT_WIDTH);
+		System.out.printf("posofZero = %d (%s)\n", posofZero, slotList.get(posofZero).getSlotType().getCode());
 		// There isn't the hidden slot above. So, position 0 in this array is the first
 		// row of the column.
 		int size = slotList.size();
-		for (int i = 0; i < size; ++i) {
-			ret.add(slotList.get((size - posofZero + i) % size).getSlotType());
+		for (int i = 0; i < size-1; ++i) {
+			ret.add(slotList.get((posofZero + i) % size).getSlotType());
 		}
+		for (SlotType slot : ret) System.out.print(slot.getCode());
 		return ret;
 	}
 
 	public void update(long dt) {
-
-		moveSlots(dt);
-
-		if (isPulled) {
-			stop();
-		} else {
-			setSlotFreeze(false);
-		}
-
 		if (isSlowDown) {
 			setSlotAccelY(Settings.SLOT_SLOWDOWN_ACCEL);
 		} else {
@@ -66,19 +59,18 @@ public class SlotColumn extends Entity implements Drawable {
 		if (getSlotVelocityY() < Settings.SLOT_MIN_VELOCITY) {
 			setSlotVelocityY(Settings.SLOT_MIN_VELOCITY);
 		}
+		moveSlots(dt);
 	}
 
-	public void setPulled(boolean p) {
-		isPulled = p;
-	}
-
-	private void stop() {
-		for (Slot x : slotList) {
-			double y = x.posY;
-			if (y < 0 && y > -1 * Settings.SLOT_DEFAULT_WIDTH)
-				x.posY = 0;
+	public void stop() {
+		isPulled = true;
+		for (Slot slot : slotList) {
+			double y = slot.posY;
+			if (y < 0 && y > -Settings.SLOT_DEFAULT_WIDTH) {
+				slot.posY = 0;
+			}
 			else {
-				x.posY = this.posY
+				slot.posY = this.posY
 						+ (Math.ceil((y - this.posY) / Settings.SLOT_DEFAULT_WIDTH) * Settings.SLOT_DEFAULT_WIDTH);
 			}
 		}
@@ -98,7 +90,7 @@ public class SlotColumn extends Entity implements Drawable {
 			yOffset = slot.getPosY() - (posY + height);
 			if (yOffset >= 0) {
 				slot.setSlotType(getRandomSlotType());
-				slot.setPos(posX, posY + yOffset - slot.getSprite().getHeight());
+				slot.setPos(posX, posY + yOffset - Settings.SLOT_DEFAULT_WIDTH);
 			}
 			slot.move(dt);
 		}
@@ -132,6 +124,8 @@ public class SlotColumn extends Entity implements Drawable {
 
 	public void returnSpeed() {
 		isSlowDown = false;
+		isPulled = false;
+		setSlotVelocityY(Settings.SLOT_DEFAULT_VELOCITY);
 	}
 
 	public boolean isPulled() {

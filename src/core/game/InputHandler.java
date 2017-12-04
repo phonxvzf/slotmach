@@ -31,4 +31,9 @@ public class InputHandler {
 		if (triggeredKeyQueue.size() > 0) return triggeredKeyQueue.poll();
 		return null;
 	}
+	
+	public static KeyCode peekTriggeredKey() {
+		if (triggeredKeyQueue.size() > 0) return triggeredKeyQueue.peek();
+		return null;
+	}
 }

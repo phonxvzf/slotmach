@@ -36,7 +36,6 @@ public abstract class GameCanvas extends Canvas {
 	}
 
 	protected abstract void update(long dt);
-
 	protected abstract void bindKeys();
 
 }
