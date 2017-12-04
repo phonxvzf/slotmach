@@ -19,12 +19,12 @@ public class Settings {
 	public static final double SLOT_DEFAULT_WIDTH = 50.0f;
 	public static final double SLOT_SLOWDOWN_ACCEL = -800.0f;
 	public static final double SLOT_MIN_VELOCITY = 400.0f;
-	public static final int SLOT_DEFAULT_COLUMNS = 3;
-
+	public static final int SLOT_DEFAULT_COLUMNS = 15;
+	public static final int SLOT_DEFAULT_ADDLER = 2;
+	public static final int SLOT_DEFAULT_BEGIN_COLUMNS = 3;
 	public static final double PLAYER_MAX_MANA = 210.0f;
 	public static final int PLAYER_MAX_MONEY = 999999;
-	public static final int PLAYER_MAX_NAME_LENGTH = 12;
-
+  public static final int PLAYER_MAX_NAME_LENGTH = 12;
 	public static final double SKILL_FREEZE_MPRATE_USE = 50.0f;
 	public static final double SKILL_FREEZE_MPRATE_RECOVER = 25.0f;
 
