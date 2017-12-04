@@ -12,7 +12,7 @@ public class StatusCanvas extends GameCanvas {
 	
 	public StatusCanvas(GameModel model, double width, double height) {
 		super(model, width, height);
-		freezeManaBar = new ManaBar(new StaticSprite(AssetID.MPBAR_IMG), 60, 10, 206, 30, Settings.PLAYER_MAX_MANA, "FRZ");
+		freezeManaBar = new ManaBar(new StaticSprite(AssetID.MPBAR_IMG), 60, 10, 206, 30, Settings.PLAYER_MAX_MANA, "frz");
 	}
 
 	@Override
