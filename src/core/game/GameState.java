@@ -5,7 +5,7 @@ import core.settings.Settings;
 public class GameState {
 	
 	private int money = 0;
-	private String name;
+	String name = "";
 	private int useCols = 3, useRows = 3;
 	private double mana = Settings.PLAYER_MAX_MANA;
 	
