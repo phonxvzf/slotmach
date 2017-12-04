@@ -76,7 +76,7 @@ public class MainGameCanvas extends GameCanvas {
 				else if (gameModel.slotMachine.getPullCount() == gameModel.slotMachine.getColumns()) {
 					// The player has pulled every column
 					int prize = determinePrize(gameModel.slotMachine.getSlotCells());
-					gameModel.gameState.giveMoney(prize);
+					System.out.println("prize = " + prize);
 				}
 			}
 			else if (triggeredKey == KeyCode.ESCAPE) {
@@ -94,6 +94,7 @@ public class MainGameCanvas extends GameCanvas {
 				slotCode += slotCells[i][j].getCode();
 			}
 			prize += Pricing.getPrice(slotCode);
+			System.out.println(slotCode);
 		}
 		return prize;
 	}
