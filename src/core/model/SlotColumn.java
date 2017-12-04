@@ -72,7 +72,7 @@ public class SlotColumn extends Entity implements Drawable {
 		for (Slot slot : slotList) {
 			double y = slot.posY;
 			System.out.print(slot.getSlotType().toString().charAt(5)+" "+slot.posY);
-			if(Math.ceil(slot.posY)>950) slot.posY=0;
+			if(Math.ceil(slot.posY)>Settings.GAME_CANVAS_HEIGHT) slot.posY=0;
 			else if (Math.ceil(y) <=0) {
 				slot.posY = 0;
 			} else {
