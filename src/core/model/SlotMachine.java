@@ -52,17 +52,6 @@ public class SlotMachine extends BasicEntity {
 		}
 	}
 
-	public void forceAllStop() {
-
-		for (int i = 0; i < (int) ((Settings.SLOT_DEFAULT_COLUMNS - 2 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2
-				- addlerColumns / 2) + 2; ++i)
-			slotColumns.get(i).stop();
-		for (int i = (int) ((Settings.SLOT_DEFAULT_COLUMNS - 2 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2
-				- addlerColumns / 2) + 2 + Settings.SLOT_DEFAULT_BEGIN_COLUMNS; i < Settings.SLOT_DEFAULT_COLUMNS; ++i)
-			slotColumns.get(i).stop();
-
-	}
-
 	public boolean pull() {
 		if (pullCount < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumns) {
 			// Stop slot column
@@ -79,6 +68,7 @@ public class SlotMachine extends BasicEntity {
 				allStop = true;
 			return true;
 		}
+		allStop=false;
 		return false;
 	}
 
@@ -95,7 +85,6 @@ public class SlotMachine extends BasicEntity {
 	}
 
 	public void reset() {
-		allStop = false;
 		pullCount = 0;
 		int beginStartCol = (int) ((Settings.SLOT_DEFAULT_COLUMNS - 2 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2
 				- addlerColumns / 2) + 2;

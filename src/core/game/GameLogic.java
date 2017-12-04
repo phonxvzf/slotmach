@@ -46,7 +46,7 @@ public class GameLogic {
 	private void updateGame(long dt) {
 		// *** Beware of deadlock ***
 		// Check for events
-		
+
 		if (InputHandler.isKeyDown(KeyCode.F) && gameModel.gameState.getMana() > 0) {
 			if (!gameModel.slotMachine.isSlowDown()) {
 				gameModel.gameState.giveMana(-Settings.SKILL_FREEZE_MPRATE_USE * dt / 1e9);
@@ -61,17 +61,15 @@ public class GameLogic {
 		if (InputHandler.isKeyDown(KeyCode.UP) && gameModel.slotMachine.isAllStop()
 				&& gameModel.slotMachine.getAddlerColumns() <= Settings.SLOT_DEFAULT_COLUMNS
 						- Settings.SLOT_DEFAULT_BEGIN_COLUMNS - Settings.SLOT_DEFAULT_ADDLER) {
-			gameModel.slotMachine.forceAllStop();
+			gameModel.slotMachine.reset();
 			gameModel.slotMachine
 					.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() + Settings.SLOT_DEFAULT_ADDLER);
-			//System.out.println(gameModel.slotMachine.getAddlerColumns());
 		}
 		if (InputHandler.isKeyDown(KeyCode.DOWN) && gameModel.slotMachine.isAllStop()
 				&& gameModel.slotMachine.getAddlerColumns() >= Settings.SLOT_DEFAULT_ADDLER) {
-			gameModel.slotMachine.forceAllStop();
+			gameModel.slotMachine.reset();
 			gameModel.slotMachine
 					.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
-			//System.out.println(gameModel.slotMachine.getAddlerColumns());
 		}
 	}
 }
