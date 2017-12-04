@@ -15,7 +15,7 @@ public class SlotMachine extends BasicEntity {
 	private int pullCount = 0;
 	private int columns;
 	private int addlerColumns = 0;
-	private boolean allStop = false;
+	private boolean allStop = true;
 	private SlotType[][] slotCell;
 
 	public SlotMachine(Sprite background, double x, double y, int columns) {

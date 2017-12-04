@@ -58,7 +58,7 @@ public class GameLogic {
 				gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
 			}
 		}
-		if (InputHandler.pressKey(KeyCode.UP) && gameModel.slotMachine.isAllStop()
+		if (InputHandler.pressKey(KeyCode.RIGHT) && gameModel.slotMachine.isAllStop()
 				&& gameModel.slotMachine.getAddlerColumns() <= Settings.SLOT_DEFAULT_COLUMNS
 						- Settings.SLOT_DEFAULT_BEGIN_COLUMNS - Settings.SLOT_DEFAULT_ADDLER) {
 			gameModel.slotMachine.reset();
@@ -66,7 +66,7 @@ public class GameLogic {
 					.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() + Settings.SLOT_DEFAULT_ADDLER);
 			InputHandler.pollTriggeredKey();
 		}
-		if (InputHandler.pressKey(KeyCode.DOWN) && gameModel.slotMachine.isAllStop()
+		if (InputHandler.pressKey(KeyCode.LEFT) && gameModel.slotMachine.isAllStop()
 				&& gameModel.slotMachine.getAddlerColumns() >= Settings.SLOT_DEFAULT_ADDLER) {
 			gameModel.slotMachine.reset();
 			gameModel.slotMachine
