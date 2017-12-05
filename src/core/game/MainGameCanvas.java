@@ -31,6 +31,7 @@ public class MainGameCanvas extends GameCanvas {
 
 		// Draw entities
 		gameModel.slotMachine.draw(gc);
+<<<<<<< HEAD
 		int beginColLeft = (int) ((Settings.GAME_CANVAS_WIDTH - Settings.SLOT_DEFAULT_COLUMNS * 50) / 2);
 		int endColLeft = 50 * (Settings.SLOT_DEFAULT_COLUMNS / 2 - Settings.SLOT_DEFAULT_BEGIN_COLUMNS / 2
 				- gameModel.slotMachine.getAddlerColumns() / 2);
@@ -63,6 +64,15 @@ public class MainGameCanvas extends GameCanvas {
 				: (Settings.SLOT_DEFAULT_VELOCITY
 						- gameModel.slotMachine.getSlotColumn(gameModel.slotMachine.getPullCount()).getSlotVelocityY())
 						/ (Settings.SLOT_DEFAULT_VELOCITY - Settings.SLOT_MIN_VELOCITY));
+=======
+		
+		gc.setGlobalAlpha(gameModel.slotMachine.isAllStop() 
+				? 0.0f 
+				: (Settings.SLOT_DEFAULT_VELOCITY 
+				- gameModel.slotMachine.getSlotColumn(gameModel.slotMachine.getPullCount()).getSlotVelocityY())
+				/ (Settings.SLOT_DEFAULT_VELOCITY - Settings.SLOT_MIN_VELOCITY)
+				);
+>>>>>>> upstream/master
 		frozenSprite.draw(gc, 0, 0);
 	}
 

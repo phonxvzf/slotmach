@@ -26,6 +26,10 @@ public class InvalidAssetException extends Exception {
 	
 	public Optional<ButtonType> showAlert() {
 		Alert alert = new Alert(AlertType.ERROR, this.getMessage(), ButtonType.OK);
+<<<<<<< HEAD
+=======
+		this.printStackTrace();
+>>>>>>> upstream/master
 		return alert.showAndWait();
 	}
 	

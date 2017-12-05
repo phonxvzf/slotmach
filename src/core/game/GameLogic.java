@@ -1,5 +1,10 @@
 package core.game;
 
+<<<<<<< HEAD
+=======
+import core.asset.AssetID;
+import core.asset.sfx.MusicPlayer;
+>>>>>>> upstream/master
 import core.model.Pricing;
 import core.model.SlotType;
 import core.settings.Settings;
@@ -11,10 +16,14 @@ public class GameLogic {
 	private Thread logicThread;
 	private GameModel gameModel;
 	private boolean isRunning;
+	
+	private MusicPlayer freezeSFX, blipSFX;
 
 	public GameLogic(GameModel model) {
 		gameModel = model;
 		isRunning = false;
+		freezeSFX = new MusicPlayer(AssetID.FREEZE_SFX, 1);
+		blipSFX = new MusicPlayer(AssetID.BLIP_SFX, 1);
 	}
 
 	public void startGame() {
@@ -54,16 +63,28 @@ public class GameLogic {
 			if (!gameModel.slotMachine.isSlowDown() && !gameModel.slotMachine.isAllStop()) {
 				gameModel.gameState.giveMana(-Settings.SKILL_FREEZE_MPRATE_USE * dt / 1e9);
 				gameModel.slotMachine.slowDown();
+<<<<<<< HEAD
+=======
+				if (!freezeSFX.isPlaying()) freezeSFX.play();
+>>>>>>> upstream/master
 			} else {
 				if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
 					gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
 				}
 				gameModel.slotMachine.returnSpeed();
+<<<<<<< HEAD
+=======
+				freezeSFX.stop();
+>>>>>>> upstream/master
 			}
 		} else {
 			if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
 				gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
 			}
+<<<<<<< HEAD
+=======
+			freezeSFX.stop();
+>>>>>>> upstream/master
 			gameModel.slotMachine.returnSpeed();
 		}
 
@@ -79,6 +100,10 @@ public class GameLogic {
 					gameModel.gameState.giveMoney(prize);
 					System.out.println("prize = " + prize + ", money = " + gameModel.gameState.getMoney());
 				}
+<<<<<<< HEAD
+=======
+				blipSFX.play();
+>>>>>>> upstream/master
 			} else if (triggeredKey == KeyCode.ESCAPE) {
 				Platform.exit();
 				System.exit(0);
@@ -94,6 +119,7 @@ public class GameLogic {
 				gameModel.slotMachine
 						.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
 			}
+<<<<<<< HEAD
 			else if (triggeredKey == KeyCode.UP && gameModel.slotMachine.isAllStop()
 					&& gameModel.slotMachine.getAddlerRow() <= Settings.SLOT_DEFAULT_ROWS
 					- Settings.SLOT_DEFAULT_BEGIN_ROWS - Settings.SLOT_DEFAULT_ADDLER) {
@@ -108,6 +134,8 @@ public class GameLogic {
 				gameModel.slotMachine
 						.setAddlerRow(gameModel.slotMachine.getAddlerRow() - Settings.SLOT_DEFAULT_ADDLER);
 			}
+=======
+>>>>>>> upstream/master
 		}
 	}
 
