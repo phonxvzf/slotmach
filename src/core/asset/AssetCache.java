@@ -2,22 +2,34 @@ package core.asset;
 
 import java.util.HashMap;
 import java.util.Map;
-
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 
 public final class AssetCache {
-	
+
 	private static final Map<AssetID, Image> imageCache = new HashMap<AssetID, Image>();
-	
-	public static void loadAssets() {
-		imageCache.put(AssetID.TEST_IMG, new Image("img/test.png"));
-		imageCache.put(AssetID.K_IMG, new Image("img/K.png"));
-		imageCache.put(AssetID.O_IMG, new Image("img/O.png"));
-		imageCache.put(AssetID.FROZEN_IMG, new Image("img/frozen.png"));
-		imageCache.put(AssetID.MPBAR_IMG, new Image("img/mpbar.png"));
+
+	public static void loadAssets() throws InvalidAssetException {
+		for (AssetID id : AssetID.values()) {
+			try {
+				imageCache.put(id, new Image(id.getURI()));
+			} catch (IllegalArgumentException e) {
+				throw new InvalidAssetException(id.toString());
+			}
+		}
 	}
-	
+
 	public static Image getImage(AssetID id) {
-		return imageCache.get(id);
+		if (imageCache.containsKey(id))
+			return imageCache.get(id);
+		return null;
 	}
+
+	public static Font loadFont(String fontName, double size) throws InvalidAssetException {
+		Font ret = Font.loadFont(ClassLoader.getSystemResourceAsStream("fnt/" + fontName), size);
+		if (ret == null)
+			throw new InvalidAssetException();
+		return ret;
+	}
+
 }
