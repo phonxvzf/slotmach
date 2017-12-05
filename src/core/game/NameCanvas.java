@@ -1,13 +1,9 @@
 package core.game;
 
 import core.asset.AssetCache;
-<<<<<<< HEAD
-import core.asset.InvalidAssetException;
-=======
 import core.asset.AssetID;
 import core.asset.InvalidAssetException;
 import core.asset.sfx.MusicPlayer;
->>>>>>> upstream/master
 import core.settings.Settings;
 import javafx.application.Platform;
 import javafx.geometry.VPos;

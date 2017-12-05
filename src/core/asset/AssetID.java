@@ -2,29 +2,13 @@ package core.asset;
 
 public enum AssetID {
 
-<<<<<<< HEAD
-	TEST_IMG("img/test.png"),
-	K_IMG("img/K.png"),
-	O_IMG("img/O.png"),
-	FROZEN_IMG("img/frozen.png"),
-	MPBAR_IMG("img/mpbar.png"),
-	box("img/box.png");
-	
-	private final String uri;
-	private AssetID(String uri) {
-		this.uri = uri;
-	}
-	
-	public String getURI() {
-		return uri;
-	}
-=======
 	// Images
 	TEST_IMG("img/test.png", AssetType.IMAGE),
 	K_IMG("img/K.png", AssetType.IMAGE),
 	O_IMG("img/O.png", AssetType.IMAGE),
 	FROZEN_IMG("img/frozen.png", AssetType.IMAGE),
 	MPBAR_IMG("img/mpbar.png", AssetType.IMAGE),
+	box("img/box.png", AssetType.IMAGE),
 	
 	// Sounds
 	BGM_SFX("sfx/bgm.wav", AssetType.AUDIO),
@@ -50,6 +34,4 @@ public enum AssetID {
 	public AssetType getType() {
 		return type;
 	}
-	
->>>>>>> upstream/master
 }
