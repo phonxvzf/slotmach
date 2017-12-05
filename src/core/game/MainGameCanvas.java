@@ -8,7 +8,7 @@ import javafx.scene.paint.Color;
 public class MainGameCanvas extends GameCanvas {
 
 	private StaticSprite frozenSprite = new StaticSprite(AssetID.FROZEN_IMG);
-	private StaticSprite boxExtends = new StaticSprite(AssetID.box);
+	private StaticSprite boxExtends = new StaticSprite(AssetID.BOX_IMG);
 
 	public MainGameCanvas(GameModel model, double width, double height) {
 		super(model, width, height);

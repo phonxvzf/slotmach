@@ -8,7 +8,7 @@ public enum AssetID {
 	O_IMG("img/O.png", AssetType.IMAGE),
 	FROZEN_IMG("img/frozen.png", AssetType.IMAGE),
 	MPBAR_IMG("img/mpbar.png", AssetType.IMAGE),
-	box("img/box.png", AssetType.IMAGE),
+	BOX_IMG("img/box.png", AssetType.IMAGE),
 	
 	// Sounds
 	BGM_SFX("sfx/bgm.wav", AssetType.AUDIO),
