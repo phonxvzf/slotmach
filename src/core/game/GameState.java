@@ -4,7 +4,7 @@ import core.settings.Settings;
 
 public class GameState {
 	
-	private int money = 0;
+	private int money = 10000;
 	String name = "";
 	private double mana = Settings.PLAYER_MAX_MANA;
 	
@@ -40,5 +40,9 @@ public class GameState {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public void setMoney(int money) {
+		this.money = money;
 	}
 }

@@ -82,7 +82,10 @@ public class GameLogic {
 		while ((triggeredKey = InputHandler.pollTriggeredKey()) != null) {
 			if (triggeredKey == KeyCode.SPACE) {
 				if (!gameModel.slotMachine.pull()) {
-					gameModel.slotMachine.reset();
+					if (gameModel.gameState.getMoney() >= Settings.PLAYER_PIAD_PULL) {
+						gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PIAD_PULL);
+						gameModel.slotMachine.reset();
+					}
 				} else if (gameModel.slotMachine.isAllStop()) {
 					// The player has pulled every column
 					int prize = determinePrize(gameModel.slotMachine.getSlotCells());
@@ -95,7 +98,9 @@ public class GameLogic {
 				System.exit(0);
 			} else if (triggeredKey == KeyCode.RIGHT && gameModel.slotMachine.isAllStop()
 					&& gameModel.slotMachine.getAddlerColumns() <= Settings.SLOT_DEFAULT_COLUMNS
-							- Settings.SLOT_DEFAULT_BEGIN_COLUMNS - Settings.SLOT_DEFAULT_ADDLER) {
+							- Settings.SLOT_DEFAULT_BEGIN_COLUMNS - Settings.SLOT_DEFAULT_ADDLER
+					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PIAD_EXCOL) {
+				gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PIAD_EXCOL);
 				gameModel.slotMachine.reset();
 				gameModel.slotMachine
 						.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() + Settings.SLOT_DEFAULT_ADDLER);
@@ -106,7 +111,9 @@ public class GameLogic {
 						.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
 			} else if (triggeredKey == KeyCode.UP && gameModel.slotMachine.isAllStop()
 					&& gameModel.slotMachine.getAddlerRow() <= Settings.SLOT_DEFAULT_ROWS
-							- Settings.SLOT_DEFAULT_BEGIN_ROWS - Settings.SLOT_DEFAULT_ADDLER) {
+							- Settings.SLOT_DEFAULT_BEGIN_ROWS - Settings.SLOT_DEFAULT_ADDLER
+					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PIAD_EXROW) {
+				gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PIAD_EXROW);
 				gameModel.slotMachine.reset();
 				gameModel.slotMachine.setAddlerRow(gameModel.slotMachine.getAddlerRow() + Settings.SLOT_DEFAULT_ADDLER);
 				System.out.println(gameModel.slotMachine.getAddlerRow());
@@ -114,6 +121,12 @@ public class GameLogic {
 					&& gameModel.slotMachine.getAddlerRow() >= Settings.SLOT_DEFAULT_ADDLER) {
 				gameModel.slotMachine.reset();
 				gameModel.slotMachine.setAddlerRow(gameModel.slotMachine.getAddlerRow() - Settings.SLOT_DEFAULT_ADDLER);
+			} else if (triggeredKey == KeyCode.K && !gameModel.slotMachine.isBuyCol()
+					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PIAD_BUYCOL
+					&& !gameModel.slotMachine.isAllStop()) {
+				gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PIAD_BUYCOL);
+				gameModel.slotMachine.setBuyCol(true);
+				gameModel.slotMachine.setBuyColx(SlotType.SLOT_K);
 			}
 		}
 	}

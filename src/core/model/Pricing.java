@@ -6,7 +6,7 @@ import java.util.Map;
 import core.settings.Settings;
 
 public class Pricing {
-	
+
 	private static Map<String, Integer> priceMap = new HashMap<>();
 
 	public static void initialize() {
@@ -22,13 +22,14 @@ public class Pricing {
 		}
 		
 	}
-	
+
 	public static Map<String, Integer> getMap() {
 		return priceMap;
 	}
-	
+
 	public static int getPrice(String slotCode) {
-		if (!priceMap.containsKey(slotCode)) return 0;
+		if (!priceMap.containsKey(slotCode))
+			return 0;
 		return priceMap.get(slotCode);
 	}
 

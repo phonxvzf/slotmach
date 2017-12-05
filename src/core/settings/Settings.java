@@ -7,12 +7,13 @@ public class Settings {
 	public static final double GAME_CANVAS_WIDTH = 1000, GAME_CANVAS_HEIGHT = 950;
 	public static String GAME_FONT = "terminus.ttf";
 	public static final double STATUS_CANVAS_WIDTH = 290, STATUS_CANVAS_HEIGHT = GAME_CANVAS_HEIGHT;
-	public static final double WINDOW_WIDTH = GAME_CANVAS_WIDTH + STATUS_CANVAS_WIDTH, WINDOW_HEIGHT = GAME_CANVAS_HEIGHT;
+	public static final double WINDOW_WIDTH = GAME_CANVAS_WIDTH + STATUS_CANVAS_WIDTH,
+			WINDOW_HEIGHT = GAME_CANVAS_HEIGHT;
 
 	// Game logic options
 	public static final int UPDATE_RATE = 25;
 	public static final long UPDATE_LOOP_TIME = 1000000000 / UPDATE_RATE;
-	
+
 	// General in-game options
 	public static final double SLOT_DEFAULT_VELOCITY = 2000.0f;
 	public static final double SLOT_DEFAULT_COLUMN_HEIGHT = GAME_CANVAS_HEIGHT;
@@ -26,7 +27,11 @@ public class Settings {
 	public static final int SLOT_DEFAULT_BEGIN_ROWS = 3;
 	public static final double PLAYER_MAX_MANA = 210.0f;
 	public static final int PLAYER_MAX_MONEY = 99999999;
-  public static final int PLAYER_MAX_NAME_LENGTH = 12;
+	public static final int PLAYER_PIAD_PULL = 50;
+	public static final int PLAYER_PIAD_BUYCOL = 100;
+	public static final int PLAYER_PIAD_EXCOL = 200;
+	public static final int PLAYER_PIAD_EXROW = 200;
+	public static final int PLAYER_MAX_NAME_LENGTH = 12;
 	public static final double SKILL_FREEZE_MPRATE_USE = 50.0f;
 	public static final double SKILL_FREEZE_MPRATE_RECOVER = 25.0f;
 
