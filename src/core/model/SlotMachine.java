@@ -6,6 +6,8 @@ import java.util.List;
 import core.asset.AssetCache;
 import core.asset.AssetID;
 import core.asset.gfx.Sprite;
+import core.game.GameModel;
+import core.game.GameState;
 import core.settings.Settings;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -18,6 +20,8 @@ public class SlotMachine extends BasicEntity {
 	private int addlerRow = 0;
 	private boolean allStop = false;
 	private SlotType[][] slotCell;
+	private boolean buyCol = false;
+	private SlotType buyColx = null;
 
 	public SlotMachine(Sprite background, double x, double y, int columns) {
 		super(background, x - (background.getWidth() - columns * AssetCache.getImage(AssetID.K_IMG).getWidth()) / 2,
@@ -41,6 +45,8 @@ public class SlotMachine extends BasicEntity {
 	}
 
 	public void update(long dt) {
+		if (buyCol)
+			buyColumn();
 		for (SlotColumn col : slotColumns) {
 			col.update(dt);
 		}
@@ -75,6 +81,14 @@ public class SlotMachine extends BasicEntity {
 		return false;
 	}
 
+	private void buyColumn() {
+		int beginStartCol = (int) ((Settings.SLOT_DEFAULT_COLUMNS - 2 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2
+				- addlerColumns / 2) + 2 + pullCount;
+		slotColumns.get(beginStartCol).setBuyCol(true);
+		slotColumns.get(beginStartCol).setX(buyColx);
+		this.buyCol = false;
+	}
+
 	public boolean isAllStop() {
 		return allStop;
 	}
@@ -93,6 +107,7 @@ public class SlotMachine extends BasicEntity {
 		int beginStartCol = (int) ((Settings.SLOT_DEFAULT_COLUMNS - 2 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2
 				- addlerColumns / 2) + 2;
 		for (int i = beginStartCol; i < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumns + beginStartCol; ++i) {
+			slotColumns.get(i).setBuyCol(false);
 			slotColumns.get(i).returnSpeed();
 			slotColumns.get(i).setSlotFreeze(false);
 		}
@@ -149,6 +164,22 @@ public class SlotMachine extends BasicEntity {
 
 	public void setAddlerRow(int addlerRow) {
 		this.addlerRow = addlerRow;
+	}
+
+	public boolean isBuyCol() {
+		return buyCol;
+	}
+
+	public void setBuyCol(boolean buyCol) {
+		this.buyCol = buyCol;
+	}
+
+	public SlotType getBuyColx() {
+		return buyColx;
+	}
+
+	public void setBuyColx(SlotType buyColx) {
+		this.buyColx = buyColx;
 	}
 
 }

@@ -16,6 +16,8 @@ public class SlotColumn extends Entity implements Drawable {
 	private Random randomizer = new Random();
 	private boolean isPulled = false;
 	private boolean isSlowDown = false;
+	private SlotType x = null;
+	private boolean buyCol = false;
 
 	private SlotType getRandomSlotType() {
 		return Slot.SLOT_TYPES.get(randomizer.nextInt(Slot.SLOT_TYPES.size()));
@@ -63,12 +65,12 @@ public class SlotColumn extends Entity implements Drawable {
 		implicitStop();
 		roundDownSlots();
 	}
-	
+
 	public void implicitStop() {
 		isPulled = true;
 		setSlotFreeze(true);
 	}
-	
+
 	private void roundDownSlots() {
 		// TODO: fix this!
 		for (Slot slot : slotList) {
@@ -96,7 +98,10 @@ public class SlotColumn extends Entity implements Drawable {
 		for (Slot slot : slotList) {
 			yOffset = slot.getPosY() - (posY + height);
 			if (yOffset >= 0) {
-				slot.setSlotType(getRandomSlotType());
+				if (!buyCol)
+					slot.setSlotType(getRandomSlotType());
+				else
+					slot.setSlotType(x);
 				slot.setPos(posX, posY + yOffset - Settings.SLOT_DEFAULT_WIDTH);
 			}
 			slot.move(dt);
@@ -137,5 +142,17 @@ public class SlotColumn extends Entity implements Drawable {
 
 	public boolean isPulled() {
 		return isPulled;
+	}
+
+	public void setX(SlotType x) {
+		this.x = x;
+	}
+
+	public boolean isBuyCol() {
+		return buyCol;
+	}
+
+	public void setBuyCol(boolean buyCol) {
+		this.buyCol = buyCol;
 	}
 }
