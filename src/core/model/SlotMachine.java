@@ -14,7 +14,7 @@ public class SlotMachine extends BasicEntity {
 	private List<SlotColumn> slotColumns = new ArrayList<SlotColumn>();
 	private int pullCount = 0;
 	private int columns;
-	private int addlerColumns = 0;
+	private int addlerColumnsX = 0;
 	private boolean allStop = true;
 	private SlotType[][] slotCell;
 
@@ -53,10 +53,10 @@ public class SlotMachine extends BasicEntity {
 	}
 
 	public boolean pull() {
-		if (pullCount < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumns) {
+		if (pullCount < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumnsX) {
 			// Stop slot column
 			int beginStartCol = (int) ((Settings.SLOT_DEFAULT_COLUMNS - 2 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2
-					- addlerColumns / 2) + 2 + pullCount;
+					- addlerColumnsX / 2) + 2 + pullCount;
 			slotColumns.get(beginStartCol).stop();
 			// Get stopped slots information
 			List<SlotType> columnInfo = slotColumns.get(beginStartCol).getSlotType();
@@ -64,7 +64,7 @@ public class SlotMachine extends BasicEntity {
 				slotCell[i][beginStartCol] = columnInfo.get(i);
 			}
 			pullCount++;
-			if (pullCount >= Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumns)
+			if (pullCount >= Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumnsX)
 				allStop = true;
 			return true;
 		}
@@ -76,19 +76,19 @@ public class SlotMachine extends BasicEntity {
 		return allStop;
 	}
 
-	public int getAddlerColumns() {
-		return addlerColumns;
+	public int getAddlerColumnsX() {
+		return addlerColumnsX;
 	}
 
 	public void setAddlerColumns(int addlerColumn) {
-		this.addlerColumns = addlerColumn;
+		this.addlerColumnsX = addlerColumn;
 	}
 
 	public void reset() {
 		pullCount = 0;
 		int beginStartCol = (int) ((Settings.SLOT_DEFAULT_COLUMNS - 2 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2
-				- addlerColumns / 2) + 2;
-		for (int i = beginStartCol; i < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumns + beginStartCol; ++i) {
+				- addlerColumnsX / 2) + 2;
+		for (int i = beginStartCol; i < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumnsX + beginStartCol; ++i) {
 			slotColumns.get(i).returnSpeed();
 			slotColumns.get(i).setSlotFreeze(false);
 		}

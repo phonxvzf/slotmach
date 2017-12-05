@@ -1,6 +1,5 @@
 package core.game;
 
-import core.model.SlotMachine;
 import core.settings.Settings;
 import javafx.scene.input.KeyCode;
 
@@ -59,18 +58,18 @@ public class GameLogic {
 			}
 		}
 		if (InputHandler.pressKey(KeyCode.RIGHT) && gameModel.slotMachine.isAllStop()
-				&& gameModel.slotMachine.getAddlerColumns() <= Settings.SLOT_DEFAULT_COLUMNS
+				&& gameModel.slotMachine.getAddlerColumnsX() <= Settings.SLOT_DEFAULT_COLUMNS
 						- Settings.SLOT_DEFAULT_BEGIN_COLUMNS - Settings.SLOT_DEFAULT_ADDLER) {
 			gameModel.slotMachine.reset();
 			gameModel.slotMachine
-					.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() + Settings.SLOT_DEFAULT_ADDLER);
+					.setAddlerColumns(gameModel.slotMachine.getAddlerColumnsX() + Settings.SLOT_DEFAULT_ADDLER);
 			InputHandler.pollTriggeredKey();
 		}
 		if (InputHandler.pressKey(KeyCode.LEFT) && gameModel.slotMachine.isAllStop()
-				&& gameModel.slotMachine.getAddlerColumns() >= Settings.SLOT_DEFAULT_ADDLER) {
+				&& gameModel.slotMachine.getAddlerColumnsX() >= Settings.SLOT_DEFAULT_ADDLER) {
 			gameModel.slotMachine.reset();
 			gameModel.slotMachine
-					.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
+					.setAddlerColumns(gameModel.slotMachine.getAddlerColumnsX() - Settings.SLOT_DEFAULT_ADDLER);
 			InputHandler.pollTriggeredKey();
 		}
 	}
