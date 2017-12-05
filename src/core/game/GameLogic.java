@@ -104,6 +104,20 @@ public class GameLogic {
 				gameModel.slotMachine
 						.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
 			}
+			else if (triggeredKey == KeyCode.UP && gameModel.slotMachine.isAllStop()
+					&& gameModel.slotMachine.getAddlerRow() <= Settings.SLOT_DEFAULT_ROWS
+					- Settings.SLOT_DEFAULT_BEGIN_ROWS - Settings.SLOT_DEFAULT_ADDLER) {
+				gameModel.slotMachine.reset();
+				gameModel.slotMachine
+						.setAddlerRow(gameModel.slotMachine.getAddlerRow() + Settings.SLOT_DEFAULT_ADDLER);
+				System.out.println(gameModel.slotMachine.getAddlerRow());
+			}
+			else if (triggeredKey == KeyCode.DOWN && gameModel.slotMachine.isAllStop()
+					&& gameModel.slotMachine.getAddlerRow() >= Settings.SLOT_DEFAULT_ADDLER) {
+				gameModel.slotMachine.reset();
+				gameModel.slotMachine
+						.setAddlerRow(gameModel.slotMachine.getAddlerRow() - Settings.SLOT_DEFAULT_ADDLER);
+			}
 		}
 	}
 

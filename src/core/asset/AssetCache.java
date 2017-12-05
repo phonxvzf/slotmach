@@ -9,6 +9,7 @@ import javafx.scene.text.Font;
 public final class AssetCache {
 
 	private static final Map<AssetID, Image> imageCache = new HashMap<AssetID, Image>();
+
 	private static final Map<AssetID, AudioClip> audioCache = new HashMap<AssetID, AudioClip>();
 
 	public static void loadAssets() throws InvalidAssetException {
@@ -36,6 +37,7 @@ public final class AssetCache {
 			return imageCache.get(id);
 		return null;
 	}
+
 
 	public static AudioClip getAudio(AssetID id) {
 		if (audioCache.containsKey(id))
