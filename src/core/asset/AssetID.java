@@ -6,7 +6,8 @@ public enum AssetID {
 	K_IMG("img/K.png"),
 	O_IMG("img/O.png"),
 	FROZEN_IMG("img/frozen.png"),
-	MPBAR_IMG("img/mpbar.png");
+	MPBAR_IMG("img/mpbar.png"),
+	box("img/box.png");
 	
 	private final String uri;
 	private AssetID(String uri) {

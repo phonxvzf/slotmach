@@ -15,7 +15,6 @@ public class SlotColumn extends Entity implements Drawable {
 	private List<Slot> slotList = new ArrayList<Slot>();
 	private Random randomizer = new Random();
 	private boolean isPulled = false;
-
 	private boolean isSlowDown = false;
 
 	private SlotType getRandomSlotType() {
@@ -61,11 +60,20 @@ public class SlotColumn extends Entity implements Drawable {
 	}
 
 	public void stop() {
+		implicitStop();
+		roundDownSlots();
+	}
+	
+	public void implicitStop() {
 		isPulled = true;
 		setSlotFreeze(true);
+	}
+	
+	private void roundDownSlots() {
+		// TODO: fix this!
 		for (Slot slot : slotList) {
 			double y = slot.posY;
-			if (Math.ceil(slot.posY) > Settings.GAME_CANVAS_HEIGHT)
+			if (Math.ceil(slot.posY) > this.posY + height)
 				slot.posY = 0;
 			else if (Math.ceil(y) <= 0) {
 				slot.posY = 0;

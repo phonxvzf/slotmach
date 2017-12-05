@@ -15,6 +15,7 @@ public class SlotMachine extends BasicEntity {
 	private int pullCount = 0;
 	private int columns;
 	private int addlerColumns = 0;
+	private int addlerRow = 0;
 	private boolean allStop = false;
 	private SlotType[][] slotCell;
 
@@ -36,6 +37,7 @@ public class SlotMachine extends BasicEntity {
 		 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS; i < Settings.SLOT_DEFAULT_COLUMNS; ++i)
 		 * slotColumns.get(i).stop();
 		 */
+		stopAll();
 	}
 
 	public void update(long dt) {
@@ -124,12 +126,29 @@ public class SlotMachine extends BasicEntity {
 		return slotCell;
 	}
 
+	public void stopAll() {
+		int startCol = (Settings.SLOT_DEFAULT_COLUMNS / 2 - 1) - addlerColumns / 2;
+		for (int j = 0; j < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumns; ++j) {
+			slotColumns.get(startCol + j).implicitStop();
+			pullCount++;
+		}
+		allStop = true;
+	}
+
 	public boolean isSlowDown() {
 		boolean allSlow = true;
 		for (SlotColumn x : slotColumns) {
 			allSlow = allSlow && x.isPulled();
 		}
 		return allSlow;
+	}
+
+	public int getAddlerRow() {
+		return addlerRow;
+	}
+
+	public void setAddlerRow(int addlerRow) {
+		this.addlerRow = addlerRow;
 	}
 
 }
