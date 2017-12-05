@@ -2,6 +2,8 @@ package core.model;
 
 import com.sun.javafx.tk.Toolkit;
 
+import core.asset.AssetCache;
+import core.asset.InvalidAssetException;
 import core.asset.gfx.Sprite;
 import core.settings.Settings;
 import javafx.geometry.VPos;
@@ -15,29 +17,35 @@ public class ManaBar extends BasicEntity {
 	private double barWidth, barHeight, maxAmount, currentWidth;
 	private String what;
 	private int r, g, b;
-	private static Font font = Font.loadFont(ClassLoader.getSystemResourceAsStream("fnt/"+Settings.GAME_FONT), 26);
+	private Font font;
 	private double textWidth;
 
-	public ManaBar(Sprite sprite, double x, double y, double bwidth, double bheight, double max, String text) {
+	public ManaBar(Sprite sprite, double x, double y, double bwidth, double bheight, double max, String text)
+			throws InvalidAssetException {
 		super(sprite, x, y);
 		barWidth = bwidth;
 		barHeight = bheight;
 		maxAmount = max;
 		currentWidth = barWidth;
 		what = text;
-		textWidth = Toolkit.getToolkit().getFontLoader().computeStringWidth(text, font);
+		try {
+			font = AssetCache.loadFont(Settings.GAME_FONT, 26);
+			textWidth = Toolkit.getToolkit().getFontLoader().computeStringWidth(text, font);
+		} catch (InvalidAssetException e) {
+			throw e;
+		}
 	}
-	
+
 	public void setAmount(double amount) {
 		currentWidth = amount / maxAmount * barWidth;
 	}
-	
+
 	public void setColor(int r, int g, int b) {
 		this.r = r;
 		this.g = g;
 		this.b = b;
 	}
-	
+
 	@Override
 	public void draw(GraphicsContext gc) {
 		gc.setFill(Color.rgb(100, 100, 100));

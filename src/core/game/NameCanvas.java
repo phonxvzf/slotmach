@@ -1,5 +1,7 @@
 package core.game;
 
+import core.asset.AssetCache;
+import core.asset.InvalidAssetException;
 import core.settings.Settings;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
@@ -10,11 +12,17 @@ import javafx.scene.text.TextAlignment;
 
 public class NameCanvas extends GameCanvas {
 
-	private Font bannerFont = Font.loadFont(ClassLoader.getSystemResourceAsStream("fnt/" + Settings.GAME_FONT), 32);
-	private Font textFont = Font.loadFont(ClassLoader.getSystemResourceAsStream("fnt/" + Settings.GAME_FONT), 26);
+	private Font bannerFont;
+	private Font textFont;
 
 	public NameCanvas(GameModel model, double width, double height) {
 		super(model, width, height);
+		try {
+			bannerFont = AssetCache.loadFont(Settings.GAME_FONT, 32);
+			textFont = AssetCache.loadFont(Settings.GAME_FONT, 26);
+		} catch (InvalidAssetException e) {
+			e.showAlertAndExit();
+		}
 	}
 
 	@Override
@@ -43,7 +51,7 @@ public class NameCanvas extends GameCanvas {
 
 		gc.setFont(bannerFont);
 		gc.fillText(gameModel.gameState.getName(), slotmachX, slotmachY + 120);
-		
+
 		// Draw name box
 		gc.setStroke(Color.RED);
 		gc.setLineWidth(3);

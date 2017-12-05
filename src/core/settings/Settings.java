@@ -6,7 +6,7 @@ public class Settings {
 	public static final String WINDOW_TITLE = "slotmach";
 	public static final double GAME_CANVAS_WIDTH = 1000, GAME_CANVAS_HEIGHT = 950;
 	public static String GAME_FONT = "terminus.ttf";
-	public static final double STATUS_CANVAS_WIDTH = 300, STATUS_CANVAS_HEIGHT = GAME_CANVAS_HEIGHT;
+	public static final double STATUS_CANVAS_WIDTH = 290, STATUS_CANVAS_HEIGHT = GAME_CANVAS_HEIGHT;
 	public static final double WINDOW_WIDTH = GAME_CANVAS_WIDTH + STATUS_CANVAS_WIDTH, WINDOW_HEIGHT = GAME_CANVAS_HEIGHT;
 
 	// Game logic options
@@ -23,7 +23,7 @@ public class Settings {
 	public static final int SLOT_DEFAULT_ADDLER = 2;
 	public static final int SLOT_DEFAULT_BEGIN_COLUMNS = 3;
 	public static final double PLAYER_MAX_MANA = 210.0f;
-	public static final int PLAYER_MAX_MONEY = 999999;
+	public static final int PLAYER_MAX_MONEY = 99999999;
   public static final int PLAYER_MAX_NAME_LENGTH = 12;
 	public static final double SKILL_FREEZE_MPRATE_USE = 50.0f;
 	public static final double SKILL_FREEZE_MPRATE_RECOVER = 25.0f;
