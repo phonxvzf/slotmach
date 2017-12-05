@@ -1,15 +1,19 @@
 package core.game;
 
 import core.asset.AssetCache;
+import core.asset.AssetID;
 import core.asset.InvalidAssetException;
+import core.asset.sfx.MusicPlayer;
 import core.model.Pricing;
 import core.settings.Settings;
+import javafx.scene.media.AudioClip;
 
 public class GameInstance {
 
 	private GameModel gameModel;
 	private GameLogic gameLogic;
 	private GameCanvas mainGameCanvas, statusCanvas, nameCanvas;
+	private MusicPlayer bgmPlayer;
 
 	public GameInstance() {
 		// Load graphics and sounds
@@ -19,6 +23,10 @@ public class GameInstance {
 			e.showAlertAndExit();
 		}
 		Pricing.initialize();
+		
+		// Play BGM
+		bgmPlayer = new MusicPlayer(AssetID.BGM_SFX, AudioClip.INDEFINITE);
+		bgmPlayer.play();
 
 		// Initialize game modules
 		gameModel = new GameModel();

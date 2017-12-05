@@ -1,7 +1,9 @@
 package core.game;
 
 import core.asset.AssetCache;
+import core.asset.AssetID;
 import core.asset.InvalidAssetException;
+import core.asset.sfx.MusicPlayer;
 import core.settings.Settings;
 import javafx.application.Platform;
 import javafx.geometry.VPos;
@@ -63,6 +65,7 @@ public class NameCanvas extends GameCanvas {
 		this.setOnKeyPressed(e -> {
 			if (e.getCode() == KeyCode.ENTER) {
 				if (gameModel.gameState.name.length() > 0) {
+					new MusicPlayer(AssetID.BLIP_SFX, 1).play();
 					SceneManager.gotoGameScene();
 					this.stopAnimation();
 				}

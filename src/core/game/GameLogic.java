@@ -1,5 +1,7 @@
 package core.game;
 
+import core.asset.AssetID;
+import core.asset.sfx.MusicPlayer;
 import core.model.Pricing;
 import core.model.SlotType;
 import core.settings.Settings;
@@ -11,10 +13,14 @@ public class GameLogic {
 	private Thread logicThread;
 	private GameModel gameModel;
 	private boolean isRunning;
+	
+	private MusicPlayer freezeSFX, blipSFX;
 
 	public GameLogic(GameModel model) {
 		gameModel = model;
 		isRunning = false;
+		freezeSFX = new MusicPlayer(AssetID.FREEZE_SFX, 1);
+		blipSFX = new MusicPlayer(AssetID.BLIP_SFX, 1);
 	}
 
 	public void startGame() {
@@ -54,16 +60,19 @@ public class GameLogic {
 			if (!gameModel.slotMachine.isSlowDown() && !gameModel.slotMachine.isAllStop()) {
 				gameModel.gameState.giveMana(-Settings.SKILL_FREEZE_MPRATE_USE * dt / 1e9);
 				gameModel.slotMachine.slowDown();
+				if (!freezeSFX.isPlaying()) freezeSFX.play();
 			} else {
 				if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
 					gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
 				}
 				gameModel.slotMachine.returnSpeed();
+				freezeSFX.stop();
 			}
 		} else {
 			if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
 				gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
 			}
+			freezeSFX.stop();
 			gameModel.slotMachine.returnSpeed();
 		}
 
@@ -79,6 +88,7 @@ public class GameLogic {
 					gameModel.gameState.giveMoney(prize);
 					System.out.println("prize = " + prize + ", money = " + gameModel.gameState.getMoney());
 				}
+				blipSFX.play();
 			} else if (triggeredKey == KeyCode.ESCAPE) {
 				Platform.exit();
 				System.exit(0);
