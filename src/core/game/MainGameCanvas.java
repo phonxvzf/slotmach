@@ -48,13 +48,13 @@ public class MainGameCanvas extends GameCanvas {
 				* (Settings.SLOT_DEFAULT_ROWS - Settings.SLOT_DEFAULT_BEGIN_ROWS - gameModel.slotMachine.getAddlerRow())
 				/ 2;
 		for (int i = 0; i < endRowUp; i += 50) {
-			for (int j = endColLeft + beginColLeft; j <= beginColRight; j += 50) {
+			for (int j = endColLeft + beginColLeft; j < beginColRight; j += 50) {
 				boxExtends.draw(gc, j, i);
 			}
 		}
 		int beginRowDown = endRowUp + 50 * (Settings.SLOT_DEFAULT_BEGIN_ROWS + gameModel.slotMachine.getAddlerRow());
 		for (int i = beginRowDown; i < Settings.GAME_CANVAS_HEIGHT; i += 50) {
-			for (int j = endColLeft + beginColLeft; j <= beginColRight; j += 50) {
+			for (int j = endColLeft + beginColLeft; j < beginColRight; j += 50) {
 				boxExtends.draw(gc, j, i);
 			}
 		}
@@ -63,13 +63,11 @@ public class MainGameCanvas extends GameCanvas {
 				: (Settings.SLOT_DEFAULT_VELOCITY
 						- gameModel.slotMachine.getSlotColumn(gameModel.slotMachine.getPullCount()).getSlotVelocityY())
 						/ (Settings.SLOT_DEFAULT_VELOCITY - Settings.SLOT_MIN_VELOCITY));
-		
-		gc.setGlobalAlpha(gameModel.slotMachine.isAllStop() 
-				? 0.0f 
-				: (Settings.SLOT_DEFAULT_VELOCITY 
-				- gameModel.slotMachine.getSlotColumn(gameModel.slotMachine.getPullCount()).getSlotVelocityY())
-				/ (Settings.SLOT_DEFAULT_VELOCITY - Settings.SLOT_MIN_VELOCITY)
-				);
+
+		gc.setGlobalAlpha(gameModel.slotMachine.isAllStop() ? 0.0f
+				: (Settings.SLOT_DEFAULT_VELOCITY
+						- gameModel.slotMachine.getSlotColumn(gameModel.slotMachine.getPullCount()).getSlotVelocityY())
+						/ (Settings.SLOT_DEFAULT_VELOCITY - Settings.SLOT_MIN_VELOCITY));
 		frozenSprite.draw(gc, 0, 0);
 	}
 
