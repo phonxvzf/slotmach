@@ -9,6 +9,10 @@ public enum AssetID {
 	FROZEN_IMG("img/frozen.png", AssetType.IMAGE),
 	MPBAR_IMG("img/mpbar.png", AssetType.IMAGE),
 	BOX_IMG("img/box.png", AssetType.IMAGE),
+	VSHADOW_TOP_IMG("img/vshadow_top.png", AssetType.IMAGE),
+	VSHADOW_BOTTOM_IMG("img/vshadow_bottom.png", AssetType.IMAGE),
+	HSHADOW_LEFT_IMG("img/hshadow_left.png", AssetType.IMAGE),
+	HSHADOW_RIGHT_IMG("img/hshadow_right.png", AssetType.IMAGE),
 	
 	// Sounds
 	BGM_SFX("sfx/bgm.wav", AssetType.AUDIO),

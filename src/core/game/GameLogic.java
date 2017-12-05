@@ -13,7 +13,7 @@ public class GameLogic {
 	private Thread logicThread;
 	private GameModel gameModel;
 	private boolean isRunning;
-	
+
 	private MusicPlayer freezeSFX, blipSFX;
 
 	public GameLogic(GameModel model) {
@@ -60,7 +60,8 @@ public class GameLogic {
 			if (!gameModel.slotMachine.isSlowDown() && !gameModel.slotMachine.isAllStop()) {
 				gameModel.gameState.giveMana(-Settings.SKILL_FREEZE_MPRATE_USE * dt / 1e9);
 				gameModel.slotMachine.slowDown();
-				if (!freezeSFX.isPlaying()) freezeSFX.play();
+				if (!freezeSFX.isPlaying())
+					freezeSFX.play();
 			} else {
 				if (gameModel.gameState.getMana() <= Settings.PLAYER_MAX_MANA) {
 					gameModel.gameState.giveMana(Settings.SKILL_FREEZE_MPRATE_RECOVER * dt / 1e9);
@@ -103,31 +104,29 @@ public class GameLogic {
 				gameModel.slotMachine.reset();
 				gameModel.slotMachine
 						.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
-			}
-			else if (triggeredKey == KeyCode.UP && gameModel.slotMachine.isAllStop()
+			} else if (triggeredKey == KeyCode.UP && gameModel.slotMachine.isAllStop()
 					&& gameModel.slotMachine.getAddlerRow() <= Settings.SLOT_DEFAULT_ROWS
-					- Settings.SLOT_DEFAULT_BEGIN_ROWS - Settings.SLOT_DEFAULT_ADDLER) {
+							- Settings.SLOT_DEFAULT_BEGIN_ROWS - Settings.SLOT_DEFAULT_ADDLER) {
 				gameModel.slotMachine.reset();
-				gameModel.slotMachine
-						.setAddlerRow(gameModel.slotMachine.getAddlerRow() + Settings.SLOT_DEFAULT_ADDLER);
+				gameModel.slotMachine.setAddlerRow(gameModel.slotMachine.getAddlerRow() + Settings.SLOT_DEFAULT_ADDLER);
 				System.out.println(gameModel.slotMachine.getAddlerRow());
-			}
-			else if (triggeredKey == KeyCode.DOWN && gameModel.slotMachine.isAllStop()
+			} else if (triggeredKey == KeyCode.DOWN && gameModel.slotMachine.isAllStop()
 					&& gameModel.slotMachine.getAddlerRow() >= Settings.SLOT_DEFAULT_ADDLER) {
 				gameModel.slotMachine.reset();
-				gameModel.slotMachine
-						.setAddlerRow(gameModel.slotMachine.getAddlerRow() - Settings.SLOT_DEFAULT_ADDLER);
+				gameModel.slotMachine.setAddlerRow(gameModel.slotMachine.getAddlerRow() - Settings.SLOT_DEFAULT_ADDLER);
 			}
 		}
 	}
 
 	private int determinePrize(SlotType[][] slotCells) {
 		int prize = 0;
-		for (int i = 0; i < 3; ++i) {
+		int startRow = ((int) (Settings.SLOT_DEFAULT_COLUMN_HEIGHT / Settings.SLOT_DEFAULT_WIDTH)
+				- (Settings.SLOT_DEFAULT_BEGIN_ROWS + gameModel.slotMachine.getAddlerRow())) / 2;
+		int startCol = (Settings.SLOT_DEFAULT_COLUMNS / 2 - 1) - gameModel.slotMachine.getAddlerColumns() / 2;
+		for (int i = 0; i < Settings.SLOT_DEFAULT_BEGIN_ROWS + gameModel.slotMachine.getAddlerRow(); ++i) {
 			String slotCode = "";
-			int startCol = (Settings.SLOT_DEFAULT_COLUMNS / 2 - 1) - gameModel.slotMachine.getAddlerColumns() / 2;
 			for (int j = 0; j < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + gameModel.slotMachine.getAddlerColumns(); ++j) {
-				slotCode += slotCells[i][startCol + j].getCode();
+				slotCode += slotCells[startRow + i][startCol + j].getCode();
 			}
 			prize += Pricing.getPrice(slotCode);
 		}
