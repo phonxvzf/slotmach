@@ -31,7 +31,7 @@ public class MainGameCanvas extends GameCanvas {
 		// Draw entities
 		gameModel.slotMachine.draw(gc);
 		
-		gc.setGlobalAlpha(gameModel.slotMachine.getColumns() == gameModel.slotMachine.getPullCount() 
+		gc.setGlobalAlpha(gameModel.slotMachine.isAllStop() 
 				? 0.0f 
 				: (Settings.SLOT_DEFAULT_VELOCITY 
 				- gameModel.slotMachine.getSlotColumn(gameModel.slotMachine.getPullCount()).getSlotVelocityY())
