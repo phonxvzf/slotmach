@@ -121,8 +121,10 @@ public class GameLogic {
 				}
 
 			} else if (triggeredKey == KeyCode.LEFT && gameModel.slotMachine.isAllStop()
-					&& gameModel.slotMachine.getAddlerColumns() >= Settings.SLOT_DEFAULT_ADDLER) {
+					&& gameModel.slotMachine.getAddlerColumns() >= Settings.SLOT_DEFAULT_ADDLER
+					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXCOL) {
 				if (gameModel.gameState.isCanPull()) {
+					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXCOL);
 					gameModel.slotMachine.reset();
 					gameModel.slotMachine
 							.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
@@ -140,8 +142,10 @@ public class GameLogic {
 				}
 
 			} else if (triggeredKey == KeyCode.DOWN && gameModel.slotMachine.isAllStop()
-					&& gameModel.slotMachine.getAddlerRow() >= Settings.SLOT_DEFAULT_ADDLER) {
+					&& gameModel.slotMachine.getAddlerRow() >= Settings.SLOT_DEFAULT_ADDLER
+					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXROW) {
 				if (gameModel.gameState.isCanPull()) {
+					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXROW);
 					gameModel.slotMachine.reset();
 					gameModel.slotMachine
 							.setAddlerRow(gameModel.slotMachine.getAddlerRow() - Settings.SLOT_DEFAULT_ADDLER);
@@ -154,6 +158,15 @@ public class GameLogic {
 					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_BUYCOL);
 					gameModel.slotMachine.setBuyCol(true);
 					gameModel.slotMachine.setBuyColx(SlotType.SLOT_K);
+				}
+  
+			} else if (triggeredKey == KeyCode.O && !gameModel.slotMachine.isBuyCol()
+					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_BUYCOL
+					&& !gameModel.slotMachine.isAllStop()) {
+				if (gameModel.gameState.isCanPull()) {
+					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_BUYCOL);
+					gameModel.slotMachine.setBuyCol(true);
+					gameModel.slotMachine.setBuyColx(SlotType.SLOT_O);
 				}
 			}
 		}

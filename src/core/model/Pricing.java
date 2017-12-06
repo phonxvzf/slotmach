@@ -11,16 +11,15 @@ public class Pricing {
 
 	public static void initialize() {
 
-		// KOK 
+		// KOK
 		priceMap.put("KOK", 1000);
-		
+
 		// All Ks
 		String rowK = "";
 		for (int i = 0; i < Settings.SLOT_DEFAULT_COLUMNS; ++i) {
 			rowK += "K";
 			priceMap.put(rowK, 300);
 		}
-		
 	}
 
 	public static Map<String, Integer> getMap() {
