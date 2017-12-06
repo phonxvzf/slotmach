@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import core.asset.AssetID;
+import core.asset.gfx.AnimatedSprite;
 import core.asset.gfx.StaticSprite;
 import core.model.LightBox;
 import core.settings.Settings;
@@ -17,6 +18,9 @@ public class MainGameCanvas extends GameCanvas {
 	private StaticSprite vshadowBottom = new StaticSprite(AssetID.VSHADOW_BOTTOM_IMG);
 	private StaticSprite hshadowLeft = new StaticSprite(AssetID.HSHADOW_LEFT_IMG);
 	private StaticSprite hshadowRight = new StaticSprite(AssetID.HSHADOW_RIGHT_IMG);
+
+	private AnimatedSprite mlgWow = new AnimatedSprite(AssetID.MLGWOW_IMGSEQ);
+	private AnimatedSprite mlgFrog = new AnimatedSprite(AssetID.MLGFROG_IMGSEQ);
 
 	private List<LightBox> leftLights = new ArrayList<>();
 	private List<LightBox> rightLights = new ArrayList<>();
@@ -32,6 +36,8 @@ public class MainGameCanvas extends GameCanvas {
 		for (int i = 0; i < rowCount; ++i) {
 			rightLights.add(new LightBox(pX, i * Settings.SLOT_DEFAULT_WIDTH));
 		}
+		mlgWow.setTTL(15);
+		mlgFrog.setTTL(43);
 	}
 
 	private void drawBlocks() {
@@ -75,6 +81,7 @@ public class MainGameCanvas extends GameCanvas {
 						- gameModel.slotMachine.getSlotColumn(gameModel.slotMachine.getPullCount()).getSlotVelocityY())
 						/ (Settings.SLOT_DEFAULT_VELOCITY - Settings.SLOT_MIN_VELOCITY));
 		frozenSprite.draw(gc, 0, 0);
+		gc.setGlobalAlpha(1.0f);
 	}
 
 	private void drawShadow() {
@@ -112,8 +119,7 @@ public class MainGameCanvas extends GameCanvas {
 			if (!gameModel.gameState.isMatchRow(i)) {
 				leftLights.get(i).turnOff();
 				rightLights.get(i).turnOff();
-			}
-			else {
+			} else {
 				leftLights.get(i).turnOn();
 				rightLights.get(i).turnOn();
 			}
@@ -143,6 +149,14 @@ public class MainGameCanvas extends GameCanvas {
 		drawShadow();
 		drawLights();
 		drawIce();
+
+		if (!gameModel.gameState.isCanPull() && gameModel.gameState.getPayout() > 0) {
+			mlgWow.draw(gc, (Settings.GAME_CANVAS_WIDTH - mlgWow.getWidth()) / 2,
+					Settings.GAME_CANVAS_HEIGHT - mlgWow.getHeight());
+		} else {
+			mlgWow.resetFrame();
+		}
+//		mlgFrog.draw(gc, 0, Settings.GAME_CANVAS_HEIGHT - mlgFrog.getHeight());
 	}
 
 	@Override

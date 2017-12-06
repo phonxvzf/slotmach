@@ -43,6 +43,10 @@ public enum AssetID {
 	LIGHT2_IMG("img/light2.png", AssetType.IMAGE),
 	STATUSBG_IMG("img/statusbg.png", AssetType.IMAGE),
 	
+	// Image sequences
+	MLGWOW_IMGSEQ("img/wow/", AssetType.IMAGE_SEQUENCE, 107),
+	MLGFROG_IMGSEQ("img/frog/", AssetType.IMAGE_SEQUENCE, 10),
+	
 	// Sounds
 	BGM_SFX("sfx/bgm.wav", AssetType.AUDIO),
 	BLIP_SFX("sfx/blip2.wav", AssetType.AUDIO),
@@ -52,16 +56,28 @@ public enum AssetID {
 	
 	private final String url;
 	private final AssetType type;
+	private final int count;
 	private AssetID(String url, AssetType type) {
 		this.url = url;
 		this.type = type;
+		this.count = 1;
+	}
+
+	private AssetID(String url, AssetType type, int count) {
+		this.url = url;
+		this.type = type;
+		this.count = count;
 	}
 	
 	public String getURL() {
-		return ClassLoader.getSystemResource(url).toString();
+		return url;
 	}
 	
 	public AssetType getType() {
 		return type;
+	}
+	
+	public int getCount() {
+		return count;
 	}
 }

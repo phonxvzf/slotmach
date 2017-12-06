@@ -22,6 +22,11 @@ public class AnimatedSprite extends Sprite {
 		}
 	}
 	
+	public AnimatedSprite(AssetID id) {
+		super(AssetCache.getImageSequence(id).get(0).getWidth(), AssetCache.getImageSequence(id).get(0).getHeight());
+		frames = AssetCache.getImageSequence(id);
+	}
+	
 	@Override
 	public void draw(GraphicsContext gc, double x, double y) {
 		long now = System.currentTimeMillis();
@@ -52,6 +57,10 @@ public class AnimatedSprite extends Sprite {
 	public void skipBackFrame(int count) {
 		spriteID = (((spriteID - count) % frames.size()) + frames.size()) % frames.size();
 		startTime = System.currentTimeMillis();
+	}
+	
+	public int getFrameID() {
+		return spriteID;
 	}
 	
 }
