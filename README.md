@@ -10,8 +10,8 @@ Controls
 - `O` to turn all slots in one column into *O*s
 - `UP` to expand rows
 - `DOWN` to shrink rows
-- `LEFT` to expand columns
-- `RIGHT` to shrink columns
+- `RIGHT` to expand columns
+- `LEFT` to shrink columns
 - `ESC` to quit the program
 
 Sound Credits

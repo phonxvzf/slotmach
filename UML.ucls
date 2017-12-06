@@ -84,7 +84,7 @@
   </class>  
   <class id="10" language="java" name="core.game.GameCanvas" project="slotmach" 
     file="/slotmach/src/core/game/GameCanvas.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2033" y="-207"/>    
+    <position height="-1" width="-1" x="1929" y="753"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -93,7 +93,7 @@
   </class>  
   <class id="11" language="java" name="core.game.StatusCanvas" project="slotmach" 
     file="/slotmach/src/core/game/StatusCanvas.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1762" y="470"/>    
+    <position height="-1" width="-1" x="1658" y="1430"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -156,7 +156,7 @@
   </class>  
   <class id="18" language="java" name="core.game.NameCanvas" project="slotmach" 
     file="/slotmach/src/core/game/NameCanvas.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2033" y="443"/>    
+    <position height="-1" width="-1" x="1929" y="1403"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -165,7 +165,7 @@
   </class>  
   <class id="19" language="java" name="core.game.MainGameCanvas" project="slotmach" 
     file="/slotmach/src/core/game/MainGameCanvas.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2315" y="542"/>    
+    <position height="-1" width="-1" x="2211" y="1502"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -298,73 +298,86 @@
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="34">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
+  <class id="34" language="java" name="javafx.scene.canvas.Canvas" project="2110215_Exercise6_2017_5931045621_Phon" 
+    file="/usr/lib/jvm/java-8-jdk/jre/lib/ext/jfxrt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1930" y="234"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
   <generalization id="35">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="30"/>  
+  </generalization>  
+  <realization id="36">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="23"/>  
+  </realization>  
+  <generalization id="37">    
     <end type="SOURCE" refId="24"/>    
     <end type="TARGET" refId="22"/>  
   </generalization>  
-  <generalization id="36">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="30"/>  
-  </generalization>  
-  <generalization id="37">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="30"/>  
-  </generalization>  
   <generalization id="38">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="39">    
+    <end type="SOURCE" refId="10"/>    
+    <end type="TARGET" refId="34"/>  
+  </generalization>  
+  <generalization id="40">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="5"/>  
+  </generalization>  
+  <generalization id="41">    
     <end type="SOURCE" refId="18"/>    
     <end type="TARGET" refId="10"/>  
   </generalization>  
-  <generalization id="39">    
+  <generalization id="42">    
     <end type="SOURCE" refId="20"/>    
     <end type="TARGET" refId="22"/>  
   </generalization>  
-  <generalization id="40">    
-    <end type="SOURCE" refId="28"/>    
-    <end type="TARGET" refId="22"/>  
-  </generalization>  
-  <realization id="41">    
+  <realization id="43">    
     <end type="SOURCE" refId="30"/>    
     <end type="TARGET" refId="26"/>  
   </realization>  
-  <generalization id="42">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="22"/>  
-  </generalization>  
-  <realization id="43">    
-    <end type="SOURCE" refId="31"/>    
-    <end type="TARGET" refId="23"/>  
-  </realization>  
   <generalization id="44">    
-    <end type="SOURCE" refId="31"/>    
-    <end type="TARGET" refId="30"/>  
-  </generalization>  
-  <generalization id="45">    
     <end type="SOURCE" refId="19"/>    
     <end type="TARGET" refId="10"/>  
   </generalization>  
-  <realization id="46">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="23"/>  
-  </realization>  
+  <generalization id="45">    
+    <end type="SOURCE" refId="27"/>    
+    <end type="TARGET" refId="30"/>  
+  </generalization>  
+  <generalization id="46">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="22"/>  
+  </generalization>  
   <generalization id="47">    
     <end type="SOURCE" refId="11"/>    
     <end type="TARGET" refId="10"/>  
   </generalization>  
-  <realization id="48">    
-    <end type="SOURCE" refId="5"/>    
-    <end type="TARGET" refId="6"/>  
-  </realization>  
-  <generalization id="49">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="5"/>  
+  <generalization id="48">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="22"/>  
   </generalization>  
-  <realization id="50">    
+  <realization id="49">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="23"/>  
+  </realization>  
+  <generalization id="50">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="30"/>  
+  </generalization>  
+  <realization id="51">    
     <end type="SOURCE" refId="27"/>    
     <end type="TARGET" refId="23"/>  
+  </realization>  
+  <realization id="52">    
+    <end type="SOURCE" refId="5"/>    
+    <end type="TARGET" refId="6"/>  
   </realization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
