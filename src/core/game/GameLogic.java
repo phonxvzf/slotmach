@@ -159,6 +159,7 @@ public class GameLogic {
 					gameModel.slotMachine.setBuyCol(true);
 					gameModel.slotMachine.setBuyColx(SlotType.SLOT_K);
 				}
+  
 			} else if (triggeredKey == KeyCode.O && !gameModel.slotMachine.isBuyCol()
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_BUYCOL
 					&& !gameModel.slotMachine.isAllStop()) {
