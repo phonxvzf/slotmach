@@ -15,7 +15,7 @@ public class GameLogic {
 	private boolean isRunning;
 	private long lastMatchAnimationTime;
 
-	private MusicPlayer freezeSFX, blipSFX, yaySFX;
+	private MusicPlayer freezeSFX, blipSFX, yaySFX, cashSFX;
 
 	public GameLogic(GameModel model) {
 		gameModel = model;
@@ -23,6 +23,7 @@ public class GameLogic {
 		freezeSFX = new MusicPlayer(AssetID.FREEZE_SFX, 1);
 		blipSFX = new MusicPlayer(AssetID.BLIP_SFX, 1);
 		yaySFX = new MusicPlayer(AssetID.YAY_SFX, 1);
+		cashSFX = new MusicPlayer(AssetID.CASH_SFX, 1);
 		lastMatchAnimationTime = System.nanoTime();
 	}
 
@@ -88,19 +89,23 @@ public class GameLogic {
 				if (gameModel.gameState.isCanPull()) {
 					if (!gameModel.slotMachine.pull()) {
 						if (gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_PULL) {
-							gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_PULL);
+							gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_PULL);
+							gameModel.gameState.setPayout(-Settings.PLAYER_PAID_PULL);
 							gameModel.slotMachine.reset();
 						}
 					} else if (gameModel.slotMachine.isAllStop()) {
 						// The player has pulled every column
 						int prize = determinePrize(gameModel.slotMachine.getSlotCells());
+						int payout = (int) (prize * gameModel.gameState.getColMultiplier()
+								* gameModel.gameState.getRowMultiplier());
 						if (prize > 0) {
 							// The player wins some slots
 							yaySFX.play();
-							gameModel.gameState.giveMoney(prize);
+							gameModel.gameState.giveMoney(payout);
 							gameModel.gameState.setCanPull(false);
 							lastMatchAnimationTime = System.nanoTime();
 						}
+						gameModel.gameState.setPayout(payout);
 					}
 					blipSFX.play();
 				}
@@ -114,20 +119,26 @@ public class GameLogic {
 							- Settings.SLOT_DEFAULT_BEGIN_COLUMNS - Settings.SLOT_DEFAULT_ADDLER
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXCOL) {
 				if (gameModel.gameState.isCanPull()) {
-					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXCOL);
-					gameModel.slotMachine.reset();
+					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_EXCOL);
 					gameModel.slotMachine
 							.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() + Settings.SLOT_DEFAULT_ADDLER);
+					gameModel.slotMachine.stopAll();
+					gameModel.gameState.incColMultiplier();
+					gameModel.gameState.setPayout(-Settings.PLAYER_PAID_EXCOL);
+					cashSFX.play();
 				}
 
 			} else if (triggeredKey == KeyCode.LEFT && gameModel.slotMachine.isAllStop()
 					&& gameModel.slotMachine.getAddlerColumns() >= Settings.SLOT_DEFAULT_ADDLER
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXCOL) {
 				if (gameModel.gameState.isCanPull()) {
-					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXCOL);
-					gameModel.slotMachine.reset();
+					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_EXCOL);
 					gameModel.slotMachine
 							.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
+					gameModel.slotMachine.stopAll();
+					gameModel.gameState.decColMultiplier();
+					gameModel.gameState.setPayout(-Settings.PLAYER_PAID_EXCOL);
+					cashSFX.play();
 				}
 
 			} else if (triggeredKey == KeyCode.UP && gameModel.slotMachine.isAllStop()
@@ -135,38 +146,48 @@ public class GameLogic {
 							- Settings.SLOT_DEFAULT_BEGIN_ROWS - Settings.SLOT_DEFAULT_ADDLER
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXROW) {
 				if (gameModel.gameState.isCanPull()) {
-					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXROW);
-					gameModel.slotMachine.reset();
+					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_EXROW);
 					gameModel.slotMachine
 							.setAddlerRow(gameModel.slotMachine.getAddlerRow() + Settings.SLOT_DEFAULT_ADDLER);
+					gameModel.slotMachine.stopAll();
+					gameModel.gameState.incRowMultiplier();
+					gameModel.gameState.setPayout(-Settings.PLAYER_PAID_EXROW);
+					cashSFX.play();
 				}
 
 			} else if (triggeredKey == KeyCode.DOWN && gameModel.slotMachine.isAllStop()
 					&& gameModel.slotMachine.getAddlerRow() >= Settings.SLOT_DEFAULT_ADDLER
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXROW) {
 				if (gameModel.gameState.isCanPull()) {
-					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXROW);
-					gameModel.slotMachine.reset();
+					gameModel.gameState.giveMoney(Settings.PLAYER_PAID_EXROW);
 					gameModel.slotMachine
 							.setAddlerRow(gameModel.slotMachine.getAddlerRow() - Settings.SLOT_DEFAULT_ADDLER);
+					gameModel.slotMachine.stopAll();
+					gameModel.gameState.decRowMultiplier();
+					gameModel.gameState.setPayout(-Settings.PLAYER_PAID_EXROW);
+					cashSFX.play();
 				}
 
 			} else if (triggeredKey == KeyCode.K && !gameModel.slotMachine.isBuyCol()
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_BUYCOL
 					&& !gameModel.slotMachine.isAllStop()) {
 				if (gameModel.gameState.isCanPull()) {
-					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_BUYCOL);
+					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_BUYCOL);
 					gameModel.slotMachine.setBuyCol(true);
 					gameModel.slotMachine.setBuyColx(SlotType.SLOT_K);
+					gameModel.gameState.setPayout(gameModel.gameState.getPayout() - Settings.PLAYER_PAID_BUYCOL);
+					cashSFX.play();
 				}
-  
+
 			} else if (triggeredKey == KeyCode.O && !gameModel.slotMachine.isBuyCol()
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_BUYCOL
 					&& !gameModel.slotMachine.isAllStop()) {
 				if (gameModel.gameState.isCanPull()) {
-					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_BUYCOL);
+					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_BUYCOL);
 					gameModel.slotMachine.setBuyCol(true);
 					gameModel.slotMachine.setBuyColx(SlotType.SLOT_O);
+					gameModel.gameState.setPayout(gameModel.gameState.getPayout() - Settings.PLAYER_PAID_BUYCOL);
+					cashSFX.play();
 				}
 			}
 		}
@@ -176,6 +197,7 @@ public class GameLogic {
 				&& !gameModel.gameState.isCanPull()) {
 			gameModel.gameState.clearMatch();
 			gameModel.gameState.setCanPull(true);
+			gameModel.gameState.setPayout(0);
 		}
 	}
 

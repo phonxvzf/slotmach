@@ -19,3 +19,4 @@ Sound Credits
 - Blip sound - <https://freesound.org/people/soundnimja/sounds/173327/>
 - Freezing sound - <https://freesound.org/people/urupin/sounds/192415/>
 - "Yay" sound - <https://freesound.org/people/zut50/sounds/162395/>
+- Cash sound - <https://freesound.org/people/GowlerMusic/sounds/360453/>

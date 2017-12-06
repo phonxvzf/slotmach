@@ -5,6 +5,7 @@ import core.asset.AssetID;
 import core.asset.InvalidAssetException;
 import core.asset.sfx.MusicPlayer;
 import core.model.Pricing;
+import core.model.Slot;
 import core.settings.Settings;
 import javafx.scene.media.AudioClip;
 
@@ -29,6 +30,7 @@ public class GameInstance {
 		bgmPlayer.play();
 
 		// Initialize game modules
+		Slot.initialize();
 		gameModel = new GameModel();
 		gameLogic = new GameLogic(gameModel);
 

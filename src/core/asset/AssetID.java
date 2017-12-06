@@ -47,7 +47,8 @@ public enum AssetID {
 	BGM_SFX("sfx/bgm.wav", AssetType.AUDIO),
 	BLIP_SFX("sfx/blip2.wav", AssetType.AUDIO),
 	FREEZE_SFX("sfx/freeze.mp3", AssetType.AUDIO),
-	YAY_SFX("sfx/yay.mp3", AssetType.AUDIO);
+	YAY_SFX("sfx/yay.mp3", AssetType.AUDIO),
+	CASH_SFX("sfx/cash.mp3", AssetType.AUDIO);
 	
 	private final String url;
 	private final AssetType type;

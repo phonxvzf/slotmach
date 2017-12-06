@@ -31,18 +31,10 @@ public class SlotMachine extends BasicEntity {
 		}
 		slotCell = new SlotType[(int) (Settings.SLOT_DEFAULT_COLUMN_HEIGHT
 				/ AssetCache.getImage(AssetID.K_IMG).getHeight())][columns];
-		/*
-		 * for (int i = 0; i < (int) ((Settings.SLOT_DEFAULT_COLUMNS - 2 *
-		 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2 - addlerColumns / 2) + 2; ++i)
-		 * slotColumns.get(i).stop(); for (int i = (int) ((Settings.SLOT_DEFAULT_COLUMNS
-		 * - 2 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2 - addlerColumns / 2) + 2 +
-		 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS; i < Settings.SLOT_DEFAULT_COLUMNS; ++i)
-		 * slotColumns.get(i).stop();
-		 */
 		stopAll();
 	}
 
-	public void update(long dt) {
+	public synchronized void update(long dt) {
 		if (buyCol)
 			buyColumn();
 		for (SlotColumn col : slotColumns) {
@@ -58,7 +50,7 @@ public class SlotMachine extends BasicEntity {
 		}
 	}
 
-	public boolean pull() {
+	public synchronized boolean pull() {
 		if (pullCount < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumns) {
 			// Stop slot column
 			int beginStartCol = (int) ((Settings.SLOT_DEFAULT_COLUMNS - 2 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2
@@ -99,7 +91,7 @@ public class SlotMachine extends BasicEntity {
 		this.addlerColumns = addlerColumn;
 	}
 
-	public void reset() {
+	public synchronized void reset() {
 		pullCount = 0;
 		allStop = false;
 		int beginStartCol = (int) ((Settings.SLOT_DEFAULT_COLUMNS - 2 * Settings.SLOT_DEFAULT_BEGIN_COLUMNS) / 2
@@ -140,12 +132,10 @@ public class SlotMachine extends BasicEntity {
 	}
 
 	public void stopAll() {
-		int startCol = (Settings.SLOT_DEFAULT_COLUMNS / 2 - 1) - addlerColumns / 2;
+		pullCount = 0;
 		for (int j = 0; j < Settings.SLOT_DEFAULT_BEGIN_COLUMNS + addlerColumns; ++j) {
-			slotColumns.get(startCol + j).implicitStop();
-			pullCount++;
+			this.pull();
 		}
-		allStop = true;
 	}
 
 	public boolean isSlowDown() {

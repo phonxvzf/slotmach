@@ -15,16 +15,17 @@ import javafx.scene.text.TextAlignment;
 public class StatusCanvas extends GameCanvas {
 
 	private ManaBar freezeManaBar;
-	private Font moneyFont;
-	private static final double Y_OFFSET = 20;
+	private Font moneyFont, multFont;
+	private static final double Y_OFFSET = 80;
 	private Background background = new Background(new StaticSprite(AssetID.STATUSBG_IMG), 0, 0);
 
 	public StatusCanvas(GameModel model, double width, double height) {
 		super(model, width, height);
 		try {
-			freezeManaBar = new ManaBar(new StaticSprite(AssetID.MPBAR_IMG), 70, 80 + Y_OFFSET, 206, 30, Settings.PLAYER_MAX_MANA,
-					"frz");
+			freezeManaBar = new ManaBar(new StaticSprite(AssetID.MPBAR_IMG), 70, 300 + Y_OFFSET, 206, 30,
+					Settings.PLAYER_MAX_MANA, "frz");
 			moneyFont = AssetCache.loadFont("profont.ttf", 48);
+			multFont = AssetCache.loadFont("profont.ttf", 30);
 		} catch (InvalidAssetException e) {
 			e.showAlertAndExit();
 		}
@@ -46,26 +47,73 @@ public class StatusCanvas extends GameCanvas {
 		// Draw entities
 		background.draw(gc);
 		freezeManaBar.draw(gc);
-		
+
+
+		// Show name
+		gc.setFill(Color.WHITE);
+		gc.setTextAlign(TextAlignment.RIGHT);
+		gc.fillText(gameModel.gameState.getName(), 266, 30);
+		gc.setStroke(Color.DARKRED);
+		gc.setLineWidth(2);
+		gc.strokeLine(30, 70, 266, 70);
+		gc.setStroke(Color.BLACK);
+		gc.strokeLine(30, 73, 266, 73);
+
 		// Draw money count
 		gc.setFill(Color.GREY);
 		gc.setFont(moneyFont);
-		gc.setTextAlign(TextAlignment.RIGHT);
 		gc.setTextBaseline(VPos.CENTER);
 		gc.fillText("$ " + getMoneyString(gameModel.gameState.getMoney(), 8), 266, 30 + Y_OFFSET);
 		gc.setFill(Color.GREENYELLOW);
 		gc.fillText(Integer.toString(gameModel.gameState.getMoney()), 266, 30 + Y_OFFSET);
+
+		// Show payout
+		gc.setFont(multFont);
+		gc.setFill(Color.CORAL);
+		gc.fillText("DIFF", 266, 70 + Y_OFFSET);
+		if (gameModel.gameState.getPayout() > 0) {
+			gc.setFill(Color.GREENYELLOW);
+			gc.fillText("+" + Integer.toString(gameModel.gameState.getPayout()), 266, 100 + Y_OFFSET);
+		} else if (gameModel.gameState.getPayout() == 0) {
+			gc.setFill(Color.GREY);
+			gc.fillText(Integer.toString(gameModel.gameState.getPayout()), 266, 100 + Y_OFFSET);
+		} else {
+			gc.setFill(Color.RED);
+			gc.fillText(Integer.toString(gameModel.gameState.getPayout()), 266, 100 + Y_OFFSET);
+		}
+		
+		// Show multiplier
+		gc.setFill(Color.CRIMSON);
+		gc.fillText(
+				String.format("(x%.2f)",
+						gameModel.gameState.getColMultiplier() * gameModel.gameState.getRowMultiplier()),
+				266, 130 + Y_OFFSET);
+
+		// Show high score
+		gc.setFill(Color.CORAL);
+		gc.fillText("HIGH", 266, 170 + Y_OFFSET);
+		gc.setFill(Color.GREY);
+		gc.fillText(Integer.toString(gameModel.gameState.getHighScore()), 266, 200 + Y_OFFSET);
+
+		gc.setStroke(Color.DARKRED);
+		gc.setLineWidth(2);
+		gc.strokeLine(30, 230 + Y_OFFSET, 266, 230 + Y_OFFSET);
+		gc.setStroke(Color.BLACK);
+		gc.strokeLine(30, 233 + Y_OFFSET, 266, 233 + Y_OFFSET);
+
+
 	}
 
 	@Override
 	protected void bindKeys() {
 		// Nothing to do
 	}
-	
+
 	private String getMoneyString(int money, int digit) {
 		String tmp = Integer.toString(money);
 		String ret = "";
-		for (int i = 0; i < digit - tmp.length(); ++i) ret += "0";
+		for (int i = 0; i < digit - tmp.length(); ++i)
+			ret += "0";
 		ret += tmp;
 		return ret;
 	}
