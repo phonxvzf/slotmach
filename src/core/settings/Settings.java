@@ -35,8 +35,8 @@ public class Settings {
 	public static final int PLAYER_PAID_EXROW = 200;
 	public static final int PLAYER_MAX_NAME_LENGTH = 12;
 
-	public static final double SKILL_FREEZE_MPRATE_USE = 50.0f;
-	public static final double SKILL_FREEZE_MPRATE_RECOVER = 25.0f;
+	public static final double SKILL_FREEZE_MPRATE_USE = 20.0f;
+	public static final double SKILL_FREEZE_MPRATE_RECOVER = 10.0f;
 	
 	public static final long ANIMATION_MATCH_TIME = (long) 1.5e9;
 

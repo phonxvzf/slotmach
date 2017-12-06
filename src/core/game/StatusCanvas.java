@@ -48,7 +48,6 @@ public class StatusCanvas extends GameCanvas {
 		background.draw(gc);
 		freezeManaBar.draw(gc);
 
-
 		// Show name
 		gc.setFill(Color.WHITE);
 		gc.setTextAlign(TextAlignment.RIGHT);
@@ -59,12 +58,15 @@ public class StatusCanvas extends GameCanvas {
 		gc.setStroke(Color.BLACK);
 		gc.strokeLine(30, 73, 266, 73);
 
-		// Draw money count
+		// Show cash amount
 		gc.setFill(Color.GREY);
 		gc.setFont(moneyFont);
 		gc.setTextBaseline(VPos.CENTER);
 		gc.fillText("$ " + getMoneyString(gameModel.gameState.getMoney(), 8), 266, 30 + Y_OFFSET);
-		gc.setFill(Color.GREENYELLOW);
+		if (gameModel.gameState.getMoney() >= gameModel.gameState.getHighScore())
+			gc.setFill(Color.GREENYELLOW);
+		else
+			gc.setFill(Color.RED);
 		gc.fillText(Integer.toString(gameModel.gameState.getMoney()), 266, 30 + Y_OFFSET);
 
 		// Show payout
@@ -81,7 +83,7 @@ public class StatusCanvas extends GameCanvas {
 			gc.setFill(Color.RED);
 			gc.fillText(Integer.toString(gameModel.gameState.getPayout()), 266, 100 + Y_OFFSET);
 		}
-		
+
 		// Show multiplier
 		gc.setFill(Color.CRIMSON);
 		gc.fillText(
@@ -100,7 +102,6 @@ public class StatusCanvas extends GameCanvas {
 		gc.strokeLine(30, 230 + Y_OFFSET, 266, 230 + Y_OFFSET);
 		gc.setStroke(Color.BLACK);
 		gc.strokeLine(30, 233 + Y_OFFSET, 266, 233 + Y_OFFSET);
-
 
 	}
 
