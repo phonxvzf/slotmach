@@ -6,6 +6,10 @@ Instructions
 ============
 - `SPACE` to stop slots
 - `F` to enter slow-mo
+- `UP` to expand rows
+- `DOWN` to shrink rows
+- `LEFT` to expand columns
+- `RIGHT` to shrink columns
 - `ESC` to quit the program
 
 Sound Credits

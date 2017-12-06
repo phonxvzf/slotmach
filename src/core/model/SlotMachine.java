@@ -6,8 +6,6 @@ import java.util.List;
 import core.asset.AssetCache;
 import core.asset.AssetID;
 import core.asset.gfx.Sprite;
-import core.game.GameModel;
-import core.game.GameState;
 import core.settings.Settings;
 import javafx.scene.canvas.GraphicsContext;
 
@@ -181,5 +179,4 @@ public class SlotMachine extends BasicEntity {
 	public void setBuyColx(SlotType buyColx) {
 		this.buyColx = buyColx;
 	}
-
 }

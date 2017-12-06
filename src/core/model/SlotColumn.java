@@ -75,6 +75,8 @@ public class SlotColumn extends Entity implements Drawable {
 		// TODO: fix this!
 		for (Slot slot : slotList) {
 			double y = slot.posY;
+			if (y % 50 == 0)
+				break;
 			if (Math.ceil(slot.posY) > this.posY + height)
 				slot.posY = 0;
 			else if (Math.ceil(y) <= 0) {

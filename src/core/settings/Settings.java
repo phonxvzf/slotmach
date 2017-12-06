@@ -11,7 +11,7 @@ public class Settings {
 			WINDOW_HEIGHT = GAME_CANVAS_HEIGHT;
 
 	// Game logic options
-	public static final int UPDATE_RATE = 25;
+	public static final int UPDATE_RATE = 30;
 	public static final long UPDATE_LOOP_TIME = 1000000000 / UPDATE_RATE;
 
 	// General in-game options
@@ -25,14 +25,19 @@ public class Settings {
 	public static final int SLOT_DEFAULT_ADDLER = 2;
 	public static final int SLOT_DEFAULT_BEGIN_COLUMNS = 3;
 	public static final int SLOT_DEFAULT_BEGIN_ROWS = 3;
+
 	public static final double PLAYER_MAX_MANA = 210.0f;
+	public static final int PLAYER_START_MONEY = 1000;
 	public static final int PLAYER_MAX_MONEY = 99999999;
-	public static final int PLAYER_PIAD_PULL = 50;
-	public static final int PLAYER_PIAD_BUYCOL = 100;
-	public static final int PLAYER_PIAD_EXCOL = 200;
-	public static final int PLAYER_PIAD_EXROW = 200;
+	public static final int PLAYER_PAID_PULL = 50;
+	public static final int PLAYER_PAID_BUYCOL = 100;
+	public static final int PLAYER_PAID_EXCOL = 200;
+	public static final int PLAYER_PAID_EXROW = 200;
 	public static final int PLAYER_MAX_NAME_LENGTH = 12;
+
 	public static final double SKILL_FREEZE_MPRATE_USE = 50.0f;
 	public static final double SKILL_FREEZE_MPRATE_RECOVER = 25.0f;
+	
+	public static final long ANIMATION_MATCH_TIME = (long) 1e9;
 
 }
