@@ -2,10 +2,11 @@ slotmach
 ========
 A frustrating slot machine simulator
 
-Instructions
-============
+Controls
+========
 - `SPACE` to stop slots
 - `F` to enter slow-mo
+- `K` to turn all slots in one column into _K_s
 - `UP` to expand rows
 - `DOWN` to shrink rows
 - `LEFT` to expand columns
