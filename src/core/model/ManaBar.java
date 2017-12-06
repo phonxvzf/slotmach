@@ -37,6 +37,7 @@ public class ManaBar extends BasicEntity {
 
 	public void setAmount(double amount) {
 		currentWidth = amount / maxAmount * barWidth;
+		if (currentWidth > barWidth) currentWidth = barWidth;
 	}
 
 	public void setColor(int r, int g, int b) {
@@ -51,12 +52,19 @@ public class ManaBar extends BasicEntity {
 		gc.fillRect(posX, posY, barWidth, barHeight);
 		gc.setFill(Color.rgb(r, g, b));
 		gc.fillRect(posX, posY, currentWidth, barHeight);
+		
+		double textX = (posX - textWidth) - textWidth / what.length();
+		
+		gc.setFill(Color.AQUAMARINE);
+		gc.setLineWidth(2);
+		gc.fillRect(textX - 5, posY, textWidth + 10, barHeight);
+		gc.strokeRect(textX - 5, posY, textWidth + 10, barHeight);
 
 		gc.setFill(Color.BLACK);
 		gc.setFont(font);
 		gc.setTextBaseline(VPos.TOP);
 		gc.setTextAlign(TextAlignment.LEFT);
-		gc.fillText(what, (posX - textWidth) - textWidth / what.length(), posY);
+		gc.fillText(what, textX, posY);
 		sprite.draw(gc, posX, posY);
 	}
 

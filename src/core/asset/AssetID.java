@@ -18,6 +18,7 @@ public enum AssetID {
 	LIGHT0_IMG("img/light0.png", AssetType.IMAGE),
 	LIGHT1_IMG("img/light1.png", AssetType.IMAGE),
 	LIGHT2_IMG("img/light2.png", AssetType.IMAGE),
+	STATUSBG_IMG("img/statusbg.png", AssetType.IMAGE),
 	
 	// Sounds
 	BGM_SFX("sfx/bgm.wav", AssetType.AUDIO),
