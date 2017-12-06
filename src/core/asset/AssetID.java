@@ -1,5 +1,6 @@
 package core.asset;
 
+
 public enum AssetID {
 
 	// Images
@@ -13,16 +14,16 @@ public enum AssetID {
 	VSHADOW_BOTTOM_IMG("img/vshadow_bottom.png", AssetType.IMAGE),
 	HSHADOW_LEFT_IMG("img/hshadow_left.png", AssetType.IMAGE),
 	HSHADOW_RIGHT_IMG("img/hshadow_right.png", AssetType.IMAGE),
+	LIGHTX_IMG("img/lightx.png", AssetType.IMAGE),
+	LIGHT0_IMG("img/light0.png", AssetType.IMAGE),
+	LIGHT1_IMG("img/light1.png", AssetType.IMAGE),
+	LIGHT2_IMG("img/light2.png", AssetType.IMAGE),
 	
 	// Sounds
 	BGM_SFX("sfx/bgm.wav", AssetType.AUDIO),
 	BLIP_SFX("sfx/blip2.wav", AssetType.AUDIO),
-	FREEZE_SFX("sfx/freeze.mp3", AssetType.AUDIO);
-	
-	enum AssetType {
-		IMAGE,
-		AUDIO
-	}
+	FREEZE_SFX("sfx/freeze.mp3", AssetType.AUDIO),
+	YAY_SFX("sfx/yay.mp3", AssetType.AUDIO);
 	
 	private final String url;
 	private final AssetType type;

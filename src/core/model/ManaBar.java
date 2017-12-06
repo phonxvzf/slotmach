@@ -5,7 +5,6 @@ import com.sun.javafx.tk.Toolkit;
 import core.asset.AssetCache;
 import core.asset.InvalidAssetException;
 import core.asset.gfx.Sprite;
-import core.settings.Settings;
 import javafx.geometry.VPos;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -29,7 +28,7 @@ public class ManaBar extends BasicEntity {
 		currentWidth = barWidth;
 		what = text;
 		try {
-			font = AssetCache.loadFont(Settings.GAME_FONT, 26);
+			font = AssetCache.loadFont("profont.ttf", 26);
 			textWidth = Toolkit.getToolkit().getFontLoader().computeStringWidth(text, font);
 		} catch (InvalidAssetException e) {
 			throw e;

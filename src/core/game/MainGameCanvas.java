@@ -1,7 +1,11 @@
 package core.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import core.asset.AssetID;
 import core.asset.gfx.StaticSprite;
+import core.model.LightBox;
 import core.settings.Settings;
 import javafx.scene.paint.Color;
 
@@ -14,8 +18,20 @@ public class MainGameCanvas extends GameCanvas {
 	private StaticSprite hshadowLeft = new StaticSprite(AssetID.HSHADOW_LEFT_IMG);
 	private StaticSprite hshadowRight = new StaticSprite(AssetID.HSHADOW_RIGHT_IMG);
 
+	private List<LightBox> leftLights = new ArrayList<>();
+	private List<LightBox> rightLights = new ArrayList<>();
+
 	public MainGameCanvas(GameModel model, double width, double height) {
 		super(model, width, height);
+		int rowCount = (int) (Settings.SLOT_DEFAULT_COLUMN_HEIGHT / Settings.SLOT_DEFAULT_WIDTH);
+		double pX = gameModel.slotMachine.getSlotColumn(0).getPosX() - Settings.SLOT_DEFAULT_WIDTH;
+		for (int i = 0; i < rowCount; ++i) {
+			leftLights.add(new LightBox(pX, i * Settings.SLOT_DEFAULT_WIDTH));
+		}
+		pX += (Settings.SLOT_DEFAULT_COLUMNS + 1) * Settings.SLOT_DEFAULT_WIDTH;
+		for (int i = 0; i < rowCount; ++i) {
+			rightLights.add(new LightBox(pX, i * Settings.SLOT_DEFAULT_WIDTH));
+		}
 	}
 
 	private void drawBlocks() {
@@ -71,7 +87,7 @@ public class MainGameCanvas extends GameCanvas {
 		double pX = (Settings.GAME_CANVAS_WIDTH - (Settings.SLOT_DEFAULT_COLUMNS * Settings.SLOT_DEFAULT_WIDTH)) / 2
 				+ startCol * Settings.SLOT_DEFAULT_WIDTH;
 		double pY = startRow * Settings.SLOT_DEFAULT_WIDTH;
-		
+
 		// Draw vertical shadow
 		for (int i = 0; i < colCount; ++i) {
 			vshadowTop.draw(gc, pX + i * Settings.SLOT_DEFAULT_WIDTH, pY);
@@ -80,7 +96,7 @@ public class MainGameCanvas extends GameCanvas {
 		for (int i = 0; i < colCount; ++i) {
 			vshadowBottom.draw(gc, pX + i * Settings.SLOT_DEFAULT_WIDTH, newpY);
 		}
-		
+
 		// Draw horizontal shadow
 		for (int i = 0; i < rowCount; ++i) {
 			hshadowLeft.draw(gc, pX, pY + i * Settings.SLOT_DEFAULT_WIDTH);
@@ -88,6 +104,21 @@ public class MainGameCanvas extends GameCanvas {
 		pX += (colCount - 1) * Settings.SLOT_DEFAULT_WIDTH;
 		for (int i = 0; i < rowCount; ++i) {
 			hshadowRight.draw(gc, pX, pY + i * Settings.SLOT_DEFAULT_WIDTH);
+		}
+	}
+
+	private void drawLights() {
+		for (int i = 0; i < leftLights.size(); ++i) {
+			if (!gameModel.gameState.isMatchRow(i)) {
+				leftLights.get(i).turnOff();
+				rightLights.get(i).turnOff();
+			}
+			else {
+				leftLights.get(i).turnOn();
+				rightLights.get(i).turnOn();
+			}
+			leftLights.get(i).draw(gc);
+			rightLights.get(i).draw(gc);
 		}
 	}
 
@@ -110,6 +141,7 @@ public class MainGameCanvas extends GameCanvas {
 		gameModel.slotMachine.draw(gc);
 		drawBlocks();
 		drawShadow();
+		drawLights();
 		drawIce();
 	}
 

@@ -14,13 +14,13 @@ public final class AssetCache {
 
 	public static void loadAssets() throws InvalidAssetException {
 		for (AssetID id : AssetID.values()) {
-			if (id.getType() == AssetID.AssetType.IMAGE) {
+			if (id.getType() == AssetType.IMAGE) {
 				try {
 					imageCache.put(id, new Image(id.getURL()));
 				} catch (IllegalArgumentException e) {
 					throw new InvalidAssetException(id.toString());
 				}
-			} else if (id.getType() == AssetID.AssetType.AUDIO) {
+			} else if (id.getType() == AssetType.AUDIO) {
 				try {
 					audioCache.put(id, new AudioClip(id.getURL()));
 				} catch (IllegalArgumentException e) {

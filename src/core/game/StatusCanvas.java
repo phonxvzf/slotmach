@@ -22,7 +22,7 @@ public class StatusCanvas extends GameCanvas {
 		try {
 			freezeManaBar = new ManaBar(new StaticSprite(AssetID.MPBAR_IMG), 65, 80 + Y_OFFSET, 206, 30, Settings.PLAYER_MAX_MANA,
 					"frz");
-			moneyFont = AssetCache.loadFont(Settings.GAME_FONT, 50);
+			moneyFont = AssetCache.loadFont("profont.ttf", 48);
 		} catch (InvalidAssetException e) {
 			e.showAlertAndExit();
 		}

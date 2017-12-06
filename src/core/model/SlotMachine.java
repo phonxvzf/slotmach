@@ -179,5 +179,4 @@ public class SlotMachine extends BasicEntity {
 	public void setBuyColx(SlotType buyColx) {
 		this.buyColx = buyColx;
 	}
-
 }
