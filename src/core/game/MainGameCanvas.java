@@ -2,6 +2,7 @@ package core.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import core.asset.AssetID;
 import core.asset.gfx.AnimatedSprite;
@@ -25,6 +26,7 @@ public class MainGameCanvas extends GameCanvas {
 
 	private List<LightBox> leftLights = new ArrayList<>();
 	private List<LightBox> rightLights = new ArrayList<>();
+	private long start = 0;
 
 	public MainGameCanvas(GameModel model, double width, double height) {
 		super(model, width, height);
@@ -156,16 +158,23 @@ public class MainGameCanvas extends GameCanvas {
 				&& gameModel.gameState.getPayout() > 0) {
 			jackpot.draw(gc, (Settings.GAME_CANVAS_WIDTH - jackpot.getWidth()) / 2,
 					(Settings.GAME_CANVAS_HEIGHT - jackpot.getHeight()) / 2);
+			gameModel.gameState.setCanPull(false);
+			start = System.nanoTime();
 		} else {
-			gameModel.gameState.setJackpot(false);
 			jackpot.resetFrame();
 		}
 		if (!gameModel.gameState.isJackpot() && !gameModel.gameState.isCanPull()
 				&& gameModel.gameState.getPayout() > 0) {
 			mlgWow.draw(gc, (Settings.GAME_CANVAS_WIDTH - mlgWow.getWidth()) / 2,
 					Settings.GAME_CANVAS_HEIGHT - mlgWow.getHeight());
+			start = System.nanoTime();
 		} else {
 			mlgWow.resetFrame();
+		}
+		System.out.println((System.nanoTime() - start) / 10e6);
+		if ((System.nanoTime() - start) / 10e6 >= 4) {
+			gameModel.gameState.setJackpot(false);
+			gameModel.gameState.setCanPull(true);
 		}
 		// mlgFrog.draw(gc, 0, Settings.GAME_CANVAS_HEIGHT - mlgFrog.getHeight());
 	}

@@ -117,7 +117,6 @@ public class GameLogic {
 					}
 					blipSFX.play();
 				}
-
 			} else if (triggeredKey == KeyCode.ESCAPE) {
 				try {
 					BufferedWriter in = new BufferedWriter(
