@@ -137,16 +137,6 @@ public class GameLogic {
 					blipSFX.play();
 				}
 			} else if (triggeredKey == KeyCode.ESCAPE) {
-				try {
-					BufferedWriter in = new BufferedWriter(
-							new FileWriter(gameModel.gameState.getPath() + "/score.txt"));
-					for (String key : gameModel.gameState.getScore().keySet()) {
-						in.write(key + " " + gameModel.gameState.getScore().get(key) * -1 + '\n');
-					}
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
 				gameModel.gameState.writeScore();
 				Platform.exit();
 				System.exit(0);

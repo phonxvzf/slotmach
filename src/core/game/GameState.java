@@ -249,7 +249,7 @@ public class GameState {
 
 	public void writeScore() {
 		try {
-			BufferedWriter in = new BufferedWriter(new FileWriter(path+"score.txt"));
+			BufferedWriter in = new BufferedWriter(new FileWriter(path+"/score.txt"));
 			for (String key : getScore().keySet()) {
 				in.write(key + " " + getScore().get(key) * -1 + '\n');
 			}
