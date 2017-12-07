@@ -7,15 +7,15 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 
 public final class SceneManager {
-	
+
 	private static Stage primaryStage;
-	
+
 	private static GameInstance gameInstance = new GameInstance();
 	private static Pane namePane = new Pane(gameInstance.getNameCanvas());
 	private static Pane gamePane = new Pane(new HBox(gameInstance.getStatusCanvas(), gameInstance.getMainGameCanvas()));
 	private static Scene gameScene;
 	private static Scene nameScene;
-	
+
 	public static void initialize(Stage stage) {
 
 		nameScene = new Scene(namePane);
@@ -28,17 +28,20 @@ public final class SceneManager {
 		primaryStage = stage;
 		primaryStage.show();
 	}
-	
+
 	public static void gotoGameScene() {
 		gameInstance.startGame();
 		primaryStage.setScene(gameScene);
+		gameInstance.getNameCanvas().stopAnimation();
 		gameInstance.getMainGameCanvas().requestFocus();
 	}
-	
+
 	public static void gotoNameInput() {
 		gameInstance.getNameCanvas().startAnimation();
 		primaryStage.setScene(nameScene);
+		if (gameInstance.isRunning())
+			gameInstance.stopGame();
 		gameInstance.getNameCanvas().requestFocus();
 	}
-	
+
 }

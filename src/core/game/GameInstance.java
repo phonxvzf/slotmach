@@ -15,6 +15,7 @@ public class GameInstance {
 	private GameLogic gameLogic;
 	private GameCanvas mainGameCanvas, statusCanvas, nameCanvas;
 	private MusicPlayer bgmPlayer;
+	private boolean isRunning = false;
 
 	public GameInstance() {
 		// Load graphics and sounds
@@ -43,6 +44,14 @@ public class GameInstance {
 		gameLogic.startGame();
 		mainGameCanvas.startAnimation();
 		statusCanvas.startAnimation();
+		isRunning = true;
+	}
+	
+	public void stopGame() {
+		gameLogic.stopGame();
+		mainGameCanvas.stopAnimation();
+		statusCanvas.stopAnimation();
+		isRunning = false;
 	}
 
 	public GameModel getGameModel() {
@@ -63,6 +72,10 @@ public class GameInstance {
 
 	public GameCanvas getNameCanvas() {
 		return nameCanvas;
+	}
+	
+	public boolean isRunning() {
+		return isRunning;
 	}
 
 }
