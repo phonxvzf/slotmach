@@ -1,5 +1,16 @@
 package core.game;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 import core.asset.AssetCache;
 import core.asset.AssetID;
 import core.asset.InvalidAssetException;
@@ -8,6 +19,7 @@ import core.model.Background;
 import core.model.ManaBar;
 import core.settings.Settings;
 import javafx.geometry.VPos;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -18,6 +30,7 @@ public class StatusCanvas extends GameCanvas {
 	private Font moneyFont, multFont;
 	private static final double Y_OFFSET = 80;
 	private Background background = new Background(new StaticSprite(AssetID.STATUSBG_IMG), 0, 0);
+	private List<Entry<String, Integer>> scoreList = null;
 
 	public StatusCanvas(GameModel model, double width, double height) {
 		super(model, width, height);
@@ -103,11 +116,31 @@ public class StatusCanvas extends GameCanvas {
 		gc.setStroke(Color.BLACK);
 		gc.strokeLine(30, 233 + Y_OFFSET, 266, 233 + Y_OFFSET);
 
+		// Show scoreBoard
+		scoreBoardUpdate();
 	}
 
 	@Override
 	protected void bindKeys() {
 		// Nothing to do
+	}
+
+	private void scoreBoardUpdate() {
+		gameModel.gameState.updateScore();
+		gc.setFill(Color.BISQUE);
+		gc.setFont(multFont);
+		gc.setTextAlign(TextAlignment.LEFT);
+		gc.fillText("SCORE BOARD", 20, Settings.GAME_CANVAS_HEIGHT / 2);
+		Stream<Map.Entry<String, Integer>> sorted = gameModel.gameState.getScore().entrySet().stream()
+				.sorted(Map.Entry.comparingByValue());
+		scoreList = sorted.collect(Collectors.toList());
+		int i = 1;
+		for (Entry<String, Integer> key : scoreList) {
+			gc.fillText(i + " " + key.getKey() + " " + gameModel.gameState.getScore().get(key.getKey()) * -1, 20,
+					Settings.GAME_CANVAS_HEIGHT / 2 + (i++) * 40);
+			if (i >= 11)
+				break;
+		}
 	}
 
 	private String getMoneyString(int money, int digit) {

@@ -12,7 +12,8 @@ public enum SlotType {
 	SLOT_O("O", new StaticSprite(AssetID.O_IMG)),
 	SLOT_CHERRY("cherry", new StaticSprite(AssetID.CHERRY_IMG)),
 	SLOT_YOUTUBE("youtube", new StaticSprite(AssetID.YOUTUBE_IMG)),
-	SLOT_ANDROID("android", new StaticSprite(AssetID.ANDROID_IMG));
+	SLOT_ANDROID("android", new StaticSprite(AssetID.ANDROID_IMG)),
+	SLOT_PROGMETH("progmeth", new StaticSprite(AssetID.PROGMETH_IMG));
 //	SLOT_BEING("being", new StaticSprite(AssetID.BEING_IMG)),
 //	SLOT_BOXz("box", new StaticSprite(AssetID.BOXz_IMG)),
 //	SLOT_drop("dropbox", new StaticSprite(AssetID.DROP_IMG)),

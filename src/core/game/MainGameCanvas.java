@@ -20,6 +20,7 @@ public class MainGameCanvas extends GameCanvas {
 	private StaticSprite hshadowRight = new StaticSprite(AssetID.HSHADOW_RIGHT_IMG);
 
 	private AnimatedSprite mlgWow = new AnimatedSprite(AssetID.MLGWOW_IMGSEQ);
+	private AnimatedSprite jackpot = new AnimatedSprite(AssetID.JACKPOT_IMG);
 	private AnimatedSprite mlgFrog = new AnimatedSprite(AssetID.MLGFROG_IMGSEQ);
 
 	private List<LightBox> leftLights = new ArrayList<>();
@@ -37,6 +38,7 @@ public class MainGameCanvas extends GameCanvas {
 			rightLights.add(new LightBox(pX, i * Settings.SLOT_DEFAULT_WIDTH));
 		}
 		mlgWow.setTTL(15);
+		jackpot.setTTL(100);
 		mlgFrog.setTTL(43);
 	}
 
@@ -150,13 +152,21 @@ public class MainGameCanvas extends GameCanvas {
 		drawLights();
 		drawIce();
 
-		if (!gameModel.gameState.isCanPull() && gameModel.gameState.getPayout() > 0) {
+		if (gameModel.gameState.isJackpot() && !gameModel.gameState.isCanPull()
+				&& gameModel.gameState.getPayout() > 0) {
+			jackpot.draw(gc, (Settings.GAME_CANVAS_WIDTH - jackpot.getWidth()) / 2,
+					(Settings.GAME_CANVAS_HEIGHT - jackpot.getHeight()) / 2);
+		} else {
+			jackpot.resetFrame();
+		}
+		if (!gameModel.gameState.isJackpot() && !gameModel.gameState.isCanPull()
+				&& gameModel.gameState.getPayout() > 0) {
 			mlgWow.draw(gc, (Settings.GAME_CANVAS_WIDTH - mlgWow.getWidth()) / 2,
 					Settings.GAME_CANVAS_HEIGHT - mlgWow.getHeight());
 		} else {
 			mlgWow.resetFrame();
 		}
-//		mlgFrog.draw(gc, 0, Settings.GAME_CANVAS_HEIGHT - mlgFrog.getHeight());
+		// mlgFrog.draw(gc, 0, Settings.GAME_CANVAS_HEIGHT - mlgFrog.getHeight());
 	}
 
 	@Override

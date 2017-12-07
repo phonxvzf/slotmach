@@ -29,6 +29,7 @@ public enum AssetID {
 	WIKI_IMG("img/slot_wikipedia.png", AssetType.IMAGE),
 	WORDPRESS_IMG("img/slot_wordpress.png", AssetType.IMAGE),
 	YELP_IMG("img/slot_yelp.png", AssetType.IMAGE),
+	PROGMETH_IMG("img/slot_progmeth.png", AssetType.IMAGE),
 	
 	FROZEN_IMG("img/frozen.png", AssetType.IMAGE),
 	MPBAR_IMG("img/mpbar.png", AssetType.IMAGE),
@@ -45,10 +46,12 @@ public enum AssetID {
 	
 	// Image sequences
 	MLGWOW_IMGSEQ("img/wow/", AssetType.IMAGE_SEQUENCE, 107),
+	JACKPOT_IMG("img/jackpot/", AssetType.IMAGE_SEQUENCE,1),
 	MLGFROG_IMGSEQ("img/frog/", AssetType.IMAGE_SEQUENCE, 10),
 	
 	// Sounds
 	BGM_SFX("sfx/bgm.wav", AssetType.AUDIO),
+	JACKPOT_SFX("sfx/jackpot.mp3", AssetType.AUDIO),
 	BLIP_SFX("sfx/blip2.wav", AssetType.AUDIO),
 	FREEZE_SFX("sfx/freeze.mp3", AssetType.AUDIO),
 	YAY_SFX("sfx/yay.mp3", AssetType.AUDIO),

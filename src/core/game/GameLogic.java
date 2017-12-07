@@ -1,5 +1,11 @@
 package core.game;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import core.asset.AssetID;
 import core.asset.sfx.MusicPlayer;
 import core.model.Pricing;
@@ -15,7 +21,7 @@ public class GameLogic {
 	private boolean isRunning;
 	private long lastMatchAnimationTime;
 
-	private MusicPlayer freezeSFX, blipSFX, yaySFX, cashSFX;
+	private MusicPlayer freezeSFX, blipSFX, yaySFX, cashSFX, jackpotSFX;
 
 	public GameLogic(GameModel model) {
 		gameModel = model;
@@ -24,6 +30,7 @@ public class GameLogic {
 		blipSFX = new MusicPlayer(AssetID.BLIP_SFX, 1);
 		yaySFX = new MusicPlayer(AssetID.YAY_SFX, 1);
 		cashSFX = new MusicPlayer(AssetID.CASH_SFX, 1);
+		jackpotSFX = new MusicPlayer(AssetID.JACKPOT_SFX, 1);
 		lastMatchAnimationTime = System.nanoTime();
 	}
 
@@ -111,6 +118,15 @@ public class GameLogic {
 				}
 
 			} else if (triggeredKey == KeyCode.ESCAPE) {
+				try {
+					BufferedWriter in = new BufferedWriter(new FileWriter("assets/txt/score.txt"));
+					for (String key : gameModel.gameState.getScore().keySet()) {
+						in.write(key + " " + gameModel.gameState.getScore().get(key) * -1 + '\n');
+					}
+					in.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 				Platform.exit();
 				System.exit(0);
 
@@ -133,6 +149,8 @@ public class GameLogic {
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXCOL) {
 				if (gameModel.gameState.isCanPull()) {
 					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_EXCOL);
+					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXCOL);
+					gameModel.slotMachine.reset();
 					gameModel.slotMachine
 							.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
 					gameModel.slotMachine.stopAll();
@@ -160,6 +178,8 @@ public class GameLogic {
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXROW) {
 				if (gameModel.gameState.isCanPull()) {
 					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_EXROW);
+					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXROW);
+					gameModel.slotMachine.reset();
 					gameModel.slotMachine
 							.setAddlerRow(gameModel.slotMachine.getAddlerRow() - Settings.SLOT_DEFAULT_ADDLER);
 					gameModel.slotMachine.stopAll();
@@ -178,7 +198,6 @@ public class GameLogic {
 					gameModel.gameState.givePayout(-Settings.PLAYER_PAID_BUYCOL);
 					cashSFX.play();
 				}
-
 			} else if (triggeredKey == KeyCode.O && !gameModel.slotMachine.isBuyCol()
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_BUYCOL
 					&& !gameModel.slotMachine.isAllStop()) {
@@ -187,6 +206,16 @@ public class GameLogic {
 					gameModel.slotMachine.setBuyCol(true);
 					gameModel.slotMachine.setBuyColx(SlotType.SLOT_O);
 					gameModel.gameState.givePayout(-Settings.PLAYER_PAID_BUYCOL);
+					cashSFX.play();
+				}
+			} else if (triggeredKey == KeyCode.P && !gameModel.slotMachine.isBuyCol()
+					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_BUYCOL
+					&& !gameModel.slotMachine.isAllStop()) {
+				if (gameModel.gameState.isCanPull()) {
+					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_BUYCOL);
+					gameModel.slotMachine.setBuyCol(true);
+					gameModel.slotMachine.setBuyColx(SlotType.SLOT_PROGMETH);
+					gameModel.gameState.setPayout(gameModel.gameState.getPayout() - Settings.PLAYER_PAID_BUYCOL);
 					cashSFX.play();
 				}
 			}
@@ -214,6 +243,10 @@ public class GameLogic {
 			int prz = Pricing.getPrice(slotCode);
 			if (prz > 0)
 				gameModel.gameState.matchRow(startRow + i);
+			if (prz >= 10000) {
+				gameModel.gameState.setJackpot(true);
+				jackpotSFX.play();
+			}
 			prize += prz;
 		}
 		return prize;

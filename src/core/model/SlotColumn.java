@@ -74,8 +74,8 @@ public class SlotColumn extends Entity implements Drawable {
 	private void roundDownSlots() {
 		for (Slot slot : slotList) {
 			double y = slot.posY;
-			if (y % 50 == 0.0f)
-				break;
+			if (y % 50 == 0)
+				continue;
 			if (Math.ceil(slot.posY) > this.posY + height)
 				slot.posY = 0;
 			else if (Math.ceil(y) <= 0) {

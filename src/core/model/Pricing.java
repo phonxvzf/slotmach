@@ -20,6 +20,12 @@ public class Pricing {
 			row += "K";
 			priceMap.put(row, 300);
 		}
+		// All Os
+		row = "";
+		for (int i = 0; i < Settings.SLOT_DEFAULT_COLUMNS; ++i) {
+			row += "O";
+			priceMap.put(row, 300);
+		}
 		// All cherries
 		row = "";
 		for (int i = 0; i < Settings.SLOT_DEFAULT_COLUMN_HEIGHT; ++i) {
@@ -31,6 +37,12 @@ public class Pricing {
 		for (int i = 0; i < Settings.SLOT_DEFAULT_COLUMN_HEIGHT; ++i) {
 			row += "banana";
 			priceMap.put(row, 50);
+		}
+		// All progmeths
+		row = "";
+		for (int i = 0; i < Settings.SLOT_DEFAULT_COLUMN_HEIGHT; ++i) {
+			row += "progmeth";
+			priceMap.put(row, 10000);
 		}
 	}
 

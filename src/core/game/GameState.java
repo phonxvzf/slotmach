@@ -1,7 +1,13 @@
 package core.game;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import core.settings.Settings;
 
@@ -17,12 +23,24 @@ public class GameState {
 	private double colMultiplier = 1.0f;
 	private List<Boolean> matchRow;
 	private boolean isCanPull;
+	private boolean isJackpot = false;
+	private Map<String, Integer> score = new HashMap<String, Integer>();
 
 	public GameState() {
 		matchRow = new ArrayList<Boolean>();
 		int rowCount = (int) (Settings.SLOT_DEFAULT_COLUMN_HEIGHT / Settings.SLOT_DEFAULT_WIDTH);
 		for (int i = 0; i < rowCount; ++i) {
 			matchRow.add(false);
+		}
+		try {
+			BufferedReader in = new BufferedReader(new FileReader("assets/txt/score.txt"));
+			String line;
+			while ((line = in.readLine()) != null && line != "\n") {
+				score.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]) * -1);
+			}
+			in.close();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
 
@@ -51,7 +69,8 @@ public class GameState {
 		if (newAmount > Settings.PLAYER_MAX_MONEY)
 			newAmount = Settings.PLAYER_MAX_MONEY;
 		money = newAmount;
-		if (money > highScore) highScore = money;
+		if (money > highScore)
+			highScore = money;
 	}
 
 	public synchronized void giveMana(double amount) {
@@ -132,5 +151,21 @@ public class GameState {
 
 	public void setHighScore(int highScore) {
 		this.highScore = highScore;
+	}
+
+	public boolean isJackpot() {
+		return isJackpot;
+	}
+
+	public void setJackpot(boolean isJackpot) {
+		this.isJackpot = isJackpot;
+	}
+
+	public Map<String, Integer> getScore() {
+		return score;
+	}
+
+	public void updateScore() {
+		this.score.put(name, -money);
 	}
 }
