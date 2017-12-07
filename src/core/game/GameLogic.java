@@ -1,11 +1,5 @@
 package core.game;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
 import core.asset.AssetID;
 import core.asset.sfx.MusicPlayer;
 import core.model.Pricing;
@@ -89,9 +83,30 @@ public class GameLogic {
 			gameModel.slotMachine.returnSpeed();
 		}
 
+		if (InputHandler.isKeyDown(KeyCode.TAB)) {
+			gameModel.gameState.setShowPriceTab(true);
+		} else {
+			gameModel.gameState.setShowPriceTab(false);
+		}
+
 		// Check for key presses
 		KeyCode triggeredKey;
 		while ((triggeredKey = InputHandler.pollTriggeredKey()) != null) {
+			if (gameModel.gameState.getMoney() <= 0 && gameModel.slotMachine.isAllStop()) {
+				Platform.runLater(new Runnable() {
+					@Override
+					public void run() {
+						// Game over
+						gameModel.gameState.writeScore();
+						gameModel.gameState.reset();
+						gameModel.slotMachine.setAddlerColumns(0);
+						gameModel.slotMachine.setAddlerRow(0);
+						gameModel.slotMachine.stopAll();
+						lastMatchAnimationTime = System.nanoTime();
+						SceneManager.gotoNameInput();
+					}
+				});
+			}
 			if (triggeredKey == KeyCode.SPACE) {
 				if (gameModel.gameState.isCanPull()) {
 					if (!gameModel.slotMachine.pull()) {
@@ -118,15 +133,7 @@ public class GameLogic {
 				}
 
 			} else if (triggeredKey == KeyCode.ESCAPE) {
-				try {
-					BufferedWriter in = new BufferedWriter(new FileWriter("assets/txt/score.txt"));
-					for (String key : gameModel.gameState.getScore().keySet()) {
-						in.write(key + " " + gameModel.gameState.getScore().get(key) * -1 + '\n');
-					}
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				gameModel.gameState.writeScore();
 				Platform.exit();
 				System.exit(0);
 
@@ -149,7 +156,6 @@ public class GameLogic {
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXCOL) {
 				if (gameModel.gameState.isCanPull()) {
 					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_EXCOL);
-					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXCOL);
 					gameModel.slotMachine.reset();
 					gameModel.slotMachine
 							.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
@@ -178,7 +184,6 @@ public class GameLogic {
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXROW) {
 				if (gameModel.gameState.isCanPull()) {
 					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_EXROW);
-					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXROW);
 					gameModel.slotMachine.reset();
 					gameModel.slotMachine
 							.setAddlerRow(gameModel.slotMachine.getAddlerRow() - Settings.SLOT_DEFAULT_ADDLER);

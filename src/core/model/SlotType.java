@@ -8,7 +8,7 @@ public enum SlotType {
 
 	SLOT_K("K", new StaticSprite(AssetID.K_IMG)),
 	SLOT_BANANA("banana", new StaticSprite(AssetID.BANANA_IMG)),
-	SLOT_EGG("egg", new StaticSprite(AssetID.EGG_IMG)),
+//	SLOT_EGG("egg", new StaticSprite(AssetID.EGG_IMG)),
 	SLOT_O("O", new StaticSprite(AssetID.O_IMG)),
 	SLOT_CHERRY("cherry", new StaticSprite(AssetID.CHERRY_IMG)),
 	SLOT_YOUTUBE("youtube", new StaticSprite(AssetID.YOUTUBE_IMG)),

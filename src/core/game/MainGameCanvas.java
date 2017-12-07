@@ -7,6 +7,7 @@ import core.asset.AssetID;
 import core.asset.gfx.AnimatedSprite;
 import core.asset.gfx.StaticSprite;
 import core.model.LightBox;
+import core.model.PriceTab;
 import core.settings.Settings;
 import javafx.scene.paint.Color;
 
@@ -25,6 +26,8 @@ public class MainGameCanvas extends GameCanvas {
 
 	private List<LightBox> leftLights = new ArrayList<>();
 	private List<LightBox> rightLights = new ArrayList<>();
+	
+	private PriceTab priceTab = new PriceTab(0, Settings.GAME_CANVAS_HEIGHT / 10);
 
 	public MainGameCanvas(GameModel model, double width, double height) {
 		super(model, width, height);
@@ -165,6 +168,10 @@ public class MainGameCanvas extends GameCanvas {
 					Settings.GAME_CANVAS_HEIGHT - mlgWow.getHeight());
 		} else {
 			mlgWow.resetFrame();
+		}
+		
+		if (gameModel.gameState.isShowPriceTab()) {
+			priceTab.draw(gc);
 		}
 		// mlgFrog.draw(gc, 0, Settings.GAME_CANVAS_HEIGHT - mlgFrog.getHeight());
 	}
