@@ -1,11 +1,8 @@
 package core.game;
 
-import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import core.asset.AssetID;
 import core.asset.sfx.MusicPlayer;
@@ -139,7 +136,6 @@ public class GameLogic {
 					blipSFX.play();
 				}
 			} else if (triggeredKey == KeyCode.ESCAPE) {
-<<<<<<< HEAD
 				try {
 					BufferedWriter in = new BufferedWriter(
 							new FileWriter(gameModel.gameState.getPath() + "/score.txt"));
@@ -150,9 +146,7 @@ public class GameLogic {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-=======
 				gameModel.gameState.writeScore();
->>>>>>> upstream/master
 				Platform.exit();
 				System.exit(0);
 
@@ -175,10 +169,7 @@ public class GameLogic {
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXCOL) {
 				if (gameModel.gameState.isCanPull()) {
 					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_EXCOL);
-<<<<<<< HEAD
 					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXCOL);
-=======
->>>>>>> upstream/master
 					gameModel.slotMachine.reset();
 					gameModel.slotMachine
 							.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
@@ -207,10 +198,7 @@ public class GameLogic {
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXROW) {
 				if (gameModel.gameState.isCanPull()) {
 					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_EXROW);
-<<<<<<< HEAD
 					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXROW);
-=======
->>>>>>> upstream/master
 					gameModel.slotMachine.reset();
 					gameModel.slotMachine
 							.setAddlerRow(gameModel.slotMachine.getAddlerRow() - Settings.SLOT_DEFAULT_ADDLER);
@@ -275,18 +263,11 @@ public class GameLogic {
 			int prz = Pricing.getPrice(slotCode);
 			if (prz > 0)
 				gameModel.gameState.matchRow(startRow + i);
-<<<<<<< HEAD
 			for (int j = 0; j + 8 <= slotCode.length(); j+=8)
 				if (slotCode.substring(j, j+8).equals("progmeth")) {
 					gameModel.gameState.setJackpot(true);
 					jackpotSFX.play();
 				}
-=======
-			if (prz >= 10000) {
-				gameModel.gameState.setJackpot(true);
-				jackpotSFX.play();
-			}
->>>>>>> upstream/master
 			prize += prz;
 		}
 		return prize;

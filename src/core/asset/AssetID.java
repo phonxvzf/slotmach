@@ -46,11 +46,7 @@ public enum AssetID {
 	
 	// Image sequences
 	MLGWOW_IMGSEQ("img/wow/", AssetType.IMAGE_SEQUENCE, 107),
-<<<<<<< HEAD
-	JACKPOT_IMG("img/jackpot/", AssetType.IMAGE_SEQUENCE,13),
-=======
 	JACKPOT_IMG("img/jackpot/", AssetType.IMAGE_SEQUENCE,1),
->>>>>>> upstream/master
 	MLGFROG_IMGSEQ("img/frog/", AssetType.IMAGE_SEQUENCE, 10),
 	
 	// Sounds

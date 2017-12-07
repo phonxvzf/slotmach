@@ -27,12 +27,9 @@ public class MainGameCanvas extends GameCanvas {
 
 	private List<LightBox> leftLights = new ArrayList<>();
 	private List<LightBox> rightLights = new ArrayList<>();
-<<<<<<< HEAD
 	private long start = 0;
-=======
 	
 	private PriceTab priceTab = new PriceTab(0, Settings.GAME_CANVAS_HEIGHT / 10);
->>>>>>> upstream/master
 
 	public MainGameCanvas(GameModel model, double width, double height) {
 		super(model, width, height);
@@ -164,11 +161,8 @@ public class MainGameCanvas extends GameCanvas {
 				&& gameModel.gameState.getPayout() > 0) {
 			jackpot.draw(gc, (Settings.GAME_CANVAS_WIDTH - jackpot.getWidth()) / 2,
 					(Settings.GAME_CANVAS_HEIGHT - jackpot.getHeight()) / 2);
-<<<<<<< HEAD
 			gameModel.gameState.setCanPull(false);
 			start = System.nanoTime();
-=======
->>>>>>> upstream/master
 		} else {
 			jackpot.resetFrame();
 		}
@@ -180,19 +174,17 @@ public class MainGameCanvas extends GameCanvas {
 		} else {
 			mlgWow.resetFrame();
 		}
-<<<<<<< HEAD
 		System.out.println((System.nanoTime() - start) / 10e6);
 		if ((System.nanoTime() - start) / 10e6 >= 4) {
 			gameModel.gameState.setJackpot(false);
 			gameModel.gameState.setCanPull(true);
-=======
 		
 		if (gameModel.gameState.isShowPriceTab()) {
 			priceTab.draw(gc);
->>>>>>> upstream/master
 		}
 		// mlgFrog.draw(gc, 0, Settings.GAME_CANVAS_HEIGHT - mlgFrog.getHeight());
 	}
+		}
 
 	@Override
 	protected void bindKeys() {
