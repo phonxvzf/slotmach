@@ -60,8 +60,9 @@ public class GameLogic {
 		// Check for events
 
 		// Check for key holds
-		if (InputHandler.isKeyDown(KeyCode.F) && gameModel.gameState.getMana() > 0) {
-			if (!gameModel.slotMachine.isSlowDown() && !gameModel.slotMachine.isAllStop()) {
+		if (InputHandler.isKeyDown(KeyCode.F) && gameModel.gameState.getMana() > 0
+				&& !gameModel.slotMachine.isAllStop()) {
+			if (!gameModel.slotMachine.isSlowDown()) {
 				gameModel.gameState.giveMana(-Settings.SKILL_FREEZE_MPRATE_USE * dt / 1e9);
 				gameModel.slotMachine.slowDown();
 				if (!freezeSFX.isPlaying())
