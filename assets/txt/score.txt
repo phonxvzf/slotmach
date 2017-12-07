@@ -1,6 +1,9 @@
-test 99999999
-eieigum 8400
-eiei 150
-hello 10000
-lmao 10000
-miii 0
+p -184
+a 21927943
+dfg 0
+sad 4400
+k 150
+sdfs 10000
+l 29900
+m 10000
+o -200

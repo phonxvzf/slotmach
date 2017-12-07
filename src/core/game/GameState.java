@@ -210,6 +210,7 @@ public class GameState {
 	}
 
 	public void reset() {
+		writeScore();
 		name = "";
 		score = new HashMap<String, Integer>();
 		money = Settings.PLAYER_START_MONEY;
