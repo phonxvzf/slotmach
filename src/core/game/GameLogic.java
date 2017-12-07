@@ -5,6 +5,7 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import core.asset.AssetID;
 import core.asset.sfx.MusicPlayer;
@@ -119,7 +120,8 @@ public class GameLogic {
 
 			} else if (triggeredKey == KeyCode.ESCAPE) {
 				try {
-					BufferedWriter in = new BufferedWriter(new FileWriter("assets/txt/score.txt"));
+					BufferedWriter in = new BufferedWriter(
+							new FileWriter(gameModel.gameState.getPath() + "/score.txt"));
 					for (String key : gameModel.gameState.getScore().keySet()) {
 						in.write(key + " " + gameModel.gameState.getScore().get(key) * -1 + '\n');
 					}
@@ -243,10 +245,11 @@ public class GameLogic {
 			int prz = Pricing.getPrice(slotCode);
 			if (prz > 0)
 				gameModel.gameState.matchRow(startRow + i);
-			if (prz >= 10000) {
-				gameModel.gameState.setJackpot(true);
-				jackpotSFX.play();
-			}
+			for (int j = 0; j + 8 <= slotCode.length(); j+=8)
+				if (slotCode.substring(j, j+8).equals("progmeth")) {
+					gameModel.gameState.setJackpot(true);
+					jackpotSFX.play();
+				}
 			prize += prz;
 		}
 		return prize;

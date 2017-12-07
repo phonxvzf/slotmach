@@ -157,6 +157,7 @@ public class MainGameCanvas extends GameCanvas {
 			jackpot.draw(gc, (Settings.GAME_CANVAS_WIDTH - jackpot.getWidth()) / 2,
 					(Settings.GAME_CANVAS_HEIGHT - jackpot.getHeight()) / 2);
 		} else {
+			gameModel.gameState.setJackpot(false);
 			jackpot.resetFrame();
 		}
 		if (!gameModel.gameState.isJackpot() && !gameModel.gameState.isCanPull()

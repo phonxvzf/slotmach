@@ -1,6 +1,7 @@
 package core.game;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -8,7 +9,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-
+import core.asset.*;
 import core.settings.Settings;
 
 public class GameState {
@@ -24,6 +25,7 @@ public class GameState {
 	private List<Boolean> matchRow;
 	private boolean isCanPull;
 	private boolean isJackpot = false;
+	private String path = "";
 	private Map<String, Integer> score = new HashMap<String, Integer>();
 
 	public GameState() {
@@ -32,15 +34,35 @@ public class GameState {
 		for (int i = 0; i < rowCount; ++i) {
 			matchRow.add(false);
 		}
-		try {
-			BufferedReader in = new BufferedReader(new FileReader("assets/txt/score.txt"));
-			String line;
-			while ((line = in.readLine()) != null && line != "\n") {
-				score.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]) * -1);
+		path = System.getProperty("user.home") + File.separator + "Documents";
+		path += File.separator + "SlotMachine";
+		File customDir = new File(path);
+
+		if (customDir.exists()) {
+			try {
+				BufferedReader in = new BufferedReader(new FileReader(path + "/score.txt"));
+				String line;
+				while ((line = in.readLine()) != null) {
+					if (line.split(" ").length == 2) {
+						score.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]) * -1);
+					} else throw new InvalidFileException("SlotMachine/score.txt");
+				}
+				in.close();
+			} catch (IOException | InvalidFileException e) {
+				e.printStackTrace();
 			}
-			in.close();
-		} catch (IOException e) {
-			e.printStackTrace();
+		} else if (customDir.mkdirs())
+
+		{
+			File score = new File(path + "/score.txt");
+			try {
+				score.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println(customDir + " was created");
+		} else {
+			System.out.println(customDir + " was not created");
 		}
 	}
 
@@ -136,7 +158,7 @@ public class GameState {
 	public int getPayout() {
 		return payout;
 	}
-	
+
 	public void givePayout(int amount) {
 		this.payout += amount;
 	}
@@ -168,4 +190,9 @@ public class GameState {
 	public void updateScore() {
 		this.score.put(name, -money);
 	}
+
+	public String getPath() {
+		return path;
+	}
+
 }
