@@ -97,6 +97,7 @@ public class SlotColumn extends Entity implements Drawable {
 	public void moveSlots(long dt) {
 		double yOffset;
 		for (Slot slot : slotList) {
+			slot.move(dt);
 			yOffset = slot.getPosY() - (posY + height);
 			if (yOffset >= 0) {
 				if (!buyCol)
@@ -105,7 +106,6 @@ public class SlotColumn extends Entity implements Drawable {
 					slot.setSlotType(x);
 				slot.setPos(posX, posY + yOffset - Settings.SLOT_DEFAULT_WIDTH);
 			}
-			slot.move(dt);
 		}
 	}
 
