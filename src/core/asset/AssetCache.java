@@ -1,6 +1,8 @@
 package core.asset;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
@@ -9,23 +11,37 @@ import javafx.scene.text.Font;
 public final class AssetCache {
 
 	private static final Map<AssetID, Image> imageCache = new HashMap<AssetID, Image>();
-
+	private static final Map<AssetID, List<Image>> imageSequenceCache = new HashMap<AssetID, List<Image>>();
 	private static final Map<AssetID, AudioClip> audioCache = new HashMap<AssetID, AudioClip>();
+	
+	private static String convertURL(String url) {
+		return ClassLoader.getSystemResource(url).toString();
+	}
 
 	public static void loadAssets() throws InvalidAssetException {
 		for (AssetID id : AssetID.values()) {
 			if (id.getType() == AssetType.IMAGE) {
 				try {
-					imageCache.put(id, new Image(id.getURL()));
+					imageCache.put(id, new Image(convertURL(id.getURL())));
 				} catch (IllegalArgumentException e) {
 					throw new InvalidAssetException(id.toString());
 				}
 			} else if (id.getType() == AssetType.AUDIO) {
 				try {
-					audioCache.put(id, new AudioClip(id.getURL()));
+					audioCache.put(id, new AudioClip(convertURL(id.getURL())));
 				} catch (IllegalArgumentException e) {
 					throw new InvalidAssetException(id.toString());
 				}
+			} else if (id.getType() == AssetType.IMAGE_SEQUENCE) {
+				List<Image> frames = new ArrayList<Image>();
+				for (int i = 0; i < id.getCount(); ++i) {
+					try {
+						frames.add(new Image(convertURL(id.getURL() + Integer.toString(i) + ".png")));
+					} catch (IllegalArgumentException e) {
+						throw new InvalidAssetException(id.toString() + " frame #" + i);
+					}
+				}
+				imageSequenceCache.put(id, frames);
 			} else {
 				throw new InvalidAssetException("Unknown type: " + id.getType().toString());
 			}
@@ -38,6 +54,11 @@ public final class AssetCache {
 		return null;
 	}
 
+	public static List<Image> getImageSequence(AssetID id) {
+		if (imageSequenceCache.containsKey(id))
+			return imageSequenceCache.get(id);
+		return null;
+	}
 
 	public static AudioClip getAudio(AssetID id) {
 		if (audioCache.containsKey(id))

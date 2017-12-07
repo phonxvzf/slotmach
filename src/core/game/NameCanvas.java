@@ -95,6 +95,10 @@ public class NameCanvas extends GameCanvas {
 					gameModel.gameState.name += "-";
 				} else if (text.length() == 1 && Character.isLetter(text.charAt(0))) {
 					gameModel.gameState.name += text.toLowerCase();
+				} else if (text.contains("DIGIT")) {
+					gameModel.gameState.name += text.substring(5, 6);
+				} else if (text.contains("NUMPAD")) {
+					gameModel.gameState.name += text.substring(6, 7);
 				}
 			}
 		}

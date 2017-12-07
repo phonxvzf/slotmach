@@ -15,7 +15,7 @@ public class Settings {
 	public static final long UPDATE_LOOP_TIME = 1000000000 / UPDATE_RATE;
 
 	// General in-game options
-	public static final double SLOT_DEFAULT_VELOCITY = 2000.0f;
+	public static final double SLOT_DEFAULT_VELOCITY = 3000.0f;
 	public static final double SLOT_DEFAULT_COLUMN_HEIGHT = GAME_CANVAS_HEIGHT;
 	public static final double SLOT_DEFAULT_WIDTH = 50.0f;
 	public static final double SLOT_SLOWDOWN_ACCEL = -800.0f;
@@ -27,7 +27,7 @@ public class Settings {
 	public static final int SLOT_DEFAULT_BEGIN_ROWS = 3;
 
 	public static final double PLAYER_MAX_MANA = 210.0f;
-	public static final int PLAYER_START_MONEY = 1000;
+	public static final int PLAYER_START_MONEY = 10000;
 	public static final int PLAYER_MAX_MONEY = 99999999;
 	public static final int PLAYER_PAID_PULL = 50;
 	public static final int PLAYER_PAID_BUYCOL = 100;
@@ -35,9 +35,9 @@ public class Settings {
 	public static final int PLAYER_PAID_EXROW = 200;
 	public static final int PLAYER_MAX_NAME_LENGTH = 12;
 
-	public static final double SKILL_FREEZE_MPRATE_USE = 50.0f;
-	public static final double SKILL_FREEZE_MPRATE_RECOVER = 25.0f;
+	public static final double SKILL_FREEZE_MPRATE_USE = 20.0f;
+	public static final double SKILL_FREEZE_MPRATE_RECOVER = 10.0f;
 	
-	public static final long ANIMATION_MATCH_TIME = (long) 1e9;
+	public static final long ANIMATION_MATCH_TIME = (long) 1.5e9;
 
 }

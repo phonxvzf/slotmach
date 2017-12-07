@@ -29,6 +29,7 @@ public enum AssetID {
 	WIKI_IMG("img/slot_wikipedia.png", AssetType.IMAGE),
 	WORDPRESS_IMG("img/slot_wordpress.png", AssetType.IMAGE),
 	YELP_IMG("img/slot_yelp.png", AssetType.IMAGE),
+	PROGMETH_IMG("img/slot_progmeth.png", AssetType.IMAGE),
 	
 	FROZEN_IMG("img/frozen.png", AssetType.IMAGE),
 	MPBAR_IMG("img/mpbar.png", AssetType.IMAGE),
@@ -43,24 +44,43 @@ public enum AssetID {
 	LIGHT2_IMG("img/light2.png", AssetType.IMAGE),
 	STATUSBG_IMG("img/statusbg.png", AssetType.IMAGE),
 	
+	// Image sequences
+	MLGWOW_IMGSEQ("img/wow/", AssetType.IMAGE_SEQUENCE, 107),
+	JACKPOT_IMG("img/jackpot/", AssetType.IMAGE_SEQUENCE,1),
+	MLGFROG_IMGSEQ("img/frog/", AssetType.IMAGE_SEQUENCE, 10),
+	
 	// Sounds
 	BGM_SFX("sfx/bgm.wav", AssetType.AUDIO),
+	JACKPOT_SFX("sfx/jackpot.mp3", AssetType.AUDIO),
 	BLIP_SFX("sfx/blip2.wav", AssetType.AUDIO),
 	FREEZE_SFX("sfx/freeze.mp3", AssetType.AUDIO),
-	YAY_SFX("sfx/yay.mp3", AssetType.AUDIO);
+	YAY_SFX("sfx/yay.mp3", AssetType.AUDIO),
+	CASH_SFX("sfx/cash.mp3", AssetType.AUDIO);
 	
 	private final String url;
 	private final AssetType type;
+	private final int count;
 	private AssetID(String url, AssetType type) {
 		this.url = url;
 		this.type = type;
+		this.count = 1;
+	}
+
+	private AssetID(String url, AssetType type, int count) {
+		this.url = url;
+		this.type = type;
+		this.count = count;
 	}
 	
 	public String getURL() {
-		return ClassLoader.getSystemResource(url).toString();
+		return url;
 	}
 	
 	public AssetType getType() {
 		return type;
+	}
+	
+	public int getCount() {
+		return count;
 	}
 }
