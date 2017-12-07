@@ -117,6 +117,10 @@ public class GameState {
 	public int getPayout() {
 		return payout;
 	}
+	
+	public void givePayout(int amount) {
+		this.payout += amount;
+	}
 
 	public void setPayout(int payout) {
 		this.payout = payout;
