@@ -236,7 +236,7 @@ public class GameState {
 			matchRow.add(false);
 		}
 		try {
-			BufferedReader in = new BufferedReader(new FileReader("assets/txt/score.txt"));
+			BufferedReader in = new BufferedReader(new FileReader(path+"/score.txt"));
 			String line;
 			while ((line = in.readLine()) != null && line != "\n") {
 				score.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]) * -1);
@@ -249,7 +249,7 @@ public class GameState {
 
 	public void writeScore() {
 		try {
-			BufferedWriter in = new BufferedWriter(new FileWriter("assets/txt/score.txt"));
+			BufferedWriter in = new BufferedWriter(new FileWriter(path+"score.txt"));
 			for (String key : getScore().keySet()) {
 				in.write(key + " " + getScore().get(key) * -1 + '\n');
 			}
