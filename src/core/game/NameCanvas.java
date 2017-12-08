@@ -66,6 +66,7 @@ public class NameCanvas extends GameCanvas {
 			if (e.getCode() == KeyCode.ENTER) {
 				if (gameModel.gameState.name.length() > 0) {
 					new MusicPlayer(AssetID.BLIP_SFX, 1).play();
+					this.stopAnimation();
 					SceneManager.gotoGameScene();
 				}
 			} else if (e.getCode() == KeyCode.ESCAPE) {

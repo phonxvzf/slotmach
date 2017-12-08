@@ -1,6 +1,5 @@
 package core.game;
 
-
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -15,7 +14,6 @@ import core.model.Background;
 import core.model.ManaBar;
 import core.settings.Settings;
 import javafx.geometry.VPos;
-import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;
@@ -23,7 +21,7 @@ import javafx.scene.text.TextAlignment;
 public class StatusCanvas extends GameCanvas {
 
 	private ManaBar freezeManaBar;
-	private Font moneyFont, multFont;
+	private Font moneyFont, multFont, boardFont;
 	private static final double Y_OFFSET = 80;
 	private Background background = new Background(new StaticSprite(AssetID.STATUSBG_IMG), 0, 0);
 	private List<Entry<String, Integer>> scoreList = null;
@@ -31,10 +29,11 @@ public class StatusCanvas extends GameCanvas {
 	public StatusCanvas(GameModel model, double width, double height) {
 		super(model, width, height);
 		try {
-			freezeManaBar = new ManaBar(new StaticSprite(AssetID.MPBAR_IMG), 70, 300 + Y_OFFSET, 206, 30,
-					Settings.PLAYER_MAX_MANA, "frz");
+			freezeManaBar = new ManaBar(new StaticSprite(AssetID.MPBAR_IMG), 70, 340, 206, 30, Settings.PLAYER_MAX_MANA,
+					"frz");
 			moneyFont = AssetCache.loadFont("profont.ttf", 48);
 			multFont = AssetCache.loadFont("profont.ttf", 30);
+			boardFont = AssetCache.loadFont("profont.ttf", 24);
 		} catch (InvalidAssetException e) {
 			e.showAlertAndExit();
 		}
@@ -48,16 +47,10 @@ public class StatusCanvas extends GameCanvas {
 		gc.clearRect(0, 0, Settings.STATUS_CANVAS_WIDTH, Settings.STATUS_CANVAS_HEIGHT);
 		gc.setFill(Color.BISQUE);
 		gc.fillRect(0, 0, Settings.STATUS_CANVAS_WIDTH, Settings.STATUS_CANVAS_HEIGHT);
-
-		// Update entities
-		freezeManaBar.setColor(100, 150, 255);
-		freezeManaBar.setAmount(gameModel.gameState.getMana());
-
-		// Draw entities
 		background.draw(gc);
-		freezeManaBar.draw(gc);
 
 		// Show name
+		gc.setFont(multFont);
 		gc.setFill(Color.WHITE);
 		gc.setTextAlign(TextAlignment.RIGHT);
 		gc.fillText(gameModel.gameState.getName(), 266, 30);
@@ -94,11 +87,12 @@ public class StatusCanvas extends GameCanvas {
 		}
 
 		// Show multiplier
-		gc.setFill(Color.CRIMSON);
-		gc.fillText(
-				String.format("(x%.2f)",
-						gameModel.gameState.getColMultiplier() * gameModel.gameState.getRowMultiplier()),
-				266, 130 + Y_OFFSET);
+		double multiplier = gameModel.gameState.getColMultiplier() * gameModel.gameState.getRowMultiplier();
+		if (multiplier < 1.0f)
+			gc.setFill(Color.CRIMSON);
+		else
+			gc.setFill(Color.YELLOWGREEN);
+		gc.fillText(String.format("(x%.2f)", multiplier), 266, 130 + Y_OFFSET);
 
 		// Show high score
 		gc.setFill(Color.CORAL);
@@ -112,6 +106,13 @@ public class StatusCanvas extends GameCanvas {
 		gc.setStroke(Color.BLACK);
 		gc.strokeLine(30, 233 + Y_OFFSET, 266, 233 + Y_OFFSET);
 
+		// Update entities
+		freezeManaBar.setColor(150, 0, 0);
+		freezeManaBar.setAmount(gameModel.gameState.getMana());
+
+		// Draw entities
+		freezeManaBar.draw(gc);
+
 		// Show scoreBoard
 		scoreBoardUpdate();
 	}
@@ -123,18 +124,36 @@ public class StatusCanvas extends GameCanvas {
 
 	private void scoreBoardUpdate() {
 		gameModel.gameState.updateScore();
-		gc.setFill(Color.BISQUE);
+		gc.setTextAlign(TextAlignment.RIGHT);
 		gc.setFont(multFont);
-		gc.setTextAlign(TextAlignment.LEFT);
-		gc.fillText("SCORE BOARD", 20, Settings.GAME_CANVAS_HEIGHT / 2);
+		gc.setFill(Color.WHITE);
+		double y = 400;
+		gc.fillText("SCORE BOARD", 266, y);
+
+		gc.setStroke(Color.DARKRED);
+		gc.setLineWidth(2);
+		gc.strokeLine(30, y + 40, 266, y + 40);
+		gc.setStroke(Color.BLACK);
+		gc.strokeLine(30, y + 3 + 40, 266, y + 3 + 40);
+
+		gc.setFont(boardFont);
+
 		Stream<Map.Entry<String, Integer>> sorted = gameModel.gameState.getScore().entrySet().stream()
 				.sorted(Map.Entry.comparingByValue());
 		scoreList = sorted.collect(Collectors.toList());
 		int i = 1;
+		y += 20;
 		for (Entry<String, Integer> key : scoreList) {
-			gc.fillText(i + " " + key.getKey() + " " + gameModel.gameState.getScore().get(key.getKey()) * -1, 20,
-					Settings.GAME_CANVAS_HEIGHT / 2 + (i++) * 40);
-			if (i >= 11)
+			gc.setTextAlign(TextAlignment.LEFT);
+			if (key.getKey().equals(gameModel.gameState.getName()))
+				gc.setFill(Color.CORAL);
+			else
+				gc.setFill(Color.BISQUE);
+			gc.fillText(key.getKey(), 20, y + i * 40);
+			gc.setTextAlign(TextAlignment.RIGHT);
+			gc.setFill(Color.GREY);
+			gc.fillText(Integer.toString((gameModel.gameState.getScore().get(key.getKey()) * -1)), 266, y + i * 40);
+			if (++i > 10)
 				break;
 		}
 	}

@@ -20,8 +20,6 @@ public class Main extends Application {
 		
 		// Present to screen
 		SceneManager.initialize(primaryStage);
-		SceneManager.gotoNameInput();
-		
 	}
 
 	public static void main(String[] args) {

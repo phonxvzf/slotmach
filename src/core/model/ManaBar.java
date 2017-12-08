@@ -55,7 +55,7 @@ public class ManaBar extends BasicEntity {
 		
 		double textX = (posX - textWidth) - textWidth / what.length();
 		
-		gc.setFill(Color.AQUAMARINE);
+		gc.setFill(Color.WHITE);
 		gc.setLineWidth(2);
 		gc.fillRect(textX - 5, posY, textWidth + 10, barHeight);
 		gc.strokeRect(textX - 5, posY, textWidth + 10, barHeight);

@@ -13,6 +13,8 @@ public final class AssetCache {
 	private static final Map<AssetID, Image> imageCache = new HashMap<AssetID, Image>();
 	private static final Map<AssetID, List<Image>> imageSequenceCache = new HashMap<AssetID, List<Image>>();
 	private static final Map<AssetID, AudioClip> audioCache = new HashMap<AssetID, AudioClip>();
+	private static int loaded = 0;
+	private static boolean isLoaded = false;
 	
 	private static String convertURL(String url) {
 		return ClassLoader.getSystemResource(url).toString();
@@ -45,7 +47,9 @@ public final class AssetCache {
 			} else {
 				throw new InvalidAssetException("Unknown type: " + id.getType().toString());
 			}
+			loaded++;
 		}
+		isLoaded = true;
 	}
 
 	public static Image getImage(AssetID id) {
@@ -71,6 +75,14 @@ public final class AssetCache {
 		if (ret == null)
 			throw new InvalidAssetException();
 		return ret;
+	}
+	
+	public static double getLoadingProgress() {
+		return ((double) loaded) / AssetID.values().length;
+	}
+	
+	public static boolean isLoaded() {
+		return isLoaded;
 	}
 
 }

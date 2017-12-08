@@ -91,12 +91,12 @@ public class PriceTab extends Entity implements Drawable {
 		gc.setFont(textFont);
 		gc.setFill(Color.WHITE);
 		gc.setTextAlign(TextAlignment.CENTER);
-		gc.fillText("[SPACEBAR] : stop slot (-$50 each start),", midX, drawY += VOFFSET);
+		gc.fillText("[SPACEBAR]: stop slot (-$50 each start),", midX, drawY += VOFFSET);
 		gc.setTextAlign(TextAlignment.CENTER);
-		gc.fillText("[ARROW KEYS] : expand/shrink rows/columns (-$200),", midX, drawY += VOFFSET);
+		gc.fillText("[ARROW KEYS]: expand/shrink rows/columns (-$200),", midX, drawY += VOFFSET);
 		gc.setTextAlign(TextAlignment.CENTER);
-		gc.fillText("[F] : frz, [K/O] : convert column to all Ks/Os (-$" + Integer.toString(Settings.PLAYER_PAID_BUYCOL)
-				+ "), [ESC] : quit", midX, drawY += VOFFSET);
+		gc.fillText("[F]: frz, [K/O]: convert column to all Ks/Os (-$" + Integer.toString(Settings.PLAYER_PAID_BUYCOL)
+				+ "), [ESC]: quit", midX, drawY += VOFFSET);
 
 	}
 

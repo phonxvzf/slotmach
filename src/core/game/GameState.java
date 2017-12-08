@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Map.Entry;
 import core.asset.*;
 
 import core.settings.Settings;
@@ -39,29 +38,20 @@ public class GameState {
 			matchRow.add(false);
 		}
 		path = System.getProperty("user.home") + File.separator + "Documents";
-		path += File.separator + "SlotMachine";
+		path += File.separator + "slotmach";
 		File customDir = new File(path);
+		File scoreFile = new File(path + "/score.txt");
 
-		if (customDir.exists()) {
+		reset();
+		if (scoreFile.exists()) {
 			try {
-				BufferedReader in = new BufferedReader(new FileReader(path + "/score.txt"));
-				String line;
-				while ((line = in.readLine()) != null) {
-					if (line.split(" ").length == 2) {
-						score.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]) * -1);
-					} else
-						throw new InvalidFileException("SlotMachine/score.txt");
-				}
-				in.close();
-			} catch (IOException | InvalidFileException e) {
-				e.printStackTrace();
+				loadScore();
+			} catch (InvalidFileException e) {
+				e.showAlertAndExit();
 			}
-		} else if (customDir.mkdirs())
-
-		{
-			File score = new File(path + "/score.txt");
+		} else if (customDir.mkdirs()) {
 			try {
-				score.createNewFile();
+				scoreFile.createNewFile();
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -69,7 +59,6 @@ public class GameState {
 		} else {
 			System.out.println(customDir + " was not created");
 		}
-		reset();
 	}
 
 	public boolean isMatchRow(int i) {
@@ -210,9 +199,8 @@ public class GameState {
 	}
 
 	public void reset() {
-		writeScore();
 		name = "";
-		score = new HashMap<String, Integer>();
+		score.clear();
 		money = Settings.PLAYER_START_MONEY;
 		highScore = money;
 		payout = 0;
@@ -227,33 +215,39 @@ public class GameState {
 		for (int i = 0; i < rowCount; ++i) {
 			matchRow.add(false);
 		}
-		loadScore();
 	}
 
-	public void loadScore() {
-		int rowCount = (int) (Settings.SLOT_DEFAULT_COLUMN_HEIGHT / Settings.SLOT_DEFAULT_WIDTH);
-		for (int i = 0; i < rowCount; ++i) {
-			matchRow.add(false);
-		}
+	public void loadScore() throws InvalidFileException {
+		BufferedReader in = null;
 		try {
-			BufferedReader in = new BufferedReader(new FileReader(path+"/score.txt"));
+			in = new BufferedReader(new FileReader(path + "/score.txt"));
 			String line;
-			while ((line = in.readLine()) != null && line != "\n") {
-				score.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]) * -1);
+			while ((line = in.readLine()) != null) {
+				String[] split = line.split(" ");
+				if (split.length == 2) {
+					score.put(split[0], Integer.parseInt(split[1]) * -1);
+				} else {
+					throw new InvalidFileException("slotmach/score.txt");
+				}
 			}
-			in.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new InvalidFileException("IOException: " + e.getMessage());
+		} finally {
+			try {
+				in.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void writeScore() {
 		try {
-			BufferedWriter in = new BufferedWriter(new FileWriter(path+"/score.txt"));
+			BufferedWriter out = new BufferedWriter(new FileWriter(path + "/score.txt"));
 			for (String key : getScore().keySet()) {
-				in.write(key + " " + getScore().get(key) * -1 + '\n');
+				out.write(key + " " + getScore().get(key) * -1 + '\n');
 			}
-			in.close();
+			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

@@ -39,5 +39,6 @@ public class Settings {
 	public static final double SKILL_FREEZE_MPRATE_RECOVER = 10.0f;
 	
 	public static final long ANIMATION_MATCH_TIME = (long) 1.5e9;
+	public static final long ANIMATION_MATCH_TIME_JP = (long) 5e9;
 
 }

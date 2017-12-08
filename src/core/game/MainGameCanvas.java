@@ -2,15 +2,19 @@ package core.game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
+import core.asset.AssetCache;
 import core.asset.AssetID;
+import core.asset.InvalidAssetException;
 import core.asset.gfx.AnimatedSprite;
 import core.asset.gfx.StaticSprite;
 import core.model.LightBox;
 import core.model.PriceTab;
 import core.settings.Settings;
+import javafx.geometry.VPos;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.TextAlignment;
 
 public class MainGameCanvas extends GameCanvas {
 
@@ -22,14 +26,16 @@ public class MainGameCanvas extends GameCanvas {
 	private StaticSprite hshadowRight = new StaticSprite(AssetID.HSHADOW_RIGHT_IMG);
 
 	private AnimatedSprite mlgWow = new AnimatedSprite(AssetID.MLGWOW_IMGSEQ);
-	private AnimatedSprite jackpot = new AnimatedSprite(AssetID.JACKPOT_IMG);
 	private AnimatedSprite mlgFrog = new AnimatedSprite(AssetID.MLGFROG_IMGSEQ);
+	private AnimatedSprite mlgFrogRev = new AnimatedSprite(AssetID.MLGFROG_REV_IMGSEQ);
+	private AnimatedSprite mlgRapper = new AnimatedSprite(AssetID.MLGRAPPER_IMGSEQ);
 
 	private List<LightBox> leftLights = new ArrayList<>();
 	private List<LightBox> rightLights = new ArrayList<>();
-	private long start = 0;
 
 	private PriceTab priceTab = new PriceTab(0, Settings.GAME_CANVAS_HEIGHT / 10);
+
+	private Font jackpotFont;
 
 	public MainGameCanvas(GameModel model, double width, double height) {
 		super(model, width, height);
@@ -43,8 +49,16 @@ public class MainGameCanvas extends GameCanvas {
 			rightLights.add(new LightBox(pX, i * Settings.SLOT_DEFAULT_WIDTH));
 		}
 		mlgWow.setTTL(15);
-		jackpot.setTTL(100);
 		mlgFrog.setTTL(43);
+		mlgFrogRev.setTTL(43);
+		mlgRapper.setTTL(50);
+
+		try {
+			jackpotFont = AssetCache.loadFont("profont.ttf", 180);
+		} catch (InvalidAssetException e) {
+			e.showAlertAndExit();
+		}
+
 	}
 
 	private void drawBlocks() {
@@ -78,11 +92,6 @@ public class MainGameCanvas extends GameCanvas {
 	}
 
 	private void drawIce() {
-		gc.setGlobalAlpha(gameModel.slotMachine.isAllStop() ? 0.0f
-				: (Settings.SLOT_DEFAULT_VELOCITY
-						- gameModel.slotMachine.getSlotColumn(gameModel.slotMachine.getPullCount()).getSlotVelocityY())
-						/ (Settings.SLOT_DEFAULT_VELOCITY - Settings.SLOT_MIN_VELOCITY));
-
 		gc.setGlobalAlpha(gameModel.slotMachine.isAllStop() ? 0.0f
 				: (Settings.SLOT_DEFAULT_VELOCITY
 						- gameModel.slotMachine.getSlotColumn(gameModel.slotMachine.getPullCount()).getSlotVelocityY())
@@ -135,6 +144,38 @@ public class MainGameCanvas extends GameCanvas {
 		}
 	}
 
+	private void drawPrizeAnimations() {
+		if (gameModel.gameState.isJackpot() && !gameModel.gameState.isCanPull()
+				&& gameModel.gameState.getPayout() > 0) {
+			
+			gc.setFont(jackpotFont);
+			gc.setFill(Color.rgb(100, 255, (int) (255 * Math.abs(Math.sin(System.nanoTime() / 1e9 * 10)))));
+			gc.setTextAlign(TextAlignment.CENTER);
+			gc.setTextBaseline(VPos.CENTER);
+			gc.setLineWidth(3);
+			gc.fillText("JACKPOT", this.getWidth() / 2, this.getHeight() / 4);
+			gc.strokeText("JACKPOT", this.getWidth() / 2, this.getHeight() / 4);
+			mlgFrog.draw(gc, this.getWidth() - mlgFrog.getHeight(), this.getHeight() - mlgFrog.getHeight());
+			mlgFrogRev.draw(gc, 0, this.getHeight() - mlgFrog.getHeight());
+			mlgRapper.draw(gc, (this.getWidth() - mlgRapper.getWidth()) / 2, this.getHeight() - mlgRapper.getHeight());
+			gameModel.gameState.setJackpot(true);
+		} else {
+			mlgFrog.resetFrame();
+			mlgFrogRev.resetFrame();
+			mlgRapper.resetFrame();
+		}
+		if (!gameModel.gameState.isJackpot() && !gameModel.gameState.isCanPull()
+				&& gameModel.gameState.getPayout() > 0) {
+			mlgWow.draw(gc, (Settings.GAME_CANVAS_WIDTH - mlgWow.getWidth()) / 2,
+					Settings.GAME_CANVAS_HEIGHT - mlgWow.getHeight());
+		} else {
+			mlgWow.resetFrame();
+		}
+		if (gameModel.gameState.isShowPriceTab()) {
+			priceTab.draw(gc);
+		}
+	}
+
 	@Override
 	protected void update(long dt) {
 
@@ -145,8 +186,6 @@ public class MainGameCanvas extends GameCanvas {
 		gc.setFill(Color.BLACK);
 		gc.fillRect(0, 0, Settings.GAME_CANVAS_WIDTH, Settings.GAME_CANVAS_HEIGHT);
 
-		// Perform calculations and image processing
-
 		// Update objects state (e.g. obj.update(dt))
 		gameModel.slotMachine.update(dt);
 
@@ -156,30 +195,7 @@ public class MainGameCanvas extends GameCanvas {
 		drawShadow();
 		drawLights();
 		drawIce();
-
-		if (gameModel.gameState.isJackpot() && !gameModel.gameState.isCanPull()
-				&& gameModel.gameState.getPayout() > 0) {
-			jackpot.draw(gc, (Settings.GAME_CANVAS_WIDTH - jackpot.getWidth()) / 2,
-					(Settings.GAME_CANVAS_HEIGHT - jackpot.getHeight()) / 2);
-			gameModel.gameState.setJackpot(true);
-			start = System.nanoTime();
-		} else {
-			jackpot.resetFrame();
-		}
-		if (!gameModel.gameState.isJackpot() && !gameModel.gameState.isCanPull()
-				&& gameModel.gameState.getPayout() > 0) {
-			mlgWow.draw(gc, (Settings.GAME_CANVAS_WIDTH - mlgWow.getWidth()) / 2,
-					Settings.GAME_CANVAS_HEIGHT - mlgWow.getHeight());
-		} else {
-			mlgWow.resetFrame();
-		}
-		if ((System.nanoTime() - start) / 10e6 >= 5) {
-			gameModel.gameState.setJackpot(false);
-		}
-		// mlgFrog.draw(gc, 0, Settings.GAME_CANVAS_HEIGHT - mlgFrog.getHeight());
-		if (gameModel.gameState.isShowPriceTab()) {
-			priceTab.draw(gc);
-		}
+		drawPrizeAnimations();
 	}
 
 	@Override
