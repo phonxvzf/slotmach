@@ -9,6 +9,7 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+assets/txt/score.txt
 
 # External tool builders
 .externalToolBuilders/
