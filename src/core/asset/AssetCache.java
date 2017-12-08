@@ -1,9 +1,11 @@
 package core.asset;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javafx.scene.image.Image;
 import javafx.scene.media.AudioClip;
 import javafx.scene.text.Font;
@@ -15,8 +17,11 @@ public final class AssetCache {
 	private static final Map<AssetID, AudioClip> audioCache = new HashMap<AssetID, AudioClip>();
 	private static int loaded = 0;
 	private static boolean isLoaded = false;
-	
+
 	private static String convertURL(String url) {
+		URL resource = ClassLoader.getSystemResource(url);
+		if (resource == null)
+			return null;
 		return ClassLoader.getSystemResource(url).toString();
 	}
 
@@ -25,13 +30,13 @@ public final class AssetCache {
 			if (id.getType() == AssetType.IMAGE) {
 				try {
 					imageCache.put(id, new Image(convertURL(id.getURL())));
-				} catch (IllegalArgumentException e) {
+				} catch (Exception e) {
 					throw new InvalidAssetException(id.toString());
 				}
 			} else if (id.getType() == AssetType.AUDIO) {
 				try {
 					audioCache.put(id, new AudioClip(convertURL(id.getURL())));
-				} catch (IllegalArgumentException e) {
+				} catch (Exception e) {
 					throw new InvalidAssetException(id.toString());
 				}
 			} else if (id.getType() == AssetType.IMAGE_SEQUENCE) {
@@ -39,7 +44,7 @@ public final class AssetCache {
 				for (int i = 0; i < id.getCount(); ++i) {
 					try {
 						frames.add(new Image(convertURL(id.getURL() + Integer.toString(i) + ".png")));
-					} catch (IllegalArgumentException e) {
+					} catch (Exception e) {
 						throw new InvalidAssetException(id.toString() + " frame #" + i);
 					}
 				}
@@ -76,11 +81,11 @@ public final class AssetCache {
 			throw new InvalidAssetException();
 		return ret;
 	}
-	
+
 	public static double getLoadingProgress() {
 		return ((double) loaded) / AssetID.values().length;
 	}
-	
+
 	public static boolean isLoaded() {
 		return isLoaded;
 	}
