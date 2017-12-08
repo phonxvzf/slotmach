@@ -5,9 +5,11 @@ A frustrating slot machine simulator
 Controls
 ========
 - `SPACE` to stop slots
-- `F` to enter slow-mo
-- `K` to turn all slots in one column into *K*s
-- `O` to turn all slots in one column into *O*s
+- Hold `F` to enter slow-mo (freeze slots)
+- Hold `TAB` to view prize list and instructions
+- `K` to turn all slots in current column into *K*s
+- `O` to turn all slots in current column into *O*s
+- `P` to trun all slots in current column into *PROG METH*s
 - `UP` to expand rows
 - `DOWN` to shrink rows
 - `RIGHT` to expand columns
