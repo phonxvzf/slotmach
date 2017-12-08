@@ -1,14 +1,17 @@
 package core.game;
 
 import java.io.BufferedReader;
-import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileReader;
+import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
+import core.asset.*;
 
 import core.settings.Settings;
 
@@ -26,9 +29,46 @@ public class GameState {
 	private boolean isCanPull;
 	private boolean isJackpot = false;
 	private boolean isShowPriceTab = false;
-	private Map<String, Integer> score;
+	private String path = "";
+	private Map<String, Integer> score = new HashMap<String, Integer>();
 
 	public GameState() {
+		matchRow = new ArrayList<Boolean>();
+		int rowCount = (int) (Settings.SLOT_DEFAULT_COLUMN_HEIGHT / Settings.SLOT_DEFAULT_WIDTH);
+		for (int i = 0; i < rowCount; ++i) {
+			matchRow.add(false);
+		}
+		path = System.getProperty("user.home") + File.separator + "Documents";
+		path += File.separator + "SlotMachine";
+		File customDir = new File(path);
+
+		if (customDir.exists()) {
+			try {
+				BufferedReader in = new BufferedReader(new FileReader(path + "/score.txt"));
+				String line;
+				while ((line = in.readLine()) != null) {
+					if (line.split(" ").length == 2) {
+						score.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]) * -1);
+					} else
+						throw new InvalidFileException("SlotMachine/score.txt");
+				}
+				in.close();
+			} catch (IOException | InvalidFileException e) {
+				e.printStackTrace();
+			}
+		} else if (customDir.mkdirs())
+
+		{
+			File score = new File(path + "/score.txt");
+			try {
+				score.createNewFile();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			System.out.println(customDir + " was created");
+		} else {
+			System.out.println(customDir + " was not created");
+		}
 		reset();
 	}
 
@@ -157,6 +197,10 @@ public class GameState {
 		this.score.put(name, -money);
 	}
 
+	public String getPath() {
+		return path;
+	}
+
 	public boolean isShowPriceTab() {
 		return isShowPriceTab;
 	}
@@ -166,6 +210,7 @@ public class GameState {
 	}
 
 	public void reset() {
+		writeScore();
 		name = "";
 		score = new HashMap<String, Integer>();
 		money = Settings.PLAYER_START_MONEY;
@@ -191,7 +236,7 @@ public class GameState {
 			matchRow.add(false);
 		}
 		try {
-			BufferedReader in = new BufferedReader(new FileReader("assets/txt/score.txt"));
+			BufferedReader in = new BufferedReader(new FileReader(path+"/score.txt"));
 			String line;
 			while ((line = in.readLine()) != null && line != "\n") {
 				score.put(line.split(" ")[0], Integer.parseInt(line.split(" ")[1]) * -1);
@@ -204,7 +249,7 @@ public class GameState {
 
 	public void writeScore() {
 		try {
-			BufferedWriter in = new BufferedWriter(new FileWriter("assets/txt/score.txt"));
+			BufferedWriter in = new BufferedWriter(new FileWriter(path+"/score.txt"));
 			for (String key : getScore().keySet()) {
 				in.write(key + " " + getScore().get(key) * -1 + '\n');
 			}

@@ -1,5 +1,6 @@
 package core.game;
 
+
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -14,6 +15,7 @@ import core.model.Background;
 import core.model.ManaBar;
 import core.settings.Settings;
 import javafx.geometry.VPos;
+import javafx.scene.image.Image;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.TextAlignment;

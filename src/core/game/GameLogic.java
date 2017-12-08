@@ -1,5 +1,9 @@
 package core.game;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import core.asset.AssetID;
 import core.asset.sfx.MusicPlayer;
 import core.model.Pricing;
@@ -122,7 +126,8 @@ public class GameLogic {
 								* gameModel.gameState.getRowMultiplier());
 						if (prize > 0) {
 							// The player wins some slots
-							yaySFX.play();
+							if (!gameModel.gameState.isJackpot())
+								yaySFX.play();
 							gameModel.gameState.giveMoney(payout);
 							gameModel.gameState.setCanPull(false);
 							lastMatchAnimationTime = System.nanoTime();
@@ -131,7 +136,6 @@ public class GameLogic {
 					}
 					blipSFX.play();
 				}
-
 			} else if (triggeredKey == KeyCode.ESCAPE) {
 				gameModel.gameState.writeScore();
 				Platform.exit();
@@ -156,6 +160,7 @@ public class GameLogic {
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXCOL) {
 				if (gameModel.gameState.isCanPull()) {
 					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_EXCOL);
+					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXCOL);
 					gameModel.slotMachine.reset();
 					gameModel.slotMachine
 							.setAddlerColumns(gameModel.slotMachine.getAddlerColumns() - Settings.SLOT_DEFAULT_ADDLER);
@@ -184,6 +189,7 @@ public class GameLogic {
 					&& gameModel.gameState.getMoney() >= Settings.PLAYER_PAID_EXROW) {
 				if (gameModel.gameState.isCanPull()) {
 					gameModel.gameState.giveMoney(-Settings.PLAYER_PAID_EXROW);
+					gameModel.gameState.setMoney(gameModel.gameState.getMoney() - Settings.PLAYER_PAID_EXROW);
 					gameModel.slotMachine.reset();
 					gameModel.slotMachine
 							.setAddlerRow(gameModel.slotMachine.getAddlerRow() - Settings.SLOT_DEFAULT_ADDLER);
@@ -248,7 +254,16 @@ public class GameLogic {
 			int prz = Pricing.getPrice(slotCode);
 			if (prz > 0)
 				gameModel.gameState.matchRow(startRow + i);
-			if (prz >= 10000) {
+			boolean isjackpot = false;
+			for (int j = 0; j + 8 <= slotCode.length() && slotCode.length() % 8 == 0; j += 8) {
+				if (slotCode.substring(j, j + 8).equals("progmeth")) {
+					isjackpot = true;
+				} else {
+					isjackpot = false;
+					break;
+				}
+			}
+			if (isjackpot) {
 				gameModel.gameState.setJackpot(true);
 				jackpotSFX.play();
 			}

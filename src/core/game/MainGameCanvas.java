@@ -2,6 +2,7 @@ package core.game;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import core.asset.AssetID;
 import core.asset.gfx.AnimatedSprite;
@@ -26,7 +27,8 @@ public class MainGameCanvas extends GameCanvas {
 
 	private List<LightBox> leftLights = new ArrayList<>();
 	private List<LightBox> rightLights = new ArrayList<>();
-	
+	private long start = 0;
+
 	private PriceTab priceTab = new PriceTab(0, Settings.GAME_CANVAS_HEIGHT / 10);
 
 	public MainGameCanvas(GameModel model, double width, double height) {
@@ -159,6 +161,8 @@ public class MainGameCanvas extends GameCanvas {
 				&& gameModel.gameState.getPayout() > 0) {
 			jackpot.draw(gc, (Settings.GAME_CANVAS_WIDTH - jackpot.getWidth()) / 2,
 					(Settings.GAME_CANVAS_HEIGHT - jackpot.getHeight()) / 2);
+			gameModel.gameState.setJackpot(true);
+			start = System.nanoTime();
 		} else {
 			jackpot.resetFrame();
 		}
@@ -169,11 +173,13 @@ public class MainGameCanvas extends GameCanvas {
 		} else {
 			mlgWow.resetFrame();
 		}
-		
+		if ((System.nanoTime() - start) / 10e6 >= 5) {
+			gameModel.gameState.setJackpot(false);
+		}
+		// mlgFrog.draw(gc, 0, Settings.GAME_CANVAS_HEIGHT - mlgFrog.getHeight());
 		if (gameModel.gameState.isShowPriceTab()) {
 			priceTab.draw(gc);
 		}
-		// mlgFrog.draw(gc, 0, Settings.GAME_CANVAS_HEIGHT - mlgFrog.getHeight());
 	}
 
 	@Override
