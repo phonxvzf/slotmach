@@ -3,7 +3,7 @@
   realizations="true" associations="false" dependencies="false" nesting-relationships="true" router="FAN">  
   <enumeration id="1" language="java" name="core.asset.AssetID" project="slotmach" 
     file="/slotmach/src/core/asset/AssetID.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="979" width="207" x="-46" y="-342"/>    
+    <position height="-1" width="-1" x="180" y="584"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -12,259 +12,259 @@
   </enumeration>  
   <class id="2" language="java" name="core.asset.InvalidAssetException" project="slotmach" 
     file="/slotmach/src/core/asset/InvalidAssetException.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="169" width="223" x="201" y="-342"/>    
+    <position height="-1" width="-1" x="435" y="143"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="3" language="java" name="core.asset.AssetType" project="slotmach" 
+  <class id="3" language="java" name="core.asset.InvalidFileException" project="slotmach" 
+    file="/slotmach/src/core/asset/InvalidFileException.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="693" y="143"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <enumeration id="4" language="java" name="core.asset.AssetType" project="slotmach" 
     file="/slotmach/src/core/asset/AssetType.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="133" width="185" x="464" y="-342"/>    
+    <position height="-1" width="-1" x="931" y="125"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <class id="4" language="java" name="core.asset.AssetCache" project="slotmach" 
+  <class id="5" language="java" name="core.asset.AssetCache" project="slotmach" 
     file="/slotmach/src/core/asset/AssetCache.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="241" width="276" x="689" y="-342"/>    
+    <position height="-1" width="-1" x="1202" y="215"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="5" language="java" name="core.asset.gfx.Sprite" project="slotmach" 
+  <class id="6" language="java" name="core.asset.gfx.Sprite" project="slotmach" 
     file="/slotmach/src/core/asset/gfx/Sprite.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="557" y="42"/>    
+    <position height="-1" width="-1" x="753" y="414"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="6" language="java" name="core.asset.gfx.DrawableXY" project="slotmach" 
+  <interface id="7" language="java" name="core.asset.gfx.DrawableXY" project="slotmach" 
     file="/slotmach/src/core/asset/gfx/DrawableXY.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="336" y="197"/>    
+    <position height="-1" width="-1" x="484" y="605"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="7" language="java" name="core.asset.gfx.AnimatedSprite" project="slotmach" 
+  <class id="8" language="java" name="core.asset.gfx.AnimatedSprite" project="slotmach" 
     file="/slotmach/src/core/asset/gfx/AnimatedSprite.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="610" y="296"/>    
+    <position height="-1" width="-1" x="758" y="704"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="8" language="java" name="core.asset.gfx.StaticSprite" project="slotmach" 
+  <class id="9" language="java" name="core.asset.gfx.StaticSprite" project="slotmach" 
     file="/slotmach/src/core/asset/gfx/StaticSprite.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="884" y="224"/>    
+    <position height="-1" width="-1" x="1032" y="632"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="9" language="java" name="core.asset.sfx.MusicPlayer" project="slotmach" 
+  <class id="10" language="java" name="core.asset.sfx.MusicPlayer" project="slotmach" 
     file="/slotmach/src/core/asset/sfx/MusicPlayer.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1152" y="-220"/>    
+    <position height="-1" width="-1" x="1272" y="544"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="10" language="java" name="core.game.GameCanvas" project="slotmach" 
+  <class id="11" language="java" name="core.game.GameCanvas" project="slotmach" 
     file="/slotmach/src/core/game/GameCanvas.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1929" y="753"/>    
+    <position height="-1" width="-1" x="2864" y="170"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="11" language="java" name="core.game.StatusCanvas" project="slotmach" 
+  <class id="12" language="java" name="core.game.StatusCanvas" project="slotmach" 
     file="/slotmach/src/core/game/StatusCanvas.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1658" y="1430"/>    
+    <position height="-1" width="-1" x="2105" y="1144"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="12" language="java" name="core.game.GameState" project="slotmach" 
+  <class id="13" language="java" name="core.game.GameState" project="slotmach" 
     file="/slotmach/src/core/game/GameState.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1356" y="0"/>    
+    <position height="-1" width="-1" x="1492" y="512"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="13" language="java" name="core.game.InputHandler" project="slotmach" 
+  <class id="14" language="java" name="core.game.InputHandler" project="slotmach" 
     file="/slotmach/src/core/game/InputHandler.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1580" y="-216"/>    
+    <position height="-1" width="-1" x="1730" y="161"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="14" language="java" name="core.game.GameModel" project="slotmach" 
+  <class id="15" language="java" name="core.game.GameModel" project="slotmach" 
     file="/slotmach/src/core/game/GameModel.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1803" y="-261"/>    
+    <position height="-1" width="-1" x="1953" y="116"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="15" language="java" name="core.game.SceneManager" project="slotmach" 
+  <class id="16" language="java" name="core.game.GameOverCanvas" project="slotmach" 
+    file="/slotmach/src/core/game/GameOverCanvas.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2389" y="1081"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="17" language="java" name="core.game.SceneManager" project="slotmach" 
     file="/slotmach/src/core/game/SceneManager.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2275" y="-198"/>    
+    <position height="-1" width="-1" x="2154" y="152"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="16" language="java" name="core.game.GameInstance" project="slotmach" 
+  <class id="18" language="java" name="core.game.GameInstance" project="slotmach" 
     file="/slotmach/src/core/game/GameInstance.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2507" y="-171"/>    
+    <position height="-1" width="-1" x="2387" y="269"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="core.game.GameLogic" project="slotmach" 
+  <class id="19" language="java" name="core.game.GameLogic" project="slotmach" 
     file="/slotmach/src/core/game/GameLogic.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2740" y="-162"/>    
+    <position height="-1" width="-1" x="2621" y="224"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="core.game.NameCanvas" project="slotmach" 
+  <class id="20" language="java" name="core.game.LoadingCanvas" project="slotmach" 
+    file="/slotmach/src/core/game/LoadingCanvas.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="2676" y="1072"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="21" language="java" name="core.game.NameCanvas" project="slotmach" 
     file="/slotmach/src/core/game/NameCanvas.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1929" y="1403"/>    
+    <position height="-1" width="-1" x="2951" y="1090"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="core.game.MainGameCanvas" project="slotmach" 
+  <class id="22" language="java" name="core.game.MainGameCanvas" project="slotmach" 
     file="/slotmach/src/core/game/MainGameCanvas.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="2211" y="1502"/>    
+    <position height="-1" width="-1" x="3233" y="1234"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="core.model.LightBox" project="slotmach" 
+  <class id="23" language="java" name="core.model.LightBox" project="slotmach" 
     file="/slotmach/src/core/model/LightBox.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="231" y="1734"/>    
+    <position height="-1" width="-1" x="378" y="2118"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="core.model.Background" project="slotmach" 
-    file="/slotmach/src/core/model/Background.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="448" y="1680"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="22" language="java" name="core.model.BasicEntity" project="slotmach" 
+  <class id="24" language="java" name="core.model.BasicEntity" project="slotmach" 
     file="/slotmach/src/core/model/BasicEntity.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="808" y="1138"/>    
+    <position height="-1" width="-1" x="753" y="1522"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <interface id="23" language="java" name="core.model.Drawable" project="slotmach" 
-    file="/slotmach/src/core/model/Drawable.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1263" y="1680"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </interface>  
-  <class id="24" language="java" name="core.model.ManaBar" project="slotmach" 
-    file="/slotmach/src/core/model/ManaBar.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="740" y="1797"/>    
+  <class id="25" language="java" name="core.model.PriceTab" project="slotmach" 
+    file="/slotmach/src/core/model/PriceTab.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="999" y="1558"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <enumeration id="25" language="java" name="core.model.SlotType" project="slotmach" 
+  <enumeration id="26" language="java" name="core.model.SlotType" project="slotmach" 
     file="/slotmach/src/core/model/SlotType.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="324" y="659"/>    
+    <position height="-1" width="-1" x="488" y="1043"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </enumeration>  
-  <interface id="26" language="java" name="core.model.Movable" project="slotmach" 
+  <interface id="27" language="java" name="core.model.Movable" project="slotmach" 
     file="/slotmach/src/core/model/Movable.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="623" y="1111"/>    
+    <position height="-1" width="-1" x="568" y="1495"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </interface>  
-  <class id="27" language="java" name="core.model.SlotColumn" project="slotmach" 
+  <class id="28" language="java" name="core.model.SlotColumn" project="slotmach" 
     file="/slotmach/src/core/model/SlotColumn.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1036" y="1336"/>    
+    <position height="-1" width="-1" x="1759" y="1640"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="core.model.SlotMachine" project="slotmach" 
+  <class id="29" language="java" name="core.model.SlotMachine" project="slotmach" 
     file="/slotmach/src/core/model/SlotMachine.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1038" y="1959"/>    
+    <position height="-1" width="-1" x="602" y="2343"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="core.model.Pricing" project="slotmach" 
-    file="/slotmach/src/core/model/Pricing.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="626" y="596"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
-      sort-features="false" accessors="true" visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="true" package="true" protected="true" private="true" static="true"/>    
-    </display>  
-  </class>  
-  <class id="30" language="java" name="core.model.Entity" project="slotmach" file="/slotmach/src/core/model/Entity.java" 
-    binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="948" y="776"/>    
+  <class id="30" language="java" name="core.model.LoadingBar" project="slotmach" 
+    file="/slotmach/src/core/model/LoadingBar.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1288" y="1573"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
@@ -273,112 +273,198 @@
   </class>  
   <class id="31" language="java" name="core.model.Slot" project="slotmach" file="/slotmach/src/core/model/Slot.java" 
     binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1258" y="1174"/>    
+    <position height="-1" width="-1" x="1527" y="1582"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="32" language="java" name="core.settings.Settings" project="slotmach" 
+  <class id="32" language="java" name="core.model.Background" project="slotmach" 
+    file="/slotmach/src/core/model/Background.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="840" y="2064"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <interface id="33" language="java" name="core.model.Drawable" project="slotmach" 
+    file="/slotmach/src/core/model/Drawable.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1410" y="2064"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </interface>  
+  <class id="34" language="java" name="core.model.ManaBar" project="slotmach" 
+    file="/slotmach/src/core/model/ManaBar.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1132" y="2181"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="35" language="java" name="core.model.Pricing" project="slotmach" 
+    file="/slotmach/src/core/model/Pricing.java" binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="808" y="980"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="36" language="java" name="core.model.Entity" project="slotmach" file="/slotmach/src/core/model/Entity.java" 
+    binary="false" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="1140" y="1160"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="37" language="java" name="core.settings.Settings" project="slotmach" 
     file="/slotmach/src/core/settings/Settings.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="124" y="1176"/>    
+    <position height="-1" width="-1" x="184" y="1488"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="33" language="java" name="main.Main" project="slotmach" file="/slotmach/src/main/Main.java" binary="false" 
+  <class id="38" language="java" name="main.Main" project="slotmach" file="/slotmach/src/main/Main.java" binary="false" 
     corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="56" y="740"/>    
+    <position height="-1" width="-1" x="180" y="1916"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <class id="34" language="java" name="javafx.scene.canvas.Canvas" project="2110215_Exercise6_2017_5931045621_Phon" 
+  <class id="39" language="java" name="java.lang.Exception" project="slotmach" 
+    file="/usr/lib/jvm/java-8-jdk/jre/lib/rt.jar" binary="true" corner="BOTTOM_RIGHT">    
+    <position height="-1" width="-1" x="435" y="358"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
+      sort-features="false" accessors="true" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
+      <operations public="true" package="true" protected="true" private="true" static="true"/>    
+    </display>  
+  </class>  
+  <class id="40" language="java" name="javafx.scene.canvas.Canvas" project="2110215_Exercise6_2017_5931045621_Phon" 
     file="/usr/lib/jvm/java-8-jdk/jre/lib/ext/jfxrt.jar" binary="true" corner="BOTTOM_RIGHT">    
-    <position height="-1" width="-1" x="1930" y="234"/>    
+    <position height="-1" width="-1" x="3288" y="380"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
       sort-features="false" accessors="true" visibility="true">      
       <attributes public="true" package="true" protected="true" private="true" static="true"/>      
       <operations public="true" package="true" protected="true" private="true" static="true"/>    
     </display>  
   </class>  
-  <generalization id="35">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="30"/>  
-  </generalization>  
-  <realization id="36">    
-    <end type="SOURCE" refId="22"/>    
-    <end type="TARGET" refId="23"/>  
-  </realization>  
-  <generalization id="37">    
-    <end type="SOURCE" refId="24"/>    
-    <end type="TARGET" refId="22"/>  
-  </generalization>  
-  <generalization id="38">    
-    <end type="SOURCE" refId="7"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
-  <generalization id="39">    
-    <end type="SOURCE" refId="10"/>    
-    <end type="TARGET" refId="34"/>  
-  </generalization>  
-  <generalization id="40">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="5"/>  
-  </generalization>  
   <generalization id="41">    
-    <end type="SOURCE" refId="18"/>    
-    <end type="TARGET" refId="10"/>  
+    <end type="SOURCE" refId="2"/>    
+    <end type="TARGET" refId="39"/>  
   </generalization>  
   <generalization id="42">    
-    <end type="SOURCE" refId="20"/>    
-    <end type="TARGET" refId="22"/>  
+    <end type="SOURCE" refId="16"/>    
+    <end type="TARGET" refId="11"/>  
   </generalization>  
-  <realization id="43">    
-    <end type="SOURCE" refId="30"/>    
-    <end type="TARGET" refId="26"/>  
-  </realization>  
+  <generalization id="43">    
+    <end type="SOURCE" refId="29"/>    
+    <end type="TARGET" refId="24"/>  
+  </generalization>  
   <generalization id="44">    
-    <end type="SOURCE" refId="19"/>    
-    <end type="TARGET" refId="10"/>  
+    <end type="SOURCE" refId="32"/>    
+    <end type="TARGET" refId="24"/>  
   </generalization>  
-  <generalization id="45">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="30"/>  
-  </generalization>  
+  <realization id="45">    
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="33"/>  
+  </realization>  
   <generalization id="46">    
-    <end type="SOURCE" refId="21"/>    
-    <end type="TARGET" refId="22"/>  
+    <end type="SOURCE" refId="31"/>    
+    <end type="TARGET" refId="36"/>  
   </generalization>  
   <generalization id="47">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="10"/>  
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="11"/>  
   </generalization>  
   <generalization id="48">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="40"/>  
+  </generalization>  
+  <generalization id="49">    
+    <end type="SOURCE" refId="22"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <realization id="50">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="7"/>  
+  </realization>  
+  <generalization id="51">    
+    <end type="SOURCE" refId="23"/>    
+    <end type="TARGET" refId="24"/>  
+  </generalization>  
+  <generalization id="52">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <realization id="53">    
+    <end type="SOURCE" refId="30"/>    
+    <end type="TARGET" refId="33"/>  
+  </realization>  
+  <generalization id="54">    
+    <end type="SOURCE" refId="20"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <realization id="55">    
+    <end type="SOURCE" refId="36"/>    
+    <end type="TARGET" refId="27"/>  
+  </realization>  
+  <generalization id="56">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="39"/>  
+  </generalization>  
+  <realization id="57">    
     <end type="SOURCE" refId="28"/>    
-    <end type="TARGET" refId="22"/>  
-  </generalization>  
-  <realization id="49">    
-    <end type="SOURCE" refId="31"/>    
-    <end type="TARGET" refId="23"/>  
+    <end type="TARGET" refId="33"/>  
   </realization>  
-  <generalization id="50">    
-    <end type="SOURCE" refId="31"/>    
-    <end type="TARGET" refId="30"/>  
-  </generalization>  
-  <realization id="51">    
-    <end type="SOURCE" refId="27"/>    
-    <end type="TARGET" refId="23"/>  
+  <realization id="58">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="33"/>  
   </realization>  
-  <realization id="52">    
-    <end type="SOURCE" refId="5"/>    
+  <generalization id="59">    
+    <end type="SOURCE" refId="25"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <generalization id="60">    
+    <end type="SOURCE" refId="34"/>    
+    <end type="TARGET" refId="24"/>  
+  </generalization>  
+  <generalization id="61">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <generalization id="62">    
+    <end type="SOURCE" refId="9"/>    
     <end type="TARGET" refId="6"/>  
+  </generalization>  
+  <generalization id="63">    
+    <end type="SOURCE" refId="21"/>    
+    <end type="TARGET" refId="11"/>  
+  </generalization>  
+  <realization id="64">    
+    <end type="SOURCE" refId="24"/>    
+    <end type="TARGET" refId="33"/>  
   </realization>  
+  <generalization id="65">    
+    <end type="SOURCE" refId="28"/>    
+    <end type="TARGET" refId="36"/>  
+  </generalization>  
+  <generalization id="66">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="6"/>  
+  </generalization>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     sort-features="false" accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    
