@@ -153,7 +153,7 @@ public class StatusCanvas extends GameCanvas {
 			gc.setTextAlign(TextAlignment.RIGHT);
 			gc.setFill(Color.GREY);
 			gc.fillText(Integer.toString((gameModel.gameState.getScore().get(key.getKey()) * -1)), 266, y + i * 40);
-			if (++i > 10)
+			if (++i > 12)
 				break;
 		}
 	}

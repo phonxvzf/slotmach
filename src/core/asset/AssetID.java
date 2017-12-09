@@ -52,11 +52,11 @@ public enum AssetID {
 	
 	// Sounds
 	BGM_SFX("sfx/bgm.wav", AssetType.AUDIO),
-	JACKPOT_SFX("sfx/jackpot.mp3", AssetType.AUDIO),
+	JACKPOT_SFX("sfx/jackpot.wav", AssetType.AUDIO),
 	BLIP_SFX("sfx/blip2.wav", AssetType.AUDIO),
-	FREEZE_SFX("sfx/freeze.mp3", AssetType.AUDIO),
-	YAY_SFX("sfx/yay.mp3", AssetType.AUDIO),
-	CASH_SFX("sfx/cash.mp3", AssetType.AUDIO);
+	FREEZE_SFX("sfx/freeze.wav", AssetType.AUDIO),
+	YAY_SFX("sfx/yay.wav", AssetType.AUDIO),
+	CASH_SFX("sfx/cash.wav", AssetType.AUDIO);
 	
 	private final String url;
 	private final AssetType type;
