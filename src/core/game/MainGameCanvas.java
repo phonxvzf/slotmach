@@ -92,10 +92,12 @@ public class MainGameCanvas extends GameCanvas {
 	}
 
 	private void drawIce() {
-		gc.setGlobalAlpha(gameModel.slotMachine.isAllStop() ? 0.0f
+		int startCol = (Settings.SLOT_DEFAULT_COLUMNS / 2 - 1) - gameModel.slotMachine.getAddlerColumns() / 2;
+		double alpha = gameModel.slotMachine.isAllStop() ? 0.0f
 				: (Settings.SLOT_DEFAULT_VELOCITY
-						- gameModel.slotMachine.getSlotColumn(gameModel.slotMachine.getPullCount()).getSlotVelocityY())
-						/ (Settings.SLOT_DEFAULT_VELOCITY - Settings.SLOT_MIN_VELOCITY));
+						- gameModel.slotMachine.getSlotColumn(startCol + gameModel.slotMachine.getPullCount()).getSlotVelocityY())
+						/ (Settings.SLOT_DEFAULT_VELOCITY - Settings.SLOT_MIN_VELOCITY);
+		gc.setGlobalAlpha(alpha);
 		frozenSprite.draw(gc, 0, 0);
 		gc.setGlobalAlpha(1.0f);
 	}
