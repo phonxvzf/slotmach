@@ -129,7 +129,9 @@ public class GameLogic {
 								* gameModel.gameState.getRowMultiplier());
 						if (prize > 0) {
 							// The player wins some slots
-							if (!gameModel.gameState.isJackpot())
+							if (gameModel.gameState.isJackpot())
+								jackpotSFX.play();
+							else
 								yaySFX.play();
 							gameModel.gameState.giveMoney(payout);
 							gameModel.gameState.setCanPull(false);
@@ -242,8 +244,7 @@ public class GameLogic {
 				gameModel.gameState.setCanPull(true);
 				gameModel.gameState.setPayout(0);
 			}
-		}
-		else if (System.nanoTime() - lastMatchAnimationTime >= Settings.ANIMATION_MATCH_TIME
+		} else if (System.nanoTime() - lastMatchAnimationTime >= Settings.ANIMATION_MATCH_TIME
 				&& !gameModel.gameState.isCanPull()) {
 			gameModel.gameState.clearMatch();
 			gameModel.gameState.setCanPull(true);
@@ -275,7 +276,6 @@ public class GameLogic {
 			}
 			if (isjackpot) {
 				gameModel.gameState.setJackpot(true);
-				jackpotSFX.play();
 			}
 			prize += prz;
 		}
